@@ -1056,6 +1056,83 @@
       fill: var(--brand-primary);
     }
 
+    /* ===== Lightbox ===== */
+    .lightbox {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.95);
+      z-index: 9999;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: var(--space-lg);
+      cursor: zoom-out;
+      opacity: 0;
+      transition: opacity var(--transition-medium);
+    }
+
+    .lightbox.active {
+      display: flex;
+      opacity: 1;
+    }
+
+    .lightbox-content {
+      max-width: 95%;
+      max-height: 95%;
+      position: relative;
+      cursor: default;
+    }
+
+    .lightbox-image {
+      max-width: 100%;
+      max-height: 90vh;
+      width: auto;
+      height: auto;
+      border-radius: var(--radius-lg);
+      box-shadow: 0 24px 80px rgba(0, 0, 0, 0.6);
+    }
+
+    .lightbox-close {
+      position: absolute;
+      top: -50px;
+      right: 0;
+      background: none;
+      border: none;
+      color: white;
+      font-size: 36px;
+      cursor: pointer;
+      width: 40px;
+      height: 40px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0.8;
+      transition: opacity var(--transition-fast);
+    }
+
+    .lightbox-close:hover {
+      opacity: 1;
+    }
+
+    .lightbox-caption {
+      text-align: center;
+      color: rgba(255, 255, 255, 0.8);
+      font-size: var(--font-caption);
+      margin-top: var(--space-sm);
+    }
+
+    .clickable-image {
+      cursor: zoom-in;
+      transition: opacity var(--transition-fast);
+    }
+
+    .clickable-image:hover {
+      opacity: 0.85;
+    }
+
     /* ===== Keyboard Shortcuts ===== */
     .shortcuts {
       background: var(--bg-primary);
@@ -1813,6 +1890,15 @@
     </div>
   </footer>
 
+  <!-- Lightbox -->
+  <div class="lightbox" id="lightbox">
+    <div class="lightbox-content">
+      <button class="lightbox-close" aria-label="Close">&times;</button>
+      <img src="" alt="" class="lightbox-image" id="lightbox-image">
+      <div class="lightbox-caption" id="lightbox-caption"></div>
+    </div>
+  </div>
+
   <!-- JavaScript for Animations -->
   <script>
     // Intersection Observer for scroll animations
@@ -1858,6 +1944,53 @@
         nav.style.borderBottomColor = 'var(--border-color)';
       } else {
         nav.style.borderBottomColor = 'transparent';
+      }
+    });
+
+    // Lightbox functionality
+    const lightbox = document.getElementById('lightbox');
+    const lightboxImage = document.getElementById('lightbox-image');
+    const lightboxCaption = document.getElementById('lightbox-caption');
+    const lightboxClose = document.querySelector('.lightbox-close');
+
+    // Make all screenshots clickable
+    const clickableImages = document.querySelectorAll('.window-content img, .gallery-frame img, .showcase-image img, .settings-image img');
+
+    clickableImages.forEach(img => {
+      img.classList.add('clickable-image');
+      img.style.cursor = 'zoom-in';
+
+      img.addEventListener('click', () => {
+        lightboxImage.src = img.src;
+        lightboxImage.alt = img.alt;
+        lightboxCaption.textContent = img.alt;
+        lightbox.classList.add('active');
+        document.body.style.overflow = 'hidden'; // Prevent scrolling
+      });
+    });
+
+    // Close lightbox
+    function closeLightbox() {
+      lightbox.classList.remove('active');
+      document.body.style.overflow = ''; // Restore scrolling
+    }
+
+    lightboxClose.addEventListener('click', (e) => {
+      e.stopPropagation();
+      closeLightbox();
+    });
+
+    lightbox.addEventListener('click', closeLightbox);
+
+    // Prevent closing when clicking the image
+    lightboxImage.addEventListener('click', (e) => {
+      e.stopPropagation();
+    });
+
+    // Close with Escape key
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && lightbox.classList.contains('active')) {
+        closeLightbox();
       }
     });
   </script>
