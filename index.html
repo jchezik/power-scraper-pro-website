@@ -1,0 +1,1865 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Power Scraper Pro - The professional media library manager for Mac. Automatically organize, scrape metadata, and rename your movies and TV shows into Kodi-compliant formats.">
+  <meta name="keywords" content="macOS, media library, Kodi, TMDB, movie organizer, TV show organizer, metadata scraper">
+  <title>Power Scraper Pro - Professional Media Library Manager for Mac</title>
+  <style>
+    /* ===== CSS Reset & Base ===== */
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    /* ===== CSS Variables ===== */
+    :root {
+      /* Brand Colors */
+      --brand-primary: #5B7FFF;
+      --brand-secondary: #8B5CF6;
+      --brand-gradient: linear-gradient(135deg, #5B7FFF 0%, #8B5CF6 100%);
+      --brand-gradient-text: linear-gradient(135deg, #5B7FFF 0%, #8B5CF6 50%, #FF6B9D 100%);
+
+      /* Light Mode Colors */
+      --bg-primary: #ffffff;
+      --bg-secondary: #f5f5f7;
+      --bg-tertiary: #e8e8ed;
+      --text-primary: #1d1d1f;
+      --text-secondary: #6e6e73;
+      --text-tertiary: #86868b;
+      --border-color: rgba(0, 0, 0, 0.08);
+      --card-bg: rgba(255, 255, 255, 0.8);
+      --card-border: rgba(0, 0, 0, 0.05);
+      --shadow-color: rgba(0, 0, 0, 0.1);
+      --nav-bg: rgba(255, 255, 255, 0.72);
+
+      /* Accent Colors */
+      --accent-blue: #007AFF;
+      --accent-purple: #AF52DE;
+      --accent-green: #34C759;
+      --accent-orange: #FF9500;
+      --accent-red: #FF3B30;
+
+      /* Cinema Colors */
+      --cinema-gold: #FFD700;
+      --cinema-deep-blue: #1a1a2e;
+
+      /* Typography */
+      --font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "Helvetica Neue", Arial, sans-serif;
+      --font-hero: clamp(52px, 10vw, 96px);
+      --font-headline: clamp(36px, 6vw, 64px);
+      --font-subheadline: clamp(28px, 4vw, 48px);
+      --font-title: clamp(22px, 3vw, 32px);
+      --font-body: clamp(16px, 1.8vw, 21px);
+      --font-caption: clamp(14px, 1.5vw, 17px);
+      --font-small: 14px;
+
+      /* Spacing */
+      --space-xs: 8px;
+      --space-sm: 16px;
+      --space-md: 24px;
+      --space-lg: 48px;
+      --space-xl: 80px;
+      --space-xxl: 120px;
+      --section-padding: clamp(60px, 12vw, 120px);
+      --container-max: 1200px;
+
+      /* Border Radius */
+      --radius-sm: 8px;
+      --radius-md: 12px;
+      --radius-lg: 20px;
+      --radius-xl: 28px;
+      --radius-pill: 980px;
+
+      /* Transitions */
+      --transition-fast: 0.15s ease;
+      --transition-medium: 0.3s ease;
+      --transition-slow: 0.5s ease;
+    }
+
+    /* ===== Dark Mode ===== */
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --bg-primary: #000000;
+        --bg-secondary: #1d1d1f;
+        --bg-tertiary: #2d2d2f;
+        --text-primary: #f5f5f7;
+        --text-secondary: #a1a1a6;
+        --text-tertiary: #6e6e73;
+        --border-color: rgba(255, 255, 255, 0.1);
+        --card-bg: rgba(30, 30, 30, 0.8);
+        --card-border: rgba(255, 255, 255, 0.1);
+        --shadow-color: rgba(0, 0, 0, 0.4);
+        --nav-bg: rgba(29, 29, 31, 0.72);
+      }
+    }
+
+    /* ===== Base Styles ===== */
+    html {
+      scroll-behavior: smooth;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    body {
+      font-family: var(--font-family);
+      background-color: var(--bg-primary);
+      color: var(--text-primary);
+      line-height: 1.5;
+      overflow-x: hidden;
+    }
+
+    img {
+      max-width: 100%;
+      height: auto;
+      display: block;
+    }
+
+    a {
+      color: var(--brand-primary);
+      text-decoration: none;
+      transition: color var(--transition-fast);
+    }
+
+    a:hover {
+      color: var(--brand-secondary);
+    }
+
+    /* ===== Container ===== */
+    .container {
+      max-width: var(--container-max);
+      margin: 0 auto;
+      padding: 0 var(--space-md);
+    }
+
+    /* ===== Navigation ===== */
+    .nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 1000;
+      background: var(--nav-bg);
+      backdrop-filter: saturate(180%) blur(20px);
+      -webkit-backdrop-filter: saturate(180%) blur(20px);
+      border-bottom: 1px solid var(--border-color);
+    }
+
+    .nav-content {
+      max-width: var(--container-max);
+      margin: 0 auto;
+      padding: 0 var(--space-md);
+      height: 52px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .nav-logo {
+      font-size: 18px;
+      font-weight: 600;
+      color: var(--text-primary);
+      display: flex;
+      align-items: center;
+      gap: var(--space-xs);
+    }
+
+    .nav-logo svg {
+      width: 24px;
+      height: 24px;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: var(--space-md);
+      list-style: none;
+    }
+
+    .nav-links a {
+      color: var(--text-secondary);
+      font-size: 14px;
+      font-weight: 500;
+      padding: var(--space-xs) var(--space-sm);
+      border-radius: var(--radius-sm);
+      transition: all var(--transition-fast);
+    }
+
+    .nav-links a:hover {
+      color: var(--text-primary);
+      background: var(--bg-secondary);
+    }
+
+    .nav-cta {
+      background: var(--brand-gradient);
+      color: white !important;
+      padding: 8px 20px !important;
+      border-radius: var(--radius-pill);
+      font-weight: 600 !important;
+    }
+
+    .nav-cta:hover {
+      transform: scale(1.02);
+      box-shadow: 0 4px 16px rgba(91, 127, 255, 0.3);
+    }
+
+    /* Mobile Nav */
+    .nav-toggle {
+      display: none;
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: var(--space-xs);
+    }
+
+    .nav-toggle span {
+      display: block;
+      width: 22px;
+      height: 2px;
+      background: var(--text-primary);
+      margin: 5px 0;
+      border-radius: 2px;
+      transition: var(--transition-fast);
+    }
+
+    @media (max-width: 768px) {
+      .nav-toggle {
+        display: block;
+      }
+
+      .nav-links {
+        position: absolute;
+        top: 52px;
+        left: 0;
+        right: 0;
+        background: var(--nav-bg);
+        backdrop-filter: saturate(180%) blur(20px);
+        -webkit-backdrop-filter: saturate(180%) blur(20px);
+        flex-direction: column;
+        padding: var(--space-md);
+        gap: var(--space-xs);
+        border-bottom: 1px solid var(--border-color);
+        display: none;
+      }
+
+      .nav-links.active {
+        display: flex;
+      }
+
+      .nav-links a {
+        padding: var(--space-sm);
+      }
+    }
+
+    /* ===== Hero Section ===== */
+    .hero {
+      padding: calc(52px + var(--section-padding)) var(--space-md) var(--section-padding);
+      text-align: center;
+      background: var(--bg-primary);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: radial-gradient(circle at 30% 20%, rgba(91, 127, 255, 0.08) 0%, transparent 50%),
+                  radial-gradient(circle at 70% 80%, rgba(139, 92, 246, 0.08) 0%, transparent 50%);
+      pointer-events: none;
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 1;
+    }
+
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: var(--space-xs);
+      background: var(--bg-secondary);
+      padding: 8px 16px;
+      border-radius: var(--radius-pill);
+      font-size: var(--font-small);
+      font-weight: 500;
+      color: var(--text-secondary);
+      margin-bottom: var(--space-md);
+      border: 1px solid var(--border-color);
+    }
+
+    .hero-badge svg {
+      width: 16px;
+      height: 16px;
+      fill: var(--accent-green);
+    }
+
+    .hero-title {
+      font-size: var(--font-hero);
+      font-weight: 700;
+      letter-spacing: -0.03em;
+      line-height: 1.05;
+      margin-bottom: var(--space-md);
+      background: var(--brand-gradient-text);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .hero-subtitle {
+      font-size: var(--font-body);
+      color: var(--text-secondary);
+      max-width: 680px;
+      margin: 0 auto var(--space-lg);
+      line-height: 1.6;
+    }
+
+    .hero-buttons {
+      display: flex;
+      gap: var(--space-sm);
+      justify-content: center;
+      flex-wrap: wrap;
+      margin-bottom: var(--space-xl);
+    }
+
+    /* ===== Buttons ===== */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: var(--space-xs);
+      padding: 16px 32px;
+      border-radius: var(--radius-pill);
+      font-size: var(--font-caption);
+      font-weight: 600;
+      cursor: pointer;
+      border: none;
+      transition: all var(--transition-medium);
+      text-decoration: none;
+    }
+
+    .btn-primary {
+      background: var(--brand-gradient);
+      color: white;
+      box-shadow: 0 4px 24px rgba(91, 127, 255, 0.25);
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-2px) scale(1.02);
+      box-shadow: 0 8px 32px rgba(91, 127, 255, 0.35);
+      color: white;
+    }
+
+    .btn-secondary {
+      background: var(--bg-secondary);
+      color: var(--text-primary);
+      border: 1px solid var(--border-color);
+    }
+
+    .btn-secondary:hover {
+      background: var(--bg-tertiary);
+      color: var(--text-primary);
+    }
+
+    .btn svg {
+      width: 20px;
+      height: 20px;
+    }
+
+    /* ===== macOS Window Frame ===== */
+    .macos-window {
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      box-shadow: 0 24px 80px var(--shadow-color),
+                  0 8px 32px rgba(0, 0, 0, 0.08);
+      background: #1d1d1f;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    .window-titlebar {
+      height: 52px;
+      background: linear-gradient(180deg, #3d3d3d 0%, #2d2d2d 100%);
+      display: flex;
+      align-items: center;
+      padding: 0 20px;
+      position: relative;
+    }
+
+    .traffic-lights {
+      display: flex;
+      gap: 8px;
+    }
+
+    .light {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+    }
+
+    .light.close { background: #ff5f57; }
+    .light.minimize { background: #febc2e; }
+    .light.maximize { background: #28c840; }
+
+    .window-title {
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%);
+      color: #999;
+      font-size: 13px;
+      font-weight: 500;
+    }
+
+    .window-content {
+      background: #1d1d1f;
+    }
+
+    .window-content img {
+      width: 100%;
+      display: block;
+    }
+
+    /* ===== Sections ===== */
+    section {
+      padding: var(--section-padding) var(--space-md);
+    }
+
+    .section-header {
+      text-align: center;
+      max-width: 800px;
+      margin: 0 auto var(--space-xl);
+    }
+
+    .section-label {
+      font-size: var(--font-small);
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--brand-primary);
+      margin-bottom: var(--space-sm);
+    }
+
+    .section-title {
+      font-size: var(--font-headline);
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      line-height: 1.1;
+      margin-bottom: var(--space-md);
+    }
+
+    .section-subtitle {
+      font-size: var(--font-body);
+      color: var(--text-secondary);
+      line-height: 1.6;
+    }
+
+    /* ===== Features Grid ===== */
+    .features {
+      background: var(--bg-secondary);
+    }
+
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: var(--space-md);
+      max-width: var(--container-max);
+      margin: 0 auto;
+    }
+
+    .feature-card {
+      background: var(--card-bg);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border-radius: var(--radius-xl);
+      padding: var(--space-lg);
+      border: 1px solid var(--card-border);
+      transition: all var(--transition-medium);
+    }
+
+    .feature-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 12px 40px var(--shadow-color);
+    }
+
+    .feature-icon {
+      width: 56px;
+      height: 56px;
+      border-radius: var(--radius-md);
+      background: var(--brand-gradient);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: var(--space-md);
+    }
+
+    .feature-icon svg {
+      width: 28px;
+      height: 28px;
+      fill: white;
+    }
+
+    .feature-title {
+      font-size: var(--font-title);
+      font-weight: 600;
+      margin-bottom: var(--space-sm);
+      letter-spacing: -0.01em;
+    }
+
+    .feature-description {
+      font-size: var(--font-caption);
+      color: var(--text-secondary);
+      line-height: 1.6;
+    }
+
+    /* ===== Screenshots Gallery ===== */
+    .gallery {
+      background: var(--bg-primary);
+      overflow: hidden;
+    }
+
+    .gallery-scroll {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(min(100%, 400px), 1fr));
+      gap: var(--space-lg);
+      padding: var(--space-md);
+      max-width: var(--container-max);
+      margin: 0 auto;
+    }
+
+    .gallery-item {
+      width: 100%;
+    }
+
+    .gallery-frame {
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      box-shadow: 0 16px 48px var(--shadow-color);
+      background: #1d1d1f;
+      transition: transform var(--transition-medium);
+    }
+
+    .gallery-frame:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 20px 60px var(--shadow-color);
+    }
+
+    .gallery-frame img {
+      width: 100%;
+      height: auto;
+      display: block;
+      object-fit: cover;
+    }
+
+    .gallery-caption {
+      text-align: center;
+      margin-top: var(--space-sm);
+      font-size: var(--font-caption);
+      color: var(--text-secondary);
+      font-weight: 500;
+    }
+
+    /* Responsive adjustments for gallery */
+    @media (max-width: 1200px) {
+      .gallery-scroll {
+        grid-template-columns: repeat(auto-fit, minmax(min(100%, 350px), 1fr));
+      }
+    }
+
+    @media (max-width: 768px) {
+      .gallery-scroll {
+        grid-template-columns: 1fr;
+        gap: var(--space-md);
+      }
+    }
+
+    /* ===== Feature Showcase ===== */
+    .showcase {
+      background: var(--bg-secondary);
+    }
+
+    .showcase-item {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: var(--space-xl);
+      align-items: center;
+      max-width: var(--container-max);
+      margin: 0 auto;
+      padding: var(--space-xl) 0;
+    }
+
+    .showcase-item:not(:last-child) {
+      border-bottom: 1px solid var(--border-color);
+    }
+
+    .showcase-item.reverse {
+      direction: rtl;
+    }
+
+    .showcase-item.reverse > * {
+      direction: ltr;
+    }
+
+    .showcase-content {
+      padding: var(--space-md);
+    }
+
+    .showcase-label {
+      font-size: var(--font-small);
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--brand-primary);
+      margin-bottom: var(--space-sm);
+    }
+
+    .showcase-title {
+      font-size: var(--font-subheadline);
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      margin-bottom: var(--space-sm);
+    }
+
+    .showcase-subtitle {
+      font-size: var(--font-body);
+      color: var(--text-secondary);
+      margin-bottom: var(--space-md);
+    }
+
+    .showcase-list {
+      list-style: none;
+    }
+
+    .showcase-list li {
+      display: flex;
+      align-items: flex-start;
+      gap: var(--space-sm);
+      padding: var(--space-xs) 0;
+      font-size: var(--font-caption);
+      color: var(--text-secondary);
+    }
+
+    .showcase-list svg {
+      width: 20px;
+      height: 20px;
+      fill: var(--accent-green);
+      flex-shrink: 0;
+      margin-top: 2px;
+    }
+
+    .showcase-image {
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      box-shadow: 0 16px 48px var(--shadow-color);
+    }
+
+    .showcase-image img {
+      width: 100%;
+      display: block;
+    }
+
+    @media (max-width: 900px) {
+      .showcase-item {
+        grid-template-columns: 1fr;
+        gap: var(--space-lg);
+      }
+
+      .showcase-item.reverse {
+        direction: ltr;
+      }
+    }
+
+    /* ===== Settings Section ===== */
+    .settings {
+      background: var(--bg-primary);
+    }
+
+    .settings-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+      gap: var(--space-md);
+      max-width: var(--container-max);
+      margin: 0 auto;
+    }
+
+    .settings-card {
+      background: var(--card-bg);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border-radius: var(--radius-xl);
+      overflow: hidden;
+      border: 1px solid var(--card-border);
+      transition: all var(--transition-medium);
+    }
+
+    .settings-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 12px 40px var(--shadow-color);
+    }
+
+    .settings-image {
+      aspect-ratio: 16/10;
+      overflow: hidden;
+    }
+
+    .settings-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .settings-content {
+      padding: var(--space-md);
+    }
+
+    .settings-title {
+      font-size: var(--font-title);
+      font-weight: 600;
+      margin-bottom: var(--space-xs);
+    }
+
+    .settings-description {
+      font-size: var(--font-caption);
+      color: var(--text-secondary);
+      line-height: 1.5;
+    }
+
+    /* ===== Specs Section ===== */
+    .specs {
+      background: var(--bg-secondary);
+    }
+
+    .specs-container {
+      max-width: var(--container-max);
+      margin: 0 auto;
+    }
+
+    .specs-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: var(--space-md);
+    }
+
+    .spec-card {
+      background: var(--card-bg);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border-radius: var(--radius-xl);
+      padding: calc(var(--space-lg) + 8px);
+      border: 1px solid var(--card-border);
+      transition: all var(--transition-medium);
+    }
+
+    .spec-card:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 12px 48px var(--shadow-color);
+      border-color: rgba(91, 127, 255, 0.2);
+    }
+
+    .spec-title {
+      font-size: 13px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--brand-primary);
+      margin-bottom: var(--space-lg);
+      text-align: center;
+    }
+
+    .spec-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-md);
+    }
+
+    .spec-list li {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      padding: 0;
+      border: none;
+    }
+
+    .spec-label {
+      font-size: 13px;
+      color: var(--text-tertiary);
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .spec-value {
+      font-size: 17px;
+      font-weight: 600;
+      color: var(--text-primary);
+      line-height: 1.3;
+    }
+
+    /* ===== Media Detection ===== */
+    .media-badges {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--space-sm);
+      justify-content: center;
+      max-width: var(--container-max);
+      margin: 0 auto;
+    }
+
+    .media-badge {
+      display: flex;
+      align-items: center;
+      gap: var(--space-xs);
+      background: var(--card-bg);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      padding: 12px 20px;
+      border-radius: var(--radius-pill);
+      border: 1px solid var(--card-border);
+      font-size: var(--font-small);
+      font-weight: 500;
+    }
+
+    .media-badge svg {
+      width: 18px;
+      height: 18px;
+      fill: var(--brand-primary);
+    }
+
+    /* ===== Download Section ===== */
+    .download {
+      background: var(--bg-primary);
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .download::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: radial-gradient(circle at 50% 50%, rgba(91, 127, 255, 0.06) 0%, transparent 60%);
+      pointer-events: none;
+    }
+
+    .download-content {
+      position: relative;
+      z-index: 1;
+    }
+
+    .download-title {
+      font-size: var(--font-headline);
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      margin-bottom: var(--space-sm);
+    }
+
+    .download-subtitle {
+      font-size: var(--font-body);
+      color: var(--text-secondary);
+      margin-bottom: var(--space-lg);
+    }
+
+    .download-buttons {
+      display: flex;
+      gap: var(--space-sm);
+      justify-content: center;
+      flex-wrap: wrap;
+      margin-bottom: var(--space-lg);
+    }
+
+    .download-requirements {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--space-md);
+      justify-content: center;
+      font-size: var(--font-small);
+      color: var(--text-secondary);
+    }
+
+    .download-requirements span {
+      display: flex;
+      align-items: center;
+      gap: var(--space-xs);
+    }
+
+    .download-requirements svg {
+      width: 16px;
+      height: 16px;
+      fill: var(--accent-green);
+    }
+
+    .download-note {
+      margin-top: var(--space-lg);
+      padding: var(--space-md);
+      background: var(--bg-secondary);
+      border-radius: var(--radius-md);
+      font-size: var(--font-small);
+      color: var(--text-secondary);
+      max-width: 600px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    /* ===== Footer ===== */
+    .footer {
+      background: var(--bg-secondary);
+      padding: var(--space-xl) var(--space-md) var(--space-lg);
+      border-top: 1px solid var(--border-color);
+    }
+
+    .footer-content {
+      max-width: var(--container-max);
+      margin: 0 auto;
+    }
+
+    .footer-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      flex-wrap: wrap;
+      gap: var(--space-lg);
+      padding-bottom: var(--space-lg);
+      border-bottom: 1px solid var(--border-color);
+    }
+
+    .footer-brand {
+      max-width: 300px;
+    }
+
+    .footer-logo {
+      font-size: 20px;
+      font-weight: 600;
+      color: var(--text-primary);
+      margin-bottom: var(--space-sm);
+    }
+
+    .footer-tagline {
+      font-size: var(--font-small);
+      color: var(--text-secondary);
+      line-height: 1.5;
+    }
+
+    .footer-links {
+      display: flex;
+      gap: var(--space-xl);
+      flex-wrap: wrap;
+    }
+
+    .footer-column h4 {
+      font-size: var(--font-small);
+      font-weight: 600;
+      margin-bottom: var(--space-sm);
+    }
+
+    .footer-column ul {
+      list-style: none;
+    }
+
+    .footer-column li {
+      margin-bottom: var(--space-xs);
+    }
+
+    .footer-column a {
+      font-size: var(--font-small);
+      color: var(--text-secondary);
+    }
+
+    .footer-column a:hover {
+      color: var(--brand-primary);
+    }
+
+    .footer-bottom {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: var(--space-sm);
+      padding-top: var(--space-md);
+    }
+
+    .footer-copyright {
+      font-size: var(--font-small);
+      color: var(--text-tertiary);
+    }
+
+    .footer-attribution {
+      font-size: 12px;
+      color: var(--text-tertiary);
+    }
+
+    /* ===== Animations ===== */
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .animate {
+      animation: fadeInUp 0.6s ease forwards;
+    }
+
+    .animate-delay-1 { animation-delay: 0.1s; }
+    .animate-delay-2 { animation-delay: 0.2s; }
+    .animate-delay-3 { animation-delay: 0.3s; }
+    .animate-delay-4 { animation-delay: 0.4s; }
+    .animate-delay-5 { animation-delay: 0.5s; }
+    .animate-delay-6 { animation-delay: 0.6s; }
+
+    /* Intersection Observer Animation */
+    .reveal {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: all 0.6s ease;
+    }
+
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* ===== Code Quality Badges ===== */
+    .code-badges {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--space-sm);
+      justify-content: center;
+      margin-top: var(--space-lg);
+    }
+
+    .code-badge {
+      display: flex;
+      align-items: center;
+      gap: var(--space-xs);
+      background: var(--bg-tertiary);
+      padding: 8px 16px;
+      border-radius: var(--radius-pill);
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--text-secondary);
+    }
+
+    .code-badge svg {
+      width: 16px;
+      height: 16px;
+      fill: var(--brand-primary);
+    }
+
+    /* ===== Keyboard Shortcuts ===== */
+    .shortcuts {
+      background: var(--bg-primary);
+    }
+
+    .shortcuts-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: var(--space-sm);
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    .shortcut {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: var(--space-sm);
+      background: var(--bg-secondary);
+      border-radius: var(--radius-md);
+      font-size: var(--font-small);
+    }
+
+    .shortcut-keys {
+      display: flex;
+      gap: 4px;
+    }
+
+    .key {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-width: 28px;
+      height: 28px;
+      padding: 0 8px;
+      background: var(--bg-tertiary);
+      border-radius: 6px;
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--text-secondary);
+      border: 1px solid var(--border-color);
+    }
+
+    /* ===== Responsive Adjustments ===== */
+    @media (max-width: 768px) {
+      .hero {
+        padding-top: calc(52px + var(--space-xl));
+      }
+
+      .hero-buttons {
+        flex-direction: column;
+        align-items: center;
+      }
+
+      .btn {
+        width: 100%;
+        max-width: 300px;
+      }
+
+      .footer-top {
+        flex-direction: column;
+      }
+
+      .footer-links {
+        width: 100%;
+        justify-content: space-between;
+      }
+
+      .footer-bottom {
+        flex-direction: column;
+        text-align: center;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Navigation -->
+  <nav class="nav">
+    <div class="nav-content">
+      <a href="#" class="nav-logo">
+        <svg viewBox="0 0 24 24" fill="currentColor">
+          <path d="M18 4l2 4h-3l-2-4h-2l2 4h-3l-2-4H8l2 4H7L5 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V4h-4z"/>
+        </svg>
+        Power Scraper Pro
+      </a>
+
+      <button class="nav-toggle" aria-label="Toggle navigation" onclick="document.querySelector('.nav-links').classList.toggle('active')">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+
+      <ul class="nav-links">
+        <li><a href="#features">Features</a></li>
+        <li><a href="#screenshots">Screenshots</a></li>
+        <li><a href="#specs">Specifications</a></li>
+        <li><a href="#download" class="nav-cta">Coming Soon</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- Hero Section -->
+  <section class="hero">
+    <div class="hero-content">
+      <div class="hero-badge animate">
+        <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/></svg>
+        Native macOS App • Swift 6.2 • Apple Silicon Optimized
+      </div>
+
+      <h1 class="hero-title animate animate-delay-1">Power Scraper Pro</h1>
+
+      <p class="hero-subtitle animate animate-delay-2">
+        The professional media library manager for Mac. Automatically organize, scrape metadata, and rename your movies and TV shows into Kodi-compliant formats.
+      </p>
+
+      <div class="hero-buttons animate animate-delay-3">
+        <a href="#download" class="btn btn-primary">
+          <svg viewBox="0 0 24 24" fill="currentColor">
+            <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
+          </svg>
+          Coming Soon
+        </a>
+        <a href="#features" class="btn btn-secondary">
+          <svg viewBox="0 0 24 24" fill="currentColor">
+            <path d="M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5zM12 17c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z"/>
+          </svg>
+          See Features
+        </a>
+      </div>
+
+      <div class="macos-window animate animate-delay-4">
+        <div class="window-titlebar">
+          <div class="traffic-lights">
+            <span class="light close"></span>
+            <span class="light minimize"></span>
+            <span class="light maximize"></span>
+          </div>
+          <span class="window-title">Power Scraper Pro</span>
+        </div>
+        <div class="window-content">
+          <img src="ScreenShots/DashBoard Dark.png" alt="Power Scraper Pro main interface showing a populated movie library with Mortal Kombat" loading="eager">
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Features Section -->
+  <section class="features" id="features">
+    <div class="section-header reveal">
+      <div class="section-label">Features</div>
+      <h2 class="section-title">Everything you need to organize your media</h2>
+      <p class="section-subtitle">
+        Built from the ground up for macOS, Power Scraper Pro combines intelligent automation with professional-grade features to transform your media library.
+      </p>
+    </div>
+
+    <div class="features-grid">
+      <div class="feature-card reveal">
+        <div class="feature-icon">
+          <svg viewBox="0 0 24 24" fill="currentColor">
+            <path d="M20 6h-8l-2-2H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V8c0-1.1-.9-2-2-2zm-6 10H6v-2h8v2zm4-4H6v-2h12v2z"/>
+          </svg>
+        </div>
+        <h3 class="feature-title">Intelligent Scanning</h3>
+        <p class="feature-description">
+          Scans your media folders and intelligently parses even the most complex torrent filenames. Extracts titles, years, and quality information automatically.
+        </p>
+      </div>
+
+      <div class="feature-card reveal">
+        <div class="feature-icon">
+          <svg viewBox="0 0 24 24" fill="currentColor">
+            <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"/>
+          </svg>
+        </div>
+        <h3 class="feature-title">Multi-Source Metadata</h3>
+        <p class="feature-description">
+          Fetches comprehensive metadata from TMDB and Fanart.TV. Get ratings, cast, crew, overviews, and multiple artwork options for every title.
+        </p>
+      </div>
+
+      <div class="feature-card reveal">
+        <div class="feature-icon">
+          <svg viewBox="0 0 24 24" fill="currentColor">
+            <path d="M20 6h-8l-2-2H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V8c0-1.1-.9-2-2-2zm-1 8h-3v3h-2v-3h-3v-2h3V9h2v3h3v2z"/>
+          </svg>
+        </div>
+        <h3 class="feature-title">Kodi-Compliant Output</h3>
+        <p class="feature-description">
+          Generates perfectly formatted NFO files and organizes your library into the exact folder structure Kodi expects. Works out of the box.
+        </p>
+      </div>
+
+      <div class="feature-card reveal">
+        <div class="feature-icon">
+          <svg viewBox="0 0 24 24" fill="currentColor">
+            <path d="M15 9H9v6h6V9zm-2 4h-2v-2h2v2zm8-2V9h-2V7c0-1.1-.9-2-2-2h-2V3h-2v2h-2V3H9v2H7c-1.1 0-2 .9-2 2v2H3v2h2v2H3v2h2v2c0 1.1.9 2 2 2h2v2h2v-2h2v2h2v-2h2c1.1 0 2-.9 2-2v-2h2v-2h-2v-2h2zm-4 6H7V7h10v10z"/>
+          </svg>
+        </div>
+        <h3 class="feature-title">Apple Silicon Optimized</h3>
+        <p class="feature-description">
+          Built from the ground up for Apple Silicon. Dynamic core detection maximizes performance on M4 Max while remaining compatible with all Macs.
+        </p>
+      </div>
+
+      <div class="feature-card reveal">
+        <div class="feature-icon">
+          <svg viewBox="0 0 24 24" fill="currentColor">
+            <path d="M2 20h20v-4H2v4zm2-3h2v2H4v-2zM2 4v4h20V4H2zm4 3H4V5h2v2zm-4 7h20v-4H2v4zm2-3h2v2H4v-2z"/>
+          </svg>
+        </div>
+        <h3 class="feature-title">NAS-Optimized Scanning</h3>
+        <p class="feature-description">
+          10-20x faster scanning on network storage. Single-pass metadata fetching eliminates the overhead of traditional file-by-file scanning.
+        </p>
+      </div>
+
+      <div class="feature-card reveal">
+        <div class="feature-icon">
+          <svg viewBox="0 0 24 24" fill="currentColor">
+            <path d="M17.65 6.35C16.2 4.9 14.21 4 12 4c-4.42 0-7.99 3.58-7.99 8s3.57 8 7.99 8c3.73 0 6.84-2.55 7.73-6h-2.08c-.82 2.33-3.04 4-5.65 4-3.31 0-6-2.69-6-6s2.69-6 6-6c1.66 0 3.14.69 4.22 1.78L13 11h7V4l-2.35 2.35z"/>
+          </svg>
+        </div>
+        <h3 class="feature-title">Resume From Quit</h3>
+        <p class="feature-description">
+          Long scraping job? No problem. If you quit the app or it crashes, Power Scraper Pro remembers exactly where you left off.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Screenshots Gallery -->
+  <section class="gallery" id="screenshots">
+    <div class="section-header reveal">
+      <div class="section-label">Gallery</div>
+      <h2 class="section-title">See It In Action</h2>
+      <p class="section-subtitle">
+        Explore the beautiful, cinema-quality interface designed for power users who demand the best.
+      </p>
+    </div>
+
+    <div class="gallery-scroll">
+      <div class="gallery-item">
+        <div class="gallery-frame">
+          <img src="ScreenShots/DashBoard Dark.png" alt="Dashboard with populated movie library" loading="lazy">
+        </div>
+        <p class="gallery-caption">Clean, professional interface</p>
+      </div>
+
+      <div class="gallery-item">
+        <div class="gallery-frame">
+          <img src="ScreenShots/Movie Selection Dark.png" alt="Movie poster selection with multiple options" loading="lazy">
+        </div>
+        <p class="gallery-caption">Choose from multiple artwork sources</p>
+      </div>
+
+      <div class="gallery-item">
+        <div class="gallery-frame">
+          <img src="ScreenShots/TV Selection Light.png" alt="TV show selection and metadata" loading="lazy">
+        </div>
+        <p class="gallery-caption">Extensive TV show metadata</p>
+      </div>
+
+      <div class="gallery-item">
+        <div class="gallery-frame">
+          <img src="ScreenShots/Adjust FanArt Dark.png" alt="Fanart position adjustment" loading="lazy">
+        </div>
+        <p class="gallery-caption">Fine-tune artwork positioning</p>
+      </div>
+
+      <div class="gallery-item">
+        <div class="gallery-frame">
+          <img src="ScreenShots/Movie Scraping Light.png" alt="Scraping progress at 86%" loading="lazy">
+        </div>
+        <p class="gallery-caption">Real-time progress tracking</p>
+      </div>
+
+      <div class="gallery-item">
+        <div class="gallery-frame">
+          <img src="ScreenShots/Resume Previous Dark.png" alt="Session resume dialog" loading="lazy">
+        </div>
+        <p class="gallery-caption">Never lose your progress</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Movies Showcase -->
+  <section class="showcase">
+    <div class="showcase-item reveal">
+      <div class="showcase-content">
+        <div class="showcase-label">Movies</div>
+        <h2 class="showcase-title">From chaos to cinema</h2>
+        <p class="showcase-subtitle">
+          Transform messy downloads into a beautifully organized movie library with just a few clicks.
+        </p>
+        <ul class="showcase-list">
+          <li>
+            <svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
+            Parses complex torrent filenames
+          </li>
+          <li>
+            <svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
+            Fetches metadata from TMDB
+          </li>
+          <li>
+            <svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
+            Downloads posters and fanart
+          </li>
+          <li>
+            <svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
+            Generates Kodi-compliant NFO files
+          </li>
+          <li>
+            <svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
+            Detects video codec, resolution, HDR
+          </li>
+          <li>
+            <svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
+            Identifies audio format and channels
+          </li>
+          <li>
+            <svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
+            Renames to Movie Name (Year)/ structure
+          </li>
+        </ul>
+      </div>
+      <div class="showcase-image">
+        <img src="ScreenShots/Movies Scraped light.png" alt="Four movies fully scraped with metadata" loading="lazy">
+      </div>
+    </div>
+
+    <div class="showcase-item reverse reveal">
+      <div class="showcase-content">
+        <div class="showcase-label">TV Shows</div>
+        <h2 class="showcase-title">Every episode, perfectly organized</h2>
+        <p class="showcase-subtitle">
+          Intelligent season detection and episode tracking keeps your TV library in perfect order.
+        </p>
+        <ul class="showcase-list">
+          <li>
+            <svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
+            Detects season and episode numbers
+          </li>
+          <li>
+            <svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
+            Fetches show, season, and episode data
+          </li>
+          <li>
+            <svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
+            Tracks season completion percentage
+          </li>
+          <li>
+            <svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
+            Identifies missing episodes
+          </li>
+          <li>
+            <svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
+            Creates tvshow.nfo and episode.nfo
+          </li>
+          <li>
+            <svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
+            Downloads season-specific artwork
+          </li>
+          <li>
+            <svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
+            Supports specials (Season 0)
+          </li>
+        </ul>
+      </div>
+      <div class="showcase-image">
+        <img src="ScreenShots/TV Shows Scraped Light.png" alt="TV show metadata and season information" loading="lazy">
+      </div>
+    </div>
+  </section>
+
+  <!-- Settings Section -->
+  <section class="settings" id="settings">
+    <div class="section-header reveal">
+      <div class="section-label">Customization</div>
+      <h2 class="section-title">Your Preferences, Your Way</h2>
+      <p class="section-subtitle">
+        Fine-tune every aspect of your scraping workflow with comprehensive settings.
+      </p>
+    </div>
+
+    <div class="settings-grid">
+      <div class="settings-card reveal">
+        <div class="settings-image">
+          <img src="ScreenShots/Appearance Settings Dark.png" alt="Theme and appearance settings" loading="lazy">
+        </div>
+        <div class="settings-content">
+          <h3 class="settings-title">Theme Options</h3>
+          <p class="settings-description">
+            Choose from System, Light, and Dark modes. Pick from 9 accent colors and adjust vibrancy and transparency to match your style.
+          </p>
+        </div>
+      </div>
+
+      <div class="settings-card reveal">
+        <div class="settings-image">
+          <img src="ScreenShots/Scraper Settings Dark.png" alt="Scraper configuration settings" loading="lazy">
+        </div>
+        <div class="settings-content">
+          <h3 class="settings-title">Scraping Control</h3>
+          <p class="settings-description">
+            Set language preferences, artwork quality (SD/HD/Original), and concurrent download limits for optimal performance.
+          </p>
+        </div>
+      </div>
+
+      <div class="settings-card reveal">
+        <div class="settings-image">
+          <img src="ScreenShots/Rename Settings Dark.png" alt="File renaming settings" loading="lazy">
+        </div>
+        <div class="settings-content">
+          <h3 class="settings-title">File Management</h3>
+          <p class="settings-description">
+            Configure file extension filtering, minimum size thresholds, and NFO naming conventions to match your workflow.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Specs Section -->
+  <section class="specs" id="specs">
+    <div class="section-header reveal">
+      <div class="section-label">Technical</div>
+      <h2 class="section-title">Built for Professionals</h2>
+      <p class="section-subtitle">
+        Enterprise-grade architecture with Swift 6.2 strict concurrency and zero data races.
+      </p>
+    </div>
+
+    <div class="specs-container">
+      <div class="specs-grid">
+        <div class="spec-card reveal">
+          <h3 class="spec-title">System Requirements</h3>
+          <ul class="spec-list">
+            <li>
+              <span class="spec-label">Platform</span>
+              <span class="spec-value">macOS 14 Sonoma+</span>
+            </li>
+            <li>
+              <span class="spec-label">Optimized For</span>
+              <span class="spec-value">macOS 15 Sequoia</span>
+            </li>
+            <li>
+              <span class="spec-label">Processor</span>
+              <span class="spec-value">Apple Silicon</span>
+            </li>
+            <li>
+              <span class="spec-label">Memory</span>
+              <span class="spec-value">4GB (8GB recommended)</span>
+            </li>
+            <li>
+              <span class="spec-label">Storage</span>
+              <span class="spec-value">100MB</span>
+            </li>
+          </ul>
+        </div>
+
+        <div class="spec-card reveal">
+          <h3 class="spec-title">Technology Stack</h3>
+          <ul class="spec-list">
+            <li>
+              <span class="spec-label">Language</span>
+              <span class="spec-value">Swift 6.2</span>
+            </li>
+            <li>
+              <span class="spec-label">Framework</span>
+              <span class="spec-value">SwiftUI + AppKit</span>
+            </li>
+            <li>
+              <span class="spec-label">Database</span>
+              <span class="spec-value">SQLite</span>
+            </li>
+            <li>
+              <span class="spec-label">Architecture</span>
+              <span class="spec-value">MVVM</span>
+            </li>
+            <li>
+              <span class="spec-label">Concurrency</span>
+              <span class="spec-value">Zero Data Races</span>
+            </li>
+          </ul>
+        </div>
+
+        <div class="spec-card reveal">
+          <h3 class="spec-title">Supported Formats</h3>
+          <ul class="spec-list">
+            <li>
+              <span class="spec-label">Video</span>
+              <span class="spec-value">MKV, MP4, AVI, M4V</span>
+            </li>
+            <li>
+              <span class="spec-label">Video Codecs</span>
+              <span class="spec-value">HEVC, AVC, AV1</span>
+            </li>
+            <li>
+              <span class="spec-label">Resolutions</span>
+              <span class="spec-value">4K, 1080p, 720p, SD</span>
+            </li>
+            <li>
+              <span class="spec-label">HDR</span>
+              <span class="spec-value">Dolby Vision, HDR10+</span>
+            </li>
+            <li>
+              <span class="spec-label">Audio</span>
+              <span class="spec-value">TrueHD Atmos, EAC3</span>
+            </li>
+          </ul>
+        </div>
+
+        <div class="spec-card reveal">
+          <h3 class="spec-title">API Integrations</h3>
+          <ul class="spec-list">
+            <li>
+              <span class="spec-label">Metadata</span>
+              <span class="spec-value">TMDB</span>
+            </li>
+            <li>
+              <span class="spec-label">Artwork</span>
+              <span class="spec-value">Fanart.TV</span>
+            </li>
+            <li>
+              <span class="spec-label">Rate Limit</span>
+              <span class="spec-value">40 req/10s</span>
+            </li>
+            <li>
+              <span class="spec-label">Concurrent</span>
+              <span class="spec-value">10 requests</span>
+            </li>
+            <li>
+              <span class="spec-label">Resilience</span>
+              <span class="spec-value">Circuit Breaker</span>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="code-badges reveal">
+        <div class="code-badge">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M9.4 16.6L4.8 12l4.6-4.6L8 6l-6 6 6 6 1.4-1.4zm5.2 0l4.6-4.6-4.6-4.6L16 6l6 6-6 6-1.4-1.4z"/></svg>
+          Swift 6.2 Strict Concurrency
+        </div>
+        <div class="code-badge">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M14 2H6c-1.1 0-1.99.9-1.99 2L4 20c0 1.1.89 2 1.99 2H18c1.1 0 2-.9 2-2V8l-6-6zm2 16H8v-2h8v2zm0-4H8v-2h8v2zm-3-5V3.5L18.5 9H13z"/></svg>
+          265 Source Files
+        </div>
+        <div class="code-badge">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z"/></svg>
+          50,000+ Lines of Code
+        </div>
+        <div class="code-badge">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M4 8h4V4H4v4zm6 12h4v-4h-4v4zm-6 0h4v-4H4v4zm0-6h4v-4H4v4zm6 0h4v-4h-4v4zm6-10v4h4V4h-4zm-6 4h4V4h-4v4zm6 6h4v-4h-4v4zm0 6h4v-4h-4v4z"/></svg>
+          MVVM Architecture
+        </div>
+        <div class="code-badge">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm0 10.99h7c-.53 4.12-3.28 7.79-7 8.94V12H5V6.3l7-3.11v8.8z"/></svg>
+          Protocol-Based Design
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Media Detection Section -->
+  <section class="settings">
+    <div class="section-header reveal">
+      <div class="section-label">Detection</div>
+      <h2 class="section-title">Know Your Media</h2>
+      <p class="section-subtitle">
+        Automatically detects and displays detailed media information for every file.
+      </p>
+    </div>
+
+    <div class="media-badges reveal">
+      <div class="media-badge">
+        <svg viewBox="0 0 24 24"><path d="M18 4l2 4h-3l-2-4h-2l2 4h-3l-2-4H8l2 4H7L5 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V4h-4z"/></svg>
+        4K Ultra HD
+      </div>
+      <div class="media-badge">
+        <svg viewBox="0 0 24 24"><path d="M7.5 5.6L10 7 8.6 4.5 10 2 7.5 3.4 5 2l1.4 2.5L5 7zm12 9.8L17 14l1.4 2.5L17 19l2.5-1.4L22 19l-1.4-2.5L22 14zM22 2l-2.5 1.4L17 2l1.4 2.5L17 7l2.5-1.4L22 7l-1.4-2.5zm-7.63 5.29c-.39-.39-1.02-.39-1.41 0L1.29 18.96c-.39.39-.39 1.02 0 1.41l2.34 2.34c.39.39 1.02.39 1.41 0L16.7 11.05c.39-.39.39-1.02 0-1.41l-2.33-2.35z"/></svg>
+        Dolby Vision
+      </div>
+      <div class="media-badge">
+        <svg viewBox="0 0 24 24"><path d="M7.5 5.6L10 7 8.6 4.5 10 2 7.5 3.4 5 2l1.4 2.5L5 7zm12 9.8L17 14l1.4 2.5L17 19l2.5-1.4L22 19l-1.4-2.5L22 14zM22 2l-2.5 1.4L17 2l1.4 2.5L17 7l2.5-1.4L22 7l-1.4-2.5zm-7.63 5.29c-.39-.39-1.02-.39-1.41 0L1.29 18.96c-.39.39-.39 1.02 0 1.41l2.34 2.34c.39.39 1.02.39 1.41 0L16.7 11.05c.39-.39.39-1.02 0-1.41l-2.33-2.35z"/></svg>
+        HDR10+
+      </div>
+      <div class="media-badge">
+        <svg viewBox="0 0 24 24"><path d="M12 3v9.28c-.47-.17-.97-.28-1.5-.28C8.01 12 6 14.01 6 16.5S8.01 21 10.5 21c2.31 0 4.2-1.75 4.45-4H15V6h4V3h-7z"/></svg>
+        TrueHD Atmos
+      </div>
+      <div class="media-badge">
+        <svg viewBox="0 0 24 24"><path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z"/></svg>
+        7.1 Surround
+      </div>
+      <div class="media-badge">
+        <svg viewBox="0 0 24 24"><path d="M9.4 16.6L4.8 12l4.6-4.6L8 6l-6 6 6 6 1.4-1.4zm5.2 0l4.6-4.6-4.6-4.6L16 6l6 6-6 6-1.4-1.4z"/></svg>
+        HEVC / H.265
+      </div>
+      <div class="media-badge">
+        <svg viewBox="0 0 24 24"><path d="M9.4 16.6L4.8 12l4.6-4.6L8 6l-6 6 6 6 1.4-1.4zm5.2 0l4.6-4.6-4.6-4.6L16 6l6 6-6 6-1.4-1.4z"/></svg>
+        AV1
+      </div>
+      <div class="media-badge">
+        <svg viewBox="0 0 24 24"><path d="M12 3v9.28c-.47-.17-.97-.28-1.5-.28C8.01 12 6 14.01 6 16.5S8.01 21 10.5 21c2.31 0 4.2-1.75 4.45-4H15V6h4V3h-7z"/></svg>
+        EAC3 / DD+
+      </div>
+    </div>
+  </section>
+
+  <!-- Keyboard Shortcuts -->
+  <section class="shortcuts">
+    <div class="section-header reveal">
+      <div class="section-label">Productivity</div>
+      <h2 class="section-title">Keyboard First</h2>
+      <p class="section-subtitle">
+        Navigate and control everything with intuitive keyboard shortcuts.
+      </p>
+    </div>
+
+    <div class="shortcuts-grid reveal">
+      <div class="shortcut">
+        <span>Movies</span>
+        <div class="shortcut-keys">
+          <span class="key">⌘</span>
+          <span class="key">1</span>
+        </div>
+      </div>
+      <div class="shortcut">
+        <span>TV Shows</span>
+        <div class="shortcut-keys">
+          <span class="key">⌘</span>
+          <span class="key">2</span>
+        </div>
+      </div>
+      <div class="shortcut">
+        <span>Recent Actions</span>
+        <div class="shortcut-keys">
+          <span class="key">⌘</span>
+          <span class="key">⌥</span>
+          <span class="key">R</span>
+        </div>
+      </div>
+      <div class="shortcut">
+        <span>Error Log</span>
+        <div class="shortcut-keys">
+          <span class="key">⌘</span>
+          <span class="key">⌥</span>
+          <span class="key">E</span>
+        </div>
+      </div>
+      <div class="shortcut">
+        <span>Settings</span>
+        <div class="shortcut-keys">
+          <span class="key">⌘</span>
+          <span class="key">,</span>
+        </div>
+      </div>
+      <div class="shortcut">
+        <span>Help</span>
+        <div class="shortcut-keys">
+          <span class="key">⌘</span>
+          <span class="key">?</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Download Section -->
+  <section class="download" id="download">
+    <div class="download-content reveal">
+      <h2 class="download-title">Coming Soon</h2>
+      <p class="download-subtitle">Power Scraper Pro is currently in development. Sign up to be notified when it launches.</p>
+
+      <div class="download-buttons">
+        <a href="#" class="btn btn-primary" style="opacity: 0.7; cursor: default;">
+          <svg viewBox="0 0 24 24" fill="currentColor">
+            <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
+          </svg>
+          Download Coming Soon
+        </a>
+      </div>
+
+      <div class="download-requirements">
+        <span>
+          <svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
+          macOS 14.0 Sonoma or later
+        </span>
+        <span>
+          <svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
+          Apple Silicon recommended
+        </span>
+        <span>
+          <svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
+          Internet connection for metadata
+        </span>
+      </div>
+
+      <div class="download-note">
+        <strong>Note:</strong> Requires free API keys from <a href="https://www.themoviedb.org/" target="_blank" rel="noopener">TMDB</a> and optionally <a href="https://fanart.tv/" target="_blank" rel="noopener">Fanart.TV</a>. Easy setup instructions provided in the app.
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="footer-content">
+      <div class="footer-top">
+        <div class="footer-brand">
+          <div class="footer-logo">Power Scraper Pro</div>
+          <p class="footer-tagline">
+            The professional media library manager for Mac. Transform your movie and TV show collection into a beautifully organized, Kodi-compliant library.
+          </p>
+        </div>
+
+        <div class="footer-links">
+          <div class="footer-column">
+            <h4>Product</h4>
+            <ul>
+              <li><a href="#features">Features</a></li>
+              <li><a href="#screenshots">Screenshots</a></li>
+              <li><a href="#specs">Specifications</a></li>
+              <li><a href="#download">Download</a></li>
+            </ul>
+          </div>
+
+          <div class="footer-column">
+            <h4>Resources</h4>
+            <ul>
+              <li><a href="https://www.themoviedb.org/" target="_blank" rel="noopener">TMDB</a></li>
+              <li><a href="https://fanart.tv/" target="_blank" rel="noopener">Fanart.TV</a></li>
+              <li><a href="https://kodi.tv/" target="_blank" rel="noopener">Kodi</a></li>
+            </ul>
+          </div>
+
+          <div class="footer-column">
+            <h4>Legal</h4>
+            <ul>
+              <li><a href="#">Privacy Policy</a></li>
+              <li><a href="#">Terms of Use</a></li>
+              <li><a href="#">License</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <p class="footer-copyright">© 2025 Power Scraper Pro. All rights reserved.</p>
+        <p class="footer-attribution">
+          Movie and TV show metadata provided by TMDB and Fanart.TV. Power Scraper Pro is not affiliated with Kodi, TMDB, or Fanart.TV.
+        </p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- JavaScript for Animations -->
+  <script>
+    // Intersection Observer for scroll animations
+    const observerOptions = {
+      root: null,
+      rootMargin: '0px',
+      threshold: 0.1
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+        }
+      });
+    }, observerOptions);
+
+    // Observe all elements with .reveal class
+    document.querySelectorAll('.reveal').forEach(el => {
+      observer.observe(el);
+    });
+
+    // Smooth scroll for navigation links
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function (e) {
+        e.preventDefault();
+        const target = document.querySelector(this.getAttribute('href'));
+        if (target) {
+          target.scrollIntoView({
+            behavior: 'smooth',
+            block: 'start'
+          });
+          // Close mobile nav if open
+          document.querySelector('.nav-links').classList.remove('active');
+        }
+      });
+    });
+
+    // Navigation background on scroll
+    const nav = document.querySelector('.nav');
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 50) {
+        nav.style.borderBottomColor = 'var(--border-color)';
+      } else {
+        nav.style.borderBottomColor = 'transparent';
+      }
+    });
+  </script>
+</body>
+</html>
