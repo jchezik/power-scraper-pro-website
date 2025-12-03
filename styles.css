@@ -1754,18 +1754,21 @@ section {
   height: 100%;
   background: rgba(0, 0, 0, 0.95);
   z-index: 9999;
-  display: none;
+  display: flex;
   align-items: center;
   justify-content: center;
   padding: var(--space-lg);
   cursor: zoom-out;
   opacity: 0;
-  transition: opacity var(--transition-medium);
+  visibility: hidden;
+  pointer-events: none;
+  transition: opacity var(--transition-medium), visibility var(--transition-medium);
 }
 
 .lightbox.active {
-  display: flex;
   opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
 }
 
 .lightbox-content {
