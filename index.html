@@ -32,6 +32,9 @@
   <link rel="canonical" href="https://powerscraperpro.com/">
 </head>
 <body>
+  <!-- Scroll Progress Bar -->
+  <div class="scroll-progress" id="scroll-progress"></div>
+
   <!-- Navigation -->
   <nav class="nav">
     <div class="nav-content">
@@ -61,8 +64,8 @@
   <section class="hero">
     <div class="hero-content">
       <div class="hero-badge animate">
-        <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/></svg>
-        Native macOS App • Swift 6.2 • Apple Silicon Optimized
+        <span class="badge-pulse"></span>
+        Lightning Fast • macOS Native • Just Works
       </div>
 
       <h1 class="hero-title animate animate-delay-1">Power Scraper Pro</h1>
@@ -225,7 +228,14 @@
       </p>
     </div>
 
-    <div class="gallery-scroll">
+    <div class="gallery-container">
+      <button class="gallery-nav prev" aria-label="Previous screenshot">
+        <svg viewBox="0 0 24 24"><path d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z"/></svg>
+      </button>
+      <button class="gallery-nav next" aria-label="Next screenshot">
+        <svg viewBox="0 0 24 24"><path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"/></svg>
+      </button>
+      <div class="gallery-scroll" id="gallery-scroll">
       <div class="gallery-item">
         <div class="gallery-frame">
           <picture>
@@ -295,6 +305,8 @@
         </div>
         <p class="gallery-caption">Automatic folder monitoring</p>
       </div>
+      </div>
+      <div class="gallery-dots" id="gallery-dots"></div>
     </div>
   </section>
 
@@ -707,35 +719,63 @@
   <!-- Download Section -->
   <section class="download" id="download">
     <div class="download-content reveal">
-      <h2 class="download-title">Coming Soon</h2>
-      <p class="download-subtitle">Power Scraper Pro is in final beta testing. Join the waitlist to get early access.</p>
+      <div class="download-badge">Launching February 2026</div>
+      <h2 class="download-title">Ready to Transform Your Media Library?</h2>
+      <p class="download-subtitle">Join beta testers already organizing their collections. Be the first to know when we launch.</p>
 
-      <div class="download-buttons">
-        <a href="mailto:powerscraperpro@gmail.com?subject=Notify%20Me%20When%20Power%20Scraper%20Pro%20Launches&body=Hi%2C%0A%0APlease%20notify%20me%20when%20Power%20Scraper%20Pro%20is%20available%20for%20download.%0A%0AThanks!" class="btn btn-primary">
-          <svg viewBox="0 0 24 24" fill="currentColor">
-            <path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/>
-          </svg>
-          Get Notified
-        </a>
-      </div>
+      <form class="email-form" id="email-form">
+        <div class="email-input-wrapper">
+          <input type="email"
+                 class="email-input"
+                 id="email-input"
+                 placeholder="Enter your email address"
+                 required
+                 autocomplete="email"
+                 aria-label="Email address">
+          <button type="submit" class="btn btn-primary email-submit">
+            <span class="btn-text">Get Early Access</span>
+            <span class="btn-loading" style="display: none;">
+              <svg class="spinner" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="3" fill="none" stroke-linecap="round" stroke-dasharray="31.4 31.4" /></svg>
+            </span>
+          </button>
+        </div>
+        <div class="email-message" id="email-message"></div>
+      </form>
 
       <div class="download-requirements">
         <span>
           <svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
-          macOS 14.0 or later (optimized for macOS 26.0 "Tahoe")
+          Early access pricing for first signups
         </span>
         <span>
           <svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
-          Apple Silicon recommended
+          Direct beta access invitation
         </span>
         <span>
           <svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
-          Internet connection for metadata
+          Priority feature requests
         </span>
       </div>
 
-      <div class="download-note">
-        <strong>Note:</strong> Requires free API keys from <a href="https://www.themoviedb.org/" target="_blank" rel="noopener noreferrer">TMDB</a> and optionally <a href="https://fanart.tv/" target="_blank" rel="noopener noreferrer">Fanart.TV</a>. Easy setup instructions provided in the app.
+      <div class="download-specs">
+        <div class="spec-item">
+          <span class="spec-icon">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M18 4l2 4h-3l-2-4h-2l2 4h-3l-2-4H8l2 4H7L5 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V4h-4z"/></svg>
+          </span>
+          <span>macOS 14.0+</span>
+        </div>
+        <div class="spec-item">
+          <span class="spec-icon">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M15 9H9v6h6V9zm-2 4h-2v-2h2v2zm8-2V9h-2V7c0-1.1-.9-2-2-2h-2V3h-2v2h-2V3H9v2H7c-1.1 0-2 .9-2 2v2H3v2h2v2H3v2h2v2c0 1.1.9 2 2 2h2v2h2v-2h2v2h2v-2h2c1.1 0 2-.9 2-2v-2h2v-2h-2v-2h2zm-4 6H7V7h10v10z"/></svg>
+          </span>
+          <span>Apple Silicon</span>
+        </div>
+        <div class="spec-item">
+          <span class="spec-icon">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"/></svg>
+          </span>
+          <span>TMDB &amp; Fanart.TV</span>
+        </div>
       </div>
     </div>
   </section>
@@ -802,6 +842,9 @@
 
   <!-- JavaScript for Animations -->
   <script>
+    // Check for reduced motion preference
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
     // Mobile navigation toggle
     const navToggle = document.querySelector('.nav-toggle');
     const navLinks = document.getElementById('nav-links');
@@ -811,6 +854,15 @@
       navToggle.setAttribute('aria-expanded', !isExpanded);
       navLinks.classList.toggle('active');
     });
+
+    // Scroll Progress Bar
+    const scrollProgress = document.getElementById('scroll-progress');
+    function updateScrollProgress() {
+      const scrollTop = window.scrollY;
+      const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+      const scrollPercent = (scrollTop / docHeight) * 100;
+      scrollProgress.style.width = scrollPercent + '%';
+    }
 
     // Intersection Observer for scroll animations
     const observerOptions = {
@@ -839,7 +891,7 @@
         const target = document.querySelector(this.getAttribute('href'));
         if (target) {
           target.scrollIntoView({
-            behavior: 'smooth',
+            behavior: prefersReducedMotion ? 'auto' : 'smooth',
             block: 'start'
           });
           // Close mobile nav if open
@@ -849,14 +901,90 @@
       });
     });
 
-    // Navigation background on scroll
+    // Navigation background on scroll + parallax effect on hero window
     const nav = document.querySelector('.nav');
-    window.addEventListener('scroll', () => {
-      if (window.scrollY > 50) {
+    const macosWindow = document.querySelector('.macos-window');
+    let ticking = false;
+
+    function handleScroll() {
+      const scrollY = window.scrollY;
+
+      // Nav border
+      if (scrollY > 50) {
         nav.style.borderBottomColor = 'var(--border-color)';
       } else {
         nav.style.borderBottomColor = 'transparent';
       }
+
+      // Parallax effect on hero window (subtle tilt based on scroll)
+      if (!prefersReducedMotion && macosWindow && scrollY < 800) {
+        const parallaxY = scrollY * 0.15;
+        const rotateX = Math.min(scrollY * 0.01, 5);
+        const scale = 1 - (scrollY * 0.0002);
+        macosWindow.style.transform = `translateY(${parallaxY}px) rotateX(${rotateX}deg) scale(${Math.max(scale, 0.95)})`;
+      }
+
+      // Update scroll progress
+      updateScrollProgress();
+
+      ticking = false;
+    }
+
+    window.addEventListener('scroll', () => {
+      if (!ticking) {
+        requestAnimationFrame(handleScroll);
+        ticking = true;
+      }
+    });
+
+    // Traffic light interactions (Easter egg)
+    const trafficLights = document.querySelectorAll('.traffic-lights .light');
+    let windowMinimized = false;
+
+    trafficLights.forEach(light => {
+      light.addEventListener('click', (e) => {
+        e.stopPropagation();
+
+        if (light.classList.contains('minimize')) {
+          if (!windowMinimized) {
+            macosWindow.classList.remove('window-restore');
+            macosWindow.classList.add('window-minimized');
+            windowMinimized = true;
+
+            // Restore after 2 seconds
+            setTimeout(() => {
+              macosWindow.classList.remove('window-minimized');
+              macosWindow.classList.add('window-restore');
+              windowMinimized = false;
+
+              // Clean up classes after animation
+              setTimeout(() => {
+                macosWindow.classList.remove('window-restore');
+              }, 400);
+            }, 2000);
+          }
+        }
+
+        if (light.classList.contains('close')) {
+          // Fun "bounce" effect
+          macosWindow.style.transition = 'transform 0.1s ease';
+          macosWindow.style.transform = 'scale(0.98)';
+          setTimeout(() => {
+            macosWindow.style.transform = '';
+            macosWindow.style.transition = '';
+          }, 100);
+        }
+
+        if (light.classList.contains('maximize')) {
+          // Subtle "zoom" effect
+          macosWindow.style.transition = 'transform 0.2s ease';
+          macosWindow.style.transform = 'scale(1.02)';
+          setTimeout(() => {
+            macosWindow.style.transform = '';
+            macosWindow.style.transition = '';
+          }, 200);
+        }
+      });
     });
 
     // Lightbox functionality
@@ -877,14 +1005,14 @@
         lightboxImage.alt = img.alt;
         lightboxCaption.textContent = img.alt;
         lightbox.classList.add('active');
-        document.body.style.overflow = 'hidden'; // Prevent scrolling
+        document.body.style.overflow = 'hidden';
       });
     });
 
     // Close lightbox
     function closeLightbox() {
       lightbox.classList.remove('active');
-      document.body.style.overflow = ''; // Restore scrolling
+      document.body.style.overflow = '';
     }
 
     lightboxClose.addEventListener('click', (e) => {
@@ -894,17 +1022,186 @@
 
     lightbox.addEventListener('click', closeLightbox);
 
-    // Prevent closing when clicking the image
     lightboxImage.addEventListener('click', (e) => {
       e.stopPropagation();
     });
 
-    // Close with Escape key
     document.addEventListener('keydown', (e) => {
       if (e.key === 'Escape' && lightbox.classList.contains('active')) {
         closeLightbox();
       }
     });
+
+    // Disable animations for users who prefer reduced motion
+    if (prefersReducedMotion) {
+      document.documentElement.style.setProperty('--transition-fast', '0s');
+      document.documentElement.style.setProperty('--transition-medium', '0s');
+      document.documentElement.style.setProperty('--transition-slow', '0s');
+
+      // Remove floating animation from window
+      if (macosWindow) {
+        macosWindow.style.animation = 'none';
+      }
+
+      // Make all reveals visible immediately
+      document.querySelectorAll('.reveal').forEach(el => {
+        el.classList.add('visible');
+      });
+    }
+
+    // Gallery Carousel functionality
+    const galleryScroll = document.getElementById('gallery-scroll');
+    const galleryDots = document.getElementById('gallery-dots');
+    const prevBtn = document.querySelector('.gallery-nav.prev');
+    const nextBtn = document.querySelector('.gallery-nav.next');
+    const galleryItems = document.querySelectorAll('.gallery-item');
+
+    if (galleryScroll && galleryItems.length > 0) {
+      // Create dots
+      galleryItems.forEach((_, index) => {
+        const dot = document.createElement('button');
+        dot.className = 'gallery-dot' + (index === 0 ? ' active' : '');
+        dot.setAttribute('aria-label', `Go to screenshot ${index + 1}`);
+        dot.addEventListener('click', () => scrollToItem(index));
+        galleryDots.appendChild(dot);
+      });
+
+      const dots = document.querySelectorAll('.gallery-dot');
+
+      // Scroll to specific item
+      function scrollToItem(index) {
+        const item = galleryItems[index];
+        if (item) {
+          const scrollLeft = item.offsetLeft - (galleryScroll.offsetWidth - item.offsetWidth) / 2;
+          galleryScroll.scrollTo({ left: scrollLeft, behavior: prefersReducedMotion ? 'auto' : 'smooth' });
+        }
+      }
+
+      // Update active dot based on scroll position
+      function updateActiveDot() {
+        const scrollLeft = galleryScroll.scrollLeft;
+        const containerWidth = galleryScroll.offsetWidth;
+
+        let activeIndex = 0;
+        let minDistance = Infinity;
+
+        galleryItems.forEach((item, index) => {
+          const itemCenter = item.offsetLeft + item.offsetWidth / 2;
+          const containerCenter = scrollLeft + containerWidth / 2;
+          const distance = Math.abs(itemCenter - containerCenter);
+
+          if (distance < minDistance) {
+            minDistance = distance;
+            activeIndex = index;
+          }
+        });
+
+        dots.forEach((dot, index) => {
+          dot.classList.toggle('active', index === activeIndex);
+        });
+      }
+
+      // Navigation buttons
+      prevBtn.addEventListener('click', () => {
+        const currentScroll = galleryScroll.scrollLeft;
+        const itemWidth = galleryItems[0].offsetWidth + 48; // gap
+        galleryScroll.scrollBy({ left: -itemWidth, behavior: prefersReducedMotion ? 'auto' : 'smooth' });
+      });
+
+      nextBtn.addEventListener('click', () => {
+        const itemWidth = galleryItems[0].offsetWidth + 48; // gap
+        galleryScroll.scrollBy({ left: itemWidth, behavior: prefersReducedMotion ? 'auto' : 'smooth' });
+      });
+
+      // Drag to scroll
+      let isDown = false;
+      let startX;
+      let scrollLeftStart;
+
+      galleryScroll.addEventListener('mousedown', (e) => {
+        isDown = true;
+        galleryScroll.style.cursor = 'grabbing';
+        startX = e.pageX - galleryScroll.offsetLeft;
+        scrollLeftStart = galleryScroll.scrollLeft;
+      });
+
+      galleryScroll.addEventListener('mouseleave', () => {
+        isDown = false;
+        galleryScroll.style.cursor = 'grab';
+      });
+
+      galleryScroll.addEventListener('mouseup', () => {
+        isDown = false;
+        galleryScroll.style.cursor = 'grab';
+      });
+
+      galleryScroll.addEventListener('mousemove', (e) => {
+        if (!isDown) return;
+        e.preventDefault();
+        const x = e.pageX - galleryScroll.offsetLeft;
+        const walk = (x - startX) * 1.5;
+        galleryScroll.scrollLeft = scrollLeftStart - walk;
+      });
+
+      // Update dots on scroll
+      galleryScroll.addEventListener('scroll', updateActiveDot);
+
+      // Initial update
+      updateActiveDot();
+    }
+
+    // Email form functionality
+    const emailForm = document.getElementById('email-form');
+    const emailInput = document.getElementById('email-input');
+    const emailMessage = document.getElementById('email-message');
+
+    if (emailForm) {
+      emailForm.addEventListener('submit', async (e) => {
+        e.preventDefault();
+
+        const email = emailInput.value.trim();
+        const submitBtn = emailForm.querySelector('.email-submit');
+        const btnText = submitBtn.querySelector('.btn-text');
+        const btnLoading = submitBtn.querySelector('.btn-loading');
+
+        // Basic email validation
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!emailRegex.test(email)) {
+          emailMessage.textContent = 'Please enter a valid email address.';
+          emailMessage.className = 'email-message error';
+          return;
+        }
+
+        // Show loading state
+        btnText.style.display = 'none';
+        btnLoading.style.display = 'inline-flex';
+        submitBtn.disabled = true;
+
+        // Simulate API call (replace with actual endpoint when available)
+        try {
+          // For now, we'll use mailto as fallback but with better UX
+          await new Promise(resolve => setTimeout(resolve, 1000));
+
+          // Open mailto with pre-filled content
+          const subject = encodeURIComponent('Power Scraper Pro - Early Access Request');
+          const body = encodeURIComponent(`Hi,\n\nPlease add me to the Power Scraper Pro early access list.\n\nEmail: ${email}\n\nThank you!`);
+          window.location.href = `mailto:powerscraperpro@gmail.com?subject=${subject}&body=${body}`;
+
+          // Show success message
+          emailMessage.textContent = 'Thanks for signing up! Check your email client to complete registration.';
+          emailMessage.className = 'email-message success';
+          emailInput.value = '';
+        } catch (error) {
+          emailMessage.textContent = 'Something went wrong. Please try again.';
+          emailMessage.className = 'email-message error';
+        } finally {
+          // Reset button state
+          btnText.style.display = 'inline';
+          btnLoading.style.display = 'none';
+          submitBtn.disabled = false;
+        }
+      });
+    }
   </script>
 </body>
 </html>
