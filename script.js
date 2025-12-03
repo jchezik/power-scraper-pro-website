@@ -3,7 +3,7 @@
  * Smooth scroll animations and interactions
  */
 
-(function() {
+document.addEventListener('DOMContentLoaded', function() {
   'use strict';
 
   // Smooth scroll for anchor links
@@ -66,11 +66,14 @@
     }, 4000);
   }
 
-  // Form submission via AJAX (no redirect)
+  // Form submission via AJAX (no redirect) - MUST prevent default
   const form = document.getElementById('signup-form');
   if (form) {
-    form.addEventListener('submit', async function(e) {
+    // Remove any existing listeners and add fresh one
+    form.onsubmit = async function(e) {
+      // CRITICAL: Prevent form from submitting normally
       e.preventDefault();
+      e.stopPropagation();
 
       const button = form.querySelector('button');
       const input = form.querySelector('input[type="email"]');
@@ -104,7 +107,9 @@
       setTimeout(() => {
         button.textContent = originalText;
       }, 2000);
-    });
-  }
 
-})();
+      // Return false as extra protection against form submission
+      return false;
+    };
+  }
+});
