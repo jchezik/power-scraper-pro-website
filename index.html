@@ -3,831 +3,313 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Power Scraper Pro - The professional media library manager for Mac. Automatically organize, scrape metadata, and rename your movies and TV shows into Kodi-compliant formats.">
-  <meta name="keywords" content="macOS, media library, Kodi, TMDB, movie organizer, TV show organizer, metadata scraper">
+  <meta name="description" content="Power Scraper Pro - The professional media library manager for Mac. Automatically organize, scrape metadata, and rename your movies and TV shows.">
   <title>Power Scraper Pro - Professional Media Library Manager for Mac</title>
+
+  <!-- Favicon -->
   <link rel="icon" type="image/svg+xml" href="favicon.svg">
-  <link rel="manifest" href="manifest.json">
-  <meta name="theme-color" content="#5B7FFF">
+
+  <!-- Preconnect for performance -->
+  <link rel="preconnect" href="https://cdn.jsdelivr.net">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+  <!-- Inter font - Apple-like typography -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <!-- PhotoSwipe 5 - Professional lightbox -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/photoswipe@5.4.3/dist/photoswipe.css">
+
+  <!-- Main styles -->
+  <link rel="stylesheet" href="styles.css">
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="Power Scraper Pro - Professional Media Library Manager">
+  <meta property="og:description" content="The professional media library manager for Mac. Automatically organize, scrape metadata, and rename your movies and TV shows.">
+  <meta property="og:image" content="ScreenShots/Movie Library.png">
+  <meta property="og:type" content="website">
+
+  <!-- Theme color -->
+  <meta name="theme-color" content="#000000">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-  <meta name="apple-mobile-web-app-title" content="Power Scraper Pro">
-
-  <!-- Critical CSS (above-the-fold) - inlined for fast first paint -->
-  <style>
-    /* Reset & Base */
-    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-    :root{--brand-primary:#5B7FFF;--brand-secondary:#8B5CF6;--brand-gradient:linear-gradient(135deg,#5B7FFF 0%,#8B5CF6 100%);--brand-gradient-text:linear-gradient(135deg,#5B7FFF 0%,#8B5CF6 50%,#FF6B9D 100%);--bg-primary:#ffffff;--bg-secondary:#f5f5f7;--text-primary:#1d1d1f;--text-secondary:#6e6e73;--border-color:rgba(0,0,0,0.08);--nav-bg:rgba(255,255,255,0.72);--font-family:-apple-system,BlinkMacSystemFont,"SF Pro Display","Helvetica Neue",Arial,sans-serif;--font-hero:clamp(52px,10vw,96px);--font-body:clamp(16px,1.8vw,21px);--space-md:24px;--space-lg:48px;--space-xl:80px;--section-padding:clamp(60px,12vw,120px);--container-max:1200px;--radius-lg:20px;--radius-pill:980px;--transition-medium:0.3s ease;--shadow-color:rgba(0,0,0,0.1);--accent-green:#34C759}
-    @media(prefers-color-scheme:dark){:root{--bg-primary:#0a0a0f;--bg-secondary:#12121a;--text-primary:#f5f5f7;--text-secondary:#a1a1a6;--border-color:rgba(255,255,255,0.08);--nav-bg:rgba(12,12,18,0.85);--shadow-color:rgba(0,0,0,0.5)}}
-    html{scroll-behavior:smooth;-webkit-font-smoothing:antialiased}
-    body{font-family:var(--font-family);background-color:var(--bg-primary);color:var(--text-primary);line-height:1.5;overflow-x:hidden}
-    img{max-width:100%;height:auto;display:block}
-    a{color:var(--brand-primary);text-decoration:none}
-    /* Scroll Progress */
-    .scroll-progress{position:fixed;top:0;left:0;width:0%;height:2px;background:var(--brand-gradient);z-index:1001}
-    /* Navigation */
-    .nav{position:fixed;top:0;left:0;right:0;z-index:1000;background:var(--nav-bg);backdrop-filter:saturate(180%) blur(20px);-webkit-backdrop-filter:saturate(180%) blur(20px);border-bottom:1px solid var(--border-color)}
-    .nav-content{max-width:var(--container-max);margin:0 auto;padding:0 var(--space-md);height:52px;display:flex;align-items:center;justify-content:space-between}
-    .nav-logo{font-size:18px;font-weight:600;color:var(--text-primary);display:flex;align-items:center;gap:8px}
-    .nav-logo svg{width:24px;height:24px}
-    .nav-links{display:flex;gap:var(--space-md);list-style:none}
-    .nav-links a{color:var(--text-secondary);font-size:14px;font-weight:500;padding:8px 16px;border-radius:8px}
-    .nav-links a.nav-cta{background:var(--brand-gradient);color:white!important;padding:8px 20px!important;border-radius:var(--radius-pill);font-weight:600!important}
-    .nav-toggle{display:none;background:none;border:none;cursor:pointer;padding:8px}
-    .nav-toggle span{display:block;width:22px;height:2px;background:var(--text-primary);margin:5px 0;border-radius:2px}
-    @media(max-width:768px){.nav-toggle{display:block}.nav-links{position:absolute;top:52px;left:0;right:0;background:var(--nav-bg);backdrop-filter:saturate(180%) blur(20px);flex-direction:column;padding:var(--space-md);gap:8px;border-bottom:1px solid var(--border-color);opacity:0;transform:translateY(-10px);pointer-events:none}.nav-links.active{opacity:1;transform:translateY(0);pointer-events:auto}}
-    /* Hero */
-    .hero{padding:calc(52px + var(--section-padding)) var(--space-md) var(--section-padding);text-align:center;background:var(--bg-primary);position:relative;overflow:hidden}
-    .hero::before{content:'';position:absolute;top:-50%;left:-50%;width:200%;height:200%;background:radial-gradient(circle at 30% 20%,rgba(91,127,255,0.18) 0%,transparent 50%),radial-gradient(circle at 70% 80%,rgba(139,92,246,0.15) 0%,transparent 50%);pointer-events:none}
-    .hero-content{position:relative;z-index:1}
-    .hero-badge{display:inline-flex;align-items:center;gap:8px;background:var(--bg-secondary);padding:10px 20px;border-radius:var(--radius-pill);font-size:14px;font-weight:600;color:var(--text-secondary);margin-bottom:var(--space-md);border:1px solid var(--border-color)}
-    .badge-pulse{width:8px;height:8px;background:var(--accent-green);border-radius:50%}
-    .hero-title{font-size:var(--font-hero);font-weight:700;letter-spacing:-0.03em;line-height:1.05;margin-bottom:var(--space-md);background:var(--brand-gradient-text);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
-    .hero-subtitle{font-size:var(--font-body);color:var(--text-secondary);max-width:680px;margin:0 auto var(--space-lg);line-height:1.6}
-    .hero-buttons{display:flex;gap:16px;justify-content:center;flex-wrap:wrap;margin-bottom:var(--space-xl)}
-    /* Buttons */
-    .btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:16px 32px;border-radius:var(--radius-pill);font-size:clamp(14px,1.5vw,17px);font-weight:600;cursor:pointer;border:none;transition:all var(--transition-medium);text-decoration:none}
-    .btn-primary{background:var(--brand-gradient);color:white;box-shadow:0 4px 24px rgba(91,127,255,0.25)}
-    .btn-secondary{background:var(--bg-secondary);color:var(--text-primary);border:1px solid var(--border-color)}
-    .btn svg{width:20px;height:20px}
-    /* macOS Window */
-    .macos-window{border-radius:var(--radius-lg);overflow:hidden;box-shadow:0 24px 80px var(--shadow-color),0 8px 32px rgba(0,0,0,0.08);background:#1d1d1f;max-width:1100px;margin:0 auto}
-    .window-titlebar{height:52px;background:linear-gradient(180deg,#3d3d3d 0%,#2d2d2d 100%);display:flex;align-items:center;padding:0 20px;position:relative}
-    .traffic-lights{display:flex;gap:8px}
-    .light{width:12px;height:12px;border-radius:50%}
-    .light.close{background:#ff5f57}.light.minimize{background:#febc2e}.light.maximize{background:#28c840}
-    .window-title{position:absolute;left:50%;transform:translateX(-50%);color:#999;font-size:13px;font-weight:500}
-    .window-content{background:#1d1d1f}
-    .window-content img{width:100%;display:block}
-    /* Animation placeholder */
-    .animate{animation:fadeInUp 0.6s ease forwards}
-    .animate-delay-1{animation-delay:0.1s}.animate-delay-2{animation-delay:0.2s}.animate-delay-3{animation-delay:0.3s}.animate-delay-4{animation-delay:0.4s}
-    @keyframes fadeInUp{from{opacity:0;transform:translateY(30px)}to{opacity:1;transform:translateY(0)}}
-    @media(max-width:768px){.hero-buttons{flex-direction:column;align-items:center}.btn{width:100%;max-width:300px}}
-  </style>
-
-  <!-- Main stylesheet loaded asynchronously -->
-  <link rel="preload" href="styles.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
-  <noscript><link rel="stylesheet" href="styles.css"></noscript>
-
-  <!-- Preconnect to third-party origins -->
-  <link rel="preconnect" href="https://www.themoviedb.org">
-  <link rel="preconnect" href="https://fanart.tv">
-
-  <!-- Open Graph / Social Media -->
-  <meta property="og:type" content="website">
-  <meta property="og:url" content="https://powerscraperpro.com/">
-  <meta property="og:title" content="Power Scraper Pro - Professional Media Library Manager for Mac">
-  <meta property="og:description" content="The professional media library manager for Mac. Automatically organize, scrape metadata, and rename your movies and TV shows into Kodi-compliant formats.">
-  <meta property="og:image" content="https://powerscraperpro.com/ScreenShots/Movie Library.png">
-  <meta property="og:image:width" content="1763">
-  <meta property="og:image:height" content="1177">
-
-  <!-- Twitter Card -->
-  <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="Power Scraper Pro - Professional Media Library Manager for Mac">
-  <meta name="twitter:description" content="The professional media library manager for Mac. Automatically organize, scrape metadata, and rename your movies and TV shows into Kodi-compliant formats.">
-  <meta name="twitter:image" content="https://powerscraperpro.com/ScreenShots/Movie Library.png">
-
-  <!-- Canonical URL -->
-  <link rel="canonical" href="https://powerscraperpro.com/">
 </head>
 <body>
-  <!-- Skip Navigation Link for Accessibility -->
-  <a href="#main-content" class="skip-link">Skip to main content</a>
-
-  <!-- Scroll Progress Bar -->
-  <div class="scroll-progress" id="scroll-progress"></div>
-
   <!-- Navigation -->
   <nav class="nav">
-    <div class="nav-content">
+    <div class="nav-container">
       <a href="#" class="nav-logo">
-        <svg viewBox="0 0 24 24" fill="currentColor">
+        <svg viewBox="0 0 24 24" fill="currentColor" width="28" height="28">
           <path d="M18 4l2 4h-3l-2-4h-2l2 4h-3l-2-4H8l2 4H7L5 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V4h-4z"/>
         </svg>
-        Power Scraper Pro
+        <span>Power Scraper Pro</span>
       </a>
-
-      <button class="nav-toggle" aria-label="Toggle navigation" aria-expanded="false" aria-controls="nav-links">
-        <span></span>
-        <span></span>
-        <span></span>
-      </button>
-
-      <ul class="nav-links" id="nav-links">
-        <li><a href="#features">Features</a></li>
-        <li><a href="#screenshots">Screenshots</a></li>
-        <li><a href="#specs">Specifications</a></li>
-        <li><a href="#download" class="nav-cta">Coming Soon</a></li>
-      </ul>
+      <div class="nav-links">
+        <a href="#features">Features</a>
+        <a href="#gallery">Gallery</a>
+        <a href="#specs">Specs</a>
+        <a href="#download" class="nav-cta">Coming Soon</a>
+      </div>
     </div>
   </nav>
 
   <!-- Hero Section -->
-  <main id="main-content">
   <section class="hero">
     <div class="hero-content">
-      <div class="hero-badge animate">
-        <span class="badge-pulse"></span>
-        Lightning Fast • macOS Native • Just Works
+      <div class="hero-eyebrow">
+        <span class="status-dot"></span>
+        macOS Native • Apple Silicon Optimized
       </div>
-
-      <h1 class="hero-title animate animate-delay-1">Power Scraper Pro</h1>
-
-      <p class="hero-subtitle animate animate-delay-2">
-        The professional media library manager for Mac. Automatically organize, scrape metadata, and rename your movies and TV shows into Kodi-compliant formats.
-      </p>
-
-      <div class="hero-buttons animate animate-delay-3">
+      <h1 class="hero-title">Power Scraper Pro</h1>
+      <p class="hero-subtitle">The professional media library manager for Mac. Automatically organize, scrape metadata, and rename your movies and TV shows into Kodi-compliant formats.</p>
+      <div class="hero-buttons">
         <a href="#download" class="btn btn-primary">
-          <svg viewBox="0 0 24 24" fill="currentColor">
-            <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
+          <svg viewBox="0 0 24 24" fill="currentColor" width="20" height="20">
+            <path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.81-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/>
           </svg>
-          Coming Soon
+          Download for Mac
         </a>
-        <a href="#features" class="btn btn-secondary">
-          <svg viewBox="0 0 24 24" fill="currentColor">
-            <path d="M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5zM12 17c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z"/>
-          </svg>
-          See Features
-        </a>
+        <a href="#features" class="btn btn-secondary">Learn More</a>
       </div>
+    </div>
 
-      <div class="macos-window animate animate-delay-4">
-        <div class="window-titlebar">
-          <div class="traffic-lights">
-            <span class="light close"></span>
-            <span class="light minimize"></span>
-            <span class="light maximize"></span>
-          </div>
-          <span class="window-title">Power Scraper Pro</span>
+    <!-- Hero Screenshot -->
+    <div class="hero-window">
+      <div class="window-chrome">
+        <div class="window-buttons">
+          <span class="window-btn close"></span>
+          <span class="window-btn minimize"></span>
+          <span class="window-btn maximize"></span>
         </div>
-        <div class="window-content">
-          <picture>
-            <source srcset="ScreenShots/Movie Library.avif" type="image/avif">
-            <source srcset="ScreenShots/Movie Library.webp" type="image/webp">
-            <img src="ScreenShots/Movie Library.png" alt="Power Scraper Pro main interface showing a populated movie library" loading="eager" fetchpriority="high" width="1763" height="1177">
-          </picture>
-        </div>
+        <div class="window-title">Power Scraper Pro</div>
+      </div>
+      <div class="window-content">
+        <img src="ScreenShots/Movie Library.png" alt="Power Scraper Pro - Movie Library Interface" width="1763" height="1177" loading="eager">
       </div>
     </div>
   </section>
 
   <!-- Features Section -->
   <section class="features" id="features">
-    <div class="section-header reveal">
-      <div class="section-label">Features</div>
-      <h2 class="section-title">Everything you need to organize your media</h2>
-      <p class="section-subtitle">
-        Built from the ground up for macOS, Power Scraper Pro combines intelligent automation with professional-grade features to transform your media library.
-      </p>
+    <div class="section-intro">
+      <h2 class="section-title">Everything you need.<br>Nothing you don't.</h2>
+      <p class="section-subtitle">Built from the ground up for macOS with intelligent automation and professional-grade features.</p>
     </div>
 
     <div class="features-grid">
-      <div class="feature-card reveal">
+      <div class="feature-card">
         <div class="feature-icon">
-          <svg viewBox="0 0 24 24" fill="currentColor">
-            <path d="M20 6h-8l-2-2H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V8c0-1.1-.9-2-2-2zm-6 10H6v-2h8v2zm4-4H6v-2h12v2z"/>
-          </svg>
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M20 6h-8l-2-2H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V8c0-1.1-.9-2-2-2zm-6 10H6v-2h8v2zm4-4H6v-2h12v2z"/></svg>
         </div>
-        <h3 class="feature-title">Intelligent Scanning</h3>
-        <p class="feature-description">
-          Analyzes your media folders with advanced filename detection, accurately interpreting even complex movie and TV file names to automatically extract titles, release years, and quality details.
-        </p>
+        <h3>Intelligent Scanning</h3>
+        <p>Advanced filename detection that accurately interprets even the most complex movie and TV file names.</p>
       </div>
 
-      <div class="feature-card reveal">
+      <div class="feature-card">
         <div class="feature-icon">
-          <svg viewBox="0 0 24 24" fill="currentColor">
-            <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"/>
-          </svg>
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"/></svg>
         </div>
-        <h3 class="feature-title">Multi-Source Metadata</h3>
-        <p class="feature-description">
-          Pulls rich, accurate metadata from TMDB and Fanart.TV, including ratings, cast, crew, summaries, and a wide selection of artwork for every title.
-        </p>
+        <h3>Multi-Source Metadata</h3>
+        <p>Rich metadata from TMDB and Fanart.TV including ratings, cast, crew, summaries, and stunning artwork.</p>
       </div>
 
-      <div class="feature-card reveal">
+      <div class="feature-card">
         <div class="feature-icon">
-          <svg viewBox="0 0 24 24" fill="currentColor">
-            <path d="M20 6h-8l-2-2H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V8c0-1.1-.9-2-2-2zm-1 8h-3v3h-2v-3h-3v-2h3V9h2v3h3v2z"/>
-          </svg>
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M20 6h-8l-2-2H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V8c0-1.1-.9-2-2-2zm-1 8h-3v3h-2v-3h-3v-2h3V9h2v3h3v2z"/></svg>
         </div>
-        <h3 class="feature-title">Kodi-Compliant Output</h3>
-        <p class="feature-description">
-          Automatically sorts loose media files into properly named folders, generates compliant NFO files, and arranges your library in the precise directory layout Kodi requires — ready to use right out of the box.
-        </p>
+        <h3>Kodi-Compliant Output</h3>
+        <p>Automatically generates NFO files and arranges your library in the precise directory layout Kodi requires.</p>
       </div>
 
-      <div class="feature-card reveal">
+      <div class="feature-card">
         <div class="feature-icon">
-          <svg viewBox="0 0 24 24" fill="currentColor">
-            <path d="M15 9H9v6h6V9zm-2 4h-2v-2h2v2zm8-2V9h-2V7c0-1.1-.9-2-2-2h-2V3h-2v2h-2V3H9v2H7c-1.1 0-2 .9-2 2v2H3v2h2v2H3v2h2v2c0 1.1.9 2 2 2h2v2h2v-2h2v2h2v-2h2c1.1 0 2-.9 2-2v-2h2v-2h-2v-2h2zm-4 6H7V7h10v10z"/>
-          </svg>
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M15 9H9v6h6V9zm-2 4h-2v-2h2v2zm8-2V9h-2V7c0-1.1-.9-2-2-2h-2V3h-2v2h-2V3H9v2H7c-1.1 0-2 .9-2 2v2H3v2h2v2H3v2h2v2c0 1.1.9 2 2 2h2v2h2v-2h2v2h2v-2h2c1.1 0 2-.9 2-2v-2h2v-2h-2v-2h2zm-4 6H7V7h10v10z"/></svg>
         </div>
-        <h3 class="feature-title">Apple Silicon Optimized</h3>
-        <p class="feature-description">
-          Designed natively for Apple Silicon with GPU-accelerated image processing via Metal. Posters and thumbnails render instantly, and scrolling stays buttery smooth even with 500+ movies.
-        </p>
+        <h3>Apple Silicon Optimized</h3>
+        <p>Native Apple Silicon with Metal GPU acceleration. Buttery smooth scrolling even with 500+ movies.</p>
       </div>
 
-      <div class="feature-card reveal">
+      <div class="feature-card">
         <div class="feature-icon">
-          <svg viewBox="0 0 24 24" fill="currentColor">
-            <path d="M2 20h20v-4H2v4zm2-3h2v2H4v-2zM2 4v4h20V4H2zm4 3H4V5h2v2zm-4 7h20v-4H2v4zm2-3h2v2H4v-2z"/>
-          </svg>
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M2 20h20v-4H2v4zm2-3h2v2H4v-2zM2 4v4h20V4H2zm4 3H4V5h2v2zm-4 7h20v-4H2v4zm2-3h2v2H4v-2z"/></svg>
         </div>
-        <h3 class="feature-title">NAS-Optimized Scanning</h3>
-        <p class="feature-description">
-          Delivers dramatically faster performance on network-attached storage with 10–20× speed boosts and a streamlined single-pass scanner that eliminates traditional file-by-file overhead.
-        </p>
+        <h3>NAS-Optimized</h3>
+        <p>10–20× faster performance on network-attached storage with streamlined single-pass scanning.</p>
       </div>
 
-      <div class="feature-card reveal">
+      <div class="feature-card">
         <div class="feature-icon">
-          <svg viewBox="0 0 24 24" fill="currentColor">
-            <path d="M17.65 6.35C16.2 4.9 14.21 4 12 4c-4.42 0-7.99 3.58-7.99 8s3.57 8 7.99 8c3.73 0 6.84-2.55 7.73-6h-2.08c-.82 2.33-3.04 4-5.65 4-3.31 0-6-2.69-6-6s2.69-6 6-6c1.66 0 3.14.69 4.22 1.78L13 11h7V4l-2.35 2.35z"/>
-          </svg>
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.65 6.35C16.2 4.9 14.21 4 12 4c-4.42 0-7.99 3.58-7.99 8s3.57 8 7.99 8c3.73 0 6.84-2.55 7.73-6h-2.08c-.82 2.33-3.04 4-5.65 4-3.31 0-6-2.69-6-6s2.69-6 6-6c1.66 0 3.14.69 4.22 1.78L13 11h7V4l-2.35 2.35z"/></svg>
         </div>
-        <h3 class="feature-title">Resume From Quit</h3>
-        <p class="feature-description">
-          Handles large scraping jobs effortlessly by remembering your exact progress, allowing the app to resume instantly after a quit or crash — no rescanning needed.
-        </p>
-      </div>
-
-      <div class="feature-card reveal">
-        <div class="feature-icon">
-          <svg viewBox="0 0 24 24" fill="currentColor">
-            <path d="M10 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V8c0-1.1-.9-2-2-2h-8l-2-2z"/>
-            <path d="M12 11v2h2c0 1.1-.9 2-2 2s-2-.9-2-2 .9-2 2-2m0-2c-2.2 0-4 1.8-4 4s1.8 4 4 4 4-1.8 4-4h-4V9z"/>
-          </svg>
-        </div>
-        <h3 class="feature-title">Smart Watch Folders</h3>
-        <p class="feature-description">
-          Automatically monitors designated movie and TV folders for new content. Choose a custom output destination, and Power Scraper Pro will process and relocate files while keeping them visible in your in-app library.
-        </p>
-      </div>
-
-      <div class="feature-card reveal">
-        <div class="feature-icon">
-          <svg viewBox="0 0 24 24" fill="currentColor">
-            <path d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z"/>
-          </svg>
-        </div>
-        <h3 class="feature-title">Drag & Drop Folder Support</h3>
-        <p class="feature-description">
-          Quickly add media to your library by dragging folders directly onto the app. Power Scraper Pro will immediately scan and process all media files inside.
-        </p>
+        <h3>Resume From Quit</h3>
+        <p>Remembers your exact progress, allowing instant resume after quit or crash — no rescanning needed.</p>
       </div>
     </div>
   </section>
 
-  <!-- Screenshots Gallery -->
-  <section class="gallery" id="screenshots">
-    <div class="section-header reveal">
-      <div class="section-label">Gallery</div>
-      <h2 class="section-title">See It In Action</h2>
-      <p class="section-subtitle">
-        Explore the beautiful, cinema-quality interface designed for power users who demand the best.
-      </p>
+  <!-- Gallery Section -->
+  <section class="gallery" id="gallery">
+    <div class="section-intro">
+      <h2 class="section-title">See it in action.</h2>
+      <p class="section-subtitle">A cinema-quality interface designed for power users who demand the best.</p>
     </div>
 
-    <div class="gallery-container">
-      <button class="gallery-nav prev" aria-label="Previous screenshot">
-        <svg viewBox="0 0 24 24"><path d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z"/></svg>
-      </button>
-      <button class="gallery-nav next" aria-label="Next screenshot">
-        <svg viewBox="0 0 24 24"><path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"/></svg>
-      </button>
-      <div class="gallery-scroll" id="gallery-scroll" tabindex="0" role="region" aria-label="Screenshot gallery - use arrow keys to navigate">
-        <div class="gallery-item">
-          <div class="gallery-frame">
-            <picture>
-              <source srcset="ScreenShots/Empty Library.avif" type="image/avif">
-              <source srcset="ScreenShots/Empty Library.webp" type="image/webp">
-              <img src="ScreenShots/Empty Library.png" alt="First-run experience showing empty library ready for folder selection" loading="lazy" width="1392" height="1177" decoding="async">
-            </picture>
-          </div>
-          <p class="gallery-caption">Simple onboarding experience</p>
-        </div>
-
-        <div class="gallery-item">
-          <div class="gallery-frame">
-            <picture>
-              <source srcset="ScreenShots/Movie Library.avif" type="image/avif">
-              <source srcset="ScreenShots/Movie Library.webp" type="image/webp">
-              <img src="ScreenShots/Movie Library.png" alt="Populated movie library with posters and metadata" loading="lazy" width="1763" height="1177" decoding="async">
-            </picture>
-          </div>
-          <p class="gallery-caption">Clean, professional movie library</p>
-        </div>
-
-        <div class="gallery-item">
-          <div class="gallery-frame">
-            <picture>
-              <source srcset="ScreenShots/Poster Selection.avif" type="image/avif">
-              <source srcset="ScreenShots/Poster Selection.webp" type="image/webp">
-              <img src="ScreenShots/Poster Selection.png" alt="Poster selection dialog with artwork options from TMDB and Fanart.TV" loading="lazy" width="1763" height="1177" decoding="async">
-            </picture>
-          </div>
-          <p class="gallery-caption">Choose from dozens of artwork options</p>
-        </div>
-
-        <div class="gallery-item">
-          <div class="gallery-frame">
-            <picture>
-              <source srcset="ScreenShots/TV Episodes.avif" type="image/avif">
-              <source srcset="ScreenShots/TV Episodes.webp" type="image/webp">
-              <img src="ScreenShots/TV Episodes.png" alt="TV show with episode list and season navigation" loading="lazy" width="1542" height="1353" decoding="async">
-            </picture>
-          </div>
-          <p class="gallery-caption">Full TV show and episode support</p>
-        </div>
-
-        <div class="gallery-item">
-          <div class="gallery-frame">
-            <picture>
-              <source srcset="ScreenShots/Scraping Progress.avif" type="image/avif">
-              <source srcset="ScreenShots/Scraping Progress.webp" type="image/webp">
-              <img src="ScreenShots/Scraping Progress.png" alt="Scraping in progress with real-time status updates" loading="lazy" width="1542" height="1353" decoding="async">
-            </picture>
-          </div>
-          <p class="gallery-caption">Real-time scraping progress</p>
-        </div>
-
-        <div class="gallery-item">
-          <div class="gallery-frame">
-            <picture>
-              <source srcset="ScreenShots/Adjust Artwork.avif" type="image/avif">
-              <source srcset="ScreenShots/Adjust Artwork.webp" type="image/webp">
-              <img src="ScreenShots/Adjust Artwork.png" alt="Artwork position adjustment tool for perfect banner cropping" loading="lazy" width="1542" height="1353" decoding="async">
-            </picture>
-          </div>
-          <p class="gallery-caption">Fine-tune artwork positioning</p>
-        </div>
-      </div>
-      <div class="gallery-dots" id="gallery-dots"></div>
-      <div class="gallery-swipe-hint" aria-hidden="true">
-        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M6.99 11L3 15l3.99 4v-3H14v-2H6.99v-3zM21 9l-3.99-4v3H10v2h7.01v3L21 9z"/></svg>
-        Swipe to explore
-      </div>
+    <div class="gallery-grid" id="gallery-grid">
+      <a href="ScreenShots/Movie Library.png" class="gallery-item" data-pswp-width="1763" data-pswp-height="1177">
+        <img src="ScreenShots/Movie Library.png" alt="Movie Library" loading="lazy">
+        <span class="gallery-caption">Movie Library</span>
+      </a>
+      <a href="ScreenShots/TV Episodes.png" class="gallery-item" data-pswp-width="1542" data-pswp-height="1353">
+        <img src="ScreenShots/TV Episodes.png" alt="TV Episodes" loading="lazy">
+        <span class="gallery-caption">TV Episodes</span>
+      </a>
+      <a href="ScreenShots/Poster Selection.png" class="gallery-item" data-pswp-width="1763" data-pswp-height="1177">
+        <img src="ScreenShots/Poster Selection.png" alt="Poster Selection" loading="lazy">
+        <span class="gallery-caption">Poster Selection</span>
+      </a>
+      <a href="ScreenShots/Scraping Progress.png" class="gallery-item" data-pswp-width="1542" data-pswp-height="1353">
+        <img src="ScreenShots/Scraping Progress.png" alt="Scraping Progress" loading="lazy">
+        <span class="gallery-caption">Scraping Progress</span>
+      </a>
+      <a href="ScreenShots/Empty Library.png" class="gallery-item" data-pswp-width="1392" data-pswp-height="1177">
+        <img src="ScreenShots/Empty Library.png" alt="Empty Library" loading="lazy">
+        <span class="gallery-caption">Getting Started</span>
+      </a>
+      <a href="ScreenShots/Adjust Artwork.png" class="gallery-item" data-pswp-width="1542" data-pswp-height="1353">
+        <img src="ScreenShots/Adjust Artwork.png" alt="Adjust Artwork" loading="lazy">
+        <span class="gallery-caption">Artwork Adjustment</span>
+      </a>
     </div>
   </section>
 
   <!-- Specs Section -->
   <section class="specs" id="specs">
-    <div class="section-header reveal">
-      <div class="section-label">Technical</div>
-      <h2 class="section-title">Built for Professionals</h2>
-      <p class="section-subtitle">
-        Enterprise-grade architecture with Swift 6.2 strict concurrency and zero data races.
-      </p>
+    <div class="section-intro">
+      <h2 class="section-title">Built for professionals.</h2>
+      <p class="section-subtitle">Enterprise-grade architecture with Swift 6.2 strict concurrency and zero data races.</p>
     </div>
 
-    <div class="specs-container">
-      <div class="specs-grid">
-        <div class="spec-card reveal">
-          <h3 class="spec-title">System Requirements</h3>
-          <ul class="spec-list">
-            <li>
-              <span class="spec-label">Platform</span>
-              <span class="spec-value">macOS 14 Sonoma+</span>
-            </li>
-            <li>
-              <span class="spec-label">Optimized For</span>
-              <span class="spec-value">macOS 26 Tahoe</span>
-            </li>
-            <li>
-              <span class="spec-label">Processor</span>
-              <span class="spec-value">Apple Silicon</span>
-            </li>
-            <li>
-              <span class="spec-label">Memory</span>
-              <span class="spec-value">4GB (8GB recommended)</span>
-            </li>
-            <li>
-              <span class="spec-label">Storage</span>
-              <span class="spec-value">100MB</span>
-            </li>
-          </ul>
-        </div>
-
-        <div class="spec-card reveal">
-          <h3 class="spec-title">Technology Stack</h3>
-          <ul class="spec-list">
-            <li>
-              <span class="spec-label">Language</span>
-              <span class="spec-value">Swift 6.2</span>
-            </li>
-            <li>
-              <span class="spec-label">Framework</span>
-              <span class="spec-value">SwiftUI + AppKit</span>
-            </li>
-            <li>
-              <span class="spec-label">Database</span>
-              <span class="spec-value">SQLite</span>
-            </li>
-            <li>
-              <span class="spec-label">Architecture</span>
-              <span class="spec-value">MVVM</span>
-            </li>
-            <li>
-              <span class="spec-label">Concurrency</span>
-              <span class="spec-value">Zero Data Races</span>
-            </li>
-          </ul>
-        </div>
-
-        <div class="spec-card reveal">
-          <h3 class="spec-title">Supported Formats</h3>
-          <ul class="spec-list">
-            <li>
-              <span class="spec-label">Video</span>
-              <span class="spec-value">MKV, MP4, AVI, M4V, ISO</span>
-            </li>
-            <li>
-              <span class="spec-label">Video Codecs</span>
-              <span class="spec-value">HEVC, AVC, AV1</span>
-            </li>
-            <li>
-              <span class="spec-label">Resolutions</span>
-              <span class="spec-value">4K, 1080p, 720p, SD</span>
-            </li>
-            <li>
-              <span class="spec-label">HDR</span>
-              <span class="spec-value">Dolby Vision, HDR10+</span>
-            </li>
-            <li>
-              <span class="spec-label">Audio</span>
-              <span class="spec-value">TrueHD Atmos, EAC3</span>
-            </li>
-          </ul>
-        </div>
-
-        <div class="spec-card reveal">
-          <h3 class="spec-title">API Integrations</h3>
-          <ul class="spec-list">
-            <li>
-              <span class="spec-label">Metadata</span>
-              <span class="spec-value">TMDB</span>
-            </li>
-            <li>
-              <span class="spec-label">Artwork</span>
-              <span class="spec-value">Fanart.TV</span>
-            </li>
-            <li>
-              <span class="spec-label">Rate Limit</span>
-              <span class="spec-value">40 req/10s</span>
-            </li>
-            <li>
-              <span class="spec-label">Concurrent</span>
-              <span class="spec-value">10 requests</span>
-            </li>
-            <li>
-              <span class="spec-label">Resilience</span>
-              <span class="spec-value">Circuit Breaker</span>
-            </li>
-          </ul>
-        </div>
+    <div class="specs-grid">
+      <div class="spec-card">
+        <h3>System Requirements</h3>
+        <ul>
+          <li><span>Platform</span><span>macOS 14 Sonoma+</span></li>
+          <li><span>Processor</span><span>Apple Silicon</span></li>
+          <li><span>Memory</span><span>4GB minimum</span></li>
+          <li><span>Storage</span><span>100MB</span></li>
+        </ul>
       </div>
 
-      <div class="code-badges reveal">
-        <div class="code-badge">
-          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M9.4 16.6L4.8 12l4.6-4.6L8 6l-6 6 6 6 1.4-1.4zm5.2 0l4.6-4.6-4.6-4.6L16 6l6 6-6 6-1.4-1.4z"/></svg>
-          Swift 6.2 Strict Concurrency
-        </div>
-        <div class="code-badge">
-          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M14 2H6c-1.1 0-1.99.9-1.99 2L4 20c0 1.1.89 2 1.99 2H18c1.1 0 2-.9 2-2V8l-6-6zm2 16H8v-2h8v2zm0-4H8v-2h8v2zm-3-5V3.5L18.5 9H13z"/></svg>
-          265 Source Files
-        </div>
-        <div class="code-badge">
-          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z"/></svg>
-          50,000+ Lines of Code
-        </div>
-        <div class="code-badge">
-          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M4 8h4V4H4v4zm6 12h4v-4h-4v4zm-6 0h4v-4H4v4zm0-6h4v-4H4v4zm6 0h4v-4h-4v4zm6-10v4h4V4h-4zm-6 4h4V4h-4v4zm6 6h4v-4h-4v4zm0 6h4v-4h-4v4z"/></svg>
-          MVVM Architecture
-        </div>
-        <div class="code-badge">
-          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm0 10.99h7c-.53 4.12-3.28 7.79-7 8.94V12H5V6.3l7-3.11v8.8z"/></svg>
-          Protocol-Based Design
-        </div>
+      <div class="spec-card">
+        <h3>Technology Stack</h3>
+        <ul>
+          <li><span>Language</span><span>Swift 6.2</span></li>
+          <li><span>Framework</span><span>SwiftUI + AppKit</span></li>
+          <li><span>Database</span><span>SQLite</span></li>
+          <li><span>Graphics</span><span>Metal</span></li>
+        </ul>
       </div>
-    </div>
-  </section>
 
-  <!-- Media Detection Section -->
-  <section class="settings">
-    <div class="section-header reveal">
-      <div class="section-label">Detection</div>
-      <h2 class="section-title">Know Your Media</h2>
-      <p class="section-subtitle">
-        Automatically detects and displays detailed media information for every file.
-      </p>
-    </div>
+      <div class="spec-card">
+        <h3>Supported Formats</h3>
+        <ul>
+          <li><span>Video</span><span>MKV, MP4, AVI, M4V</span></li>
+          <li><span>Codecs</span><span>HEVC, AVC, AV1</span></li>
+          <li><span>HDR</span><span>Dolby Vision, HDR10+</span></li>
+          <li><span>Audio</span><span>TrueHD Atmos, EAC3</span></li>
+        </ul>
+      </div>
 
-    <div class="media-badges reveal">
-      <div class="media-badge">
-        <svg viewBox="0 0 24 24"><path d="M18 4l2 4h-3l-2-4h-2l2 4h-3l-2-4H8l2 4H7L5 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V4h-4z"/></svg>
-        4K Ultra HD
-      </div>
-      <div class="media-badge">
-        <svg viewBox="0 0 24 24"><path d="M7.5 5.6L10 7 8.6 4.5 10 2 7.5 3.4 5 2l1.4 2.5L5 7zm12 9.8L17 14l1.4 2.5L17 19l2.5-1.4L22 19l-1.4-2.5L22 14zM22 2l-2.5 1.4L17 2l1.4 2.5L17 7l2.5-1.4L22 7l-1.4-2.5zm-7.63 5.29c-.39-.39-1.02-.39-1.41 0L1.29 18.96c-.39.39-.39 1.02 0 1.41l2.34 2.34c.39.39 1.02.39 1.41 0L16.7 11.05c.39-.39.39-1.02 0-1.41l-2.33-2.35z"/></svg>
-        Dolby Vision
-      </div>
-      <div class="media-badge">
-        <svg viewBox="0 0 24 24"><path d="M7.5 5.6L10 7 8.6 4.5 10 2 7.5 3.4 5 2l1.4 2.5L5 7zm12 9.8L17 14l1.4 2.5L17 19l2.5-1.4L22 19l-1.4-2.5L22 14zM22 2l-2.5 1.4L17 2l1.4 2.5L17 7l2.5-1.4L22 7l-1.4-2.5zm-7.63 5.29c-.39-.39-1.02-.39-1.41 0L1.29 18.96c-.39.39-.39 1.02 0 1.41l2.34 2.34c.39.39 1.02.39 1.41 0L16.7 11.05c.39-.39.39-1.02 0-1.41l-2.33-2.35z"/></svg>
-        HDR10+
-      </div>
-      <div class="media-badge">
-        <svg viewBox="0 0 24 24"><path d="M12 3v9.28c-.47-.17-.97-.28-1.5-.28C8.01 12 6 14.01 6 16.5S8.01 21 10.5 21c2.31 0 4.2-1.75 4.45-4H15V6h4V3h-7z"/></svg>
-        TrueHD Atmos
-      </div>
-      <div class="media-badge">
-        <svg viewBox="0 0 24 24"><path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z"/></svg>
-        7.1 Surround
-      </div>
-      <div class="media-badge">
-        <svg viewBox="0 0 24 24"><path d="M9.4 16.6L4.8 12l4.6-4.6L8 6l-6 6 6 6 1.4-1.4zm5.2 0l4.6-4.6-4.6-4.6L16 6l6 6-6 6-1.4-1.4z"/></svg>
-        HEVC / H.265
-      </div>
-      <div class="media-badge">
-        <svg viewBox="0 0 24 24"><path d="M9.4 16.6L4.8 12l4.6-4.6L8 6l-6 6 6 6 1.4-1.4zm5.2 0l4.6-4.6-4.6-4.6L16 6l6 6-6 6-1.4-1.4z"/></svg>
-        AV1
-      </div>
-      <div class="media-badge">
-        <svg viewBox="0 0 24 24"><path d="M12 3v9.28c-.47-.17-.97-.28-1.5-.28C8.01 12 6 14.01 6 16.5S8.01 21 10.5 21c2.31 0 4.2-1.75 4.45-4H15V6h4V3h-7z"/></svg>
-        EAC3 / DD+
-      </div>
-    </div>
-  </section>
-
-  <!-- Keyboard Shortcuts -->
-  <section class="shortcuts">
-    <div class="section-header reveal">
-      <div class="section-label">Productivity</div>
-      <h2 class="section-title">Keyboard First</h2>
-      <p class="section-subtitle">
-        Navigate and control everything with intuitive keyboard shortcuts.
-      </p>
-    </div>
-
-    <div class="shortcuts-grid reveal">
-      <div class="shortcut">
-        <span>Movies</span>
-        <div class="shortcut-keys">
-          <span class="key">⌘</span>
-          <span class="key">1</span>
-        </div>
-      </div>
-      <div class="shortcut">
-        <span>TV Shows</span>
-        <div class="shortcut-keys">
-          <span class="key">⌘</span>
-          <span class="key">2</span>
-        </div>
-      </div>
-      <div class="shortcut">
-        <span>Recent Actions</span>
-        <div class="shortcut-keys">
-          <span class="key">⌘</span>
-          <span class="key">⌥</span>
-          <span class="key">R</span>
-        </div>
-      </div>
-      <div class="shortcut">
-        <span>Error Log</span>
-        <div class="shortcut-keys">
-          <span class="key">⌘</span>
-          <span class="key">⌥</span>
-          <span class="key">E</span>
-        </div>
-      </div>
-      <div class="shortcut">
-        <span>Settings</span>
-        <div class="shortcut-keys">
-          <span class="key">⌘</span>
-          <span class="key">,</span>
-        </div>
-      </div>
-      <div class="shortcut">
-        <span>Help</span>
-        <div class="shortcut-keys">
-          <span class="key">⌘</span>
-          <span class="key">?</span>
-        </div>
-      </div>
-      <div class="shortcut">
-        <span>Undo Delete</span>
-        <div class="shortcut-keys">
-          <span class="key">⌘</span>
-          <span class="key">Z</span>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Social Proof / Built With Section -->
-  <section class="social-proof">
-    <div class="section-header reveal">
-      <div class="section-label">Built With</div>
-      <h2 class="section-title">Crafted with Modern Technology</h2>
-      <p class="section-subtitle">
-        Power Scraper Pro leverages the latest Apple technologies for a fast, native macOS experience.
-      </p>
-    </div>
-
-    <div class="tech-stack reveal">
-      <div class="tech-item">
-        <div class="tech-icon">
-          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.81-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg>
-        </div>
-        <span class="tech-name">SwiftUI</span>
-        <span class="tech-desc">Native UI Framework</span>
-      </div>
-      <div class="tech-item">
-        <div class="tech-icon">
-          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg>
-        </div>
-        <span class="tech-name">Swift 6.2</span>
-        <span class="tech-desc">Strict Concurrency</span>
-      </div>
-      <div class="tech-item">
-        <div class="tech-icon">
-          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M15 9H9v6h6V9zm-2 4h-2v-2h2v2zm8-2V9h-2V7c0-1.1-.9-2-2-2h-2V3h-2v2h-2V3H9v2H7c-1.1 0-2 .9-2 2v2H3v2h2v2H3v2h2v2c0 1.1.9 2 2 2h2v2h2v-2h2v2h2v-2h2c1.1 0 2-.9 2-2v-2h2v-2h-2v-2h2zm-4 6H7V7h10v10z"/></svg>
-        </div>
-        <span class="tech-name">Metal</span>
-        <span class="tech-desc">GPU Acceleration</span>
-      </div>
-      <div class="tech-item">
-        <div class="tech-icon">
-          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M20 6h-8l-2-2H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V8c0-1.1-.9-2-2-2zm-1 8h-3v3h-2v-3h-3v-2h3V9h2v3h3v2z"/></svg>
-        </div>
-        <span class="tech-name">SQLite</span>
-        <span class="tech-desc">Local Database</span>
-      </div>
-      <div class="tech-item">
-        <div class="tech-icon">
-          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"/></svg>
-        </div>
-        <span class="tech-name">TMDB API</span>
-        <span class="tech-desc">Metadata Source</span>
+      <div class="spec-card">
+        <h3>API Integrations</h3>
+        <ul>
+          <li><span>Metadata</span><span>TMDB</span></li>
+          <li><span>Artwork</span><span>Fanart.TV</span></li>
+          <li><span>Rate Limit</span><span>40 req/10s</span></li>
+          <li><span>Resilience</span><span>Circuit Breaker</span></li>
+        </ul>
       </div>
     </div>
 
-    <div class="beta-testers reveal">
-      <div class="beta-badge">
-        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5c-1.66 0-3 1.34-3 3s1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5C6.34 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5zm8 0c-.29 0-.62.02-.97.05 1.16.84 1.97 1.97 1.97 3.45V19h6v-2.5c0-2.33-4.67-3.5-7-3.5z"/></svg>
-        <span>Trusted by early beta testers</span>
+    <div class="stats-row">
+      <div class="stat">
+        <span class="stat-value">265</span>
+        <span class="stat-label">Source Files</span>
       </div>
-      <p class="beta-note">Join the waitlist for exclusive beta access</p>
+      <div class="stat">
+        <span class="stat-value">50K+</span>
+        <span class="stat-label">Lines of Code</span>
+      </div>
+      <div class="stat">
+        <span class="stat-value">0</span>
+        <span class="stat-label">Data Races</span>
+      </div>
+      <div class="stat">
+        <span class="stat-value">100%</span>
+        <span class="stat-label">Swift Concurrency</span>
+      </div>
     </div>
   </section>
 
   <!-- Download Section -->
   <section class="download" id="download">
-    <div class="download-content reveal">
-      <div class="download-badge">Launching February 2026</div>
-      <h2 class="download-title">Ready to Transform Your Media Library?</h2>
-      <p class="download-subtitle">Join beta testers already organizing their collections. Be the first to know when we launch.</p>
+    <div class="download-content">
+      <span class="download-badge">Coming February 2026</span>
+      <h2>Ready to transform your<br>media library?</h2>
+      <p>Join beta testers already organizing their collections.</p>
 
-      <form class="email-form" id="email-form">
-        <div class="email-input-wrapper">
-          <input type="email"
-                 class="email-input"
-                 id="email-input"
-                 placeholder="Enter your email address"
-                 required
-                 autocomplete="email"
-                 aria-label="Email address">
-          <button type="submit" class="btn btn-primary email-submit">
-            <span class="btn-text">Get Early Access</span>
-            <span class="btn-loading" style="display: none;">
-              <svg class="spinner" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="3" fill="none" stroke-linecap="round" stroke-dasharray="31.4 31.4" /></svg>
-            </span>
-          </button>
-        </div>
-        <div class="email-message" id="email-message"></div>
+      <form class="signup-form" id="signup-form" action="https://formspree.io/f/xkgwqvpn" method="POST">
+        <input type="email" name="email" placeholder="Enter your email" required>
+        <button type="submit" class="btn btn-primary">Get Early Access</button>
       </form>
 
-      <div class="download-requirements">
-        <span>
-          <svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
-          Early access pricing for first signups
-        </span>
-        <span>
-          <svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
-          Direct beta access invitation
-        </span>
-        <span>
-          <svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
-          Priority feature requests
-        </span>
-      </div>
-
-      <div class="download-specs">
-        <div class="spec-item">
-          <span class="spec-icon">
-            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M18 4l2 4h-3l-2-4h-2l2 4h-3l-2-4H8l2 4H7L5 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V4h-4z"/></svg>
-          </span>
-          <span>macOS 14.0+</span>
-        </div>
-        <div class="spec-item">
-          <span class="spec-icon">
-            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M15 9H9v6h6V9zm-2 4h-2v-2h2v2zm8-2V9h-2V7c0-1.1-.9-2-2-2h-2V3h-2v2h-2V3H9v2H7c-1.1 0-2 .9-2 2v2H3v2h2v2H3v2h2v2c0 1.1.9 2 2 2h2v2h2v-2h2v2h2v-2h2c1.1 0 2-.9 2-2v-2h2v-2h-2v-2h2zm-4 6H7V7h10v10z"/></svg>
-          </span>
-          <span>Apple Silicon</span>
-        </div>
-        <div class="spec-item">
-          <span class="spec-icon">
-            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"/></svg>
-          </span>
-          <span>TMDB &amp; Fanart.TV</span>
-        </div>
+      <div class="download-features">
+        <span><svg viewBox="0 0 24 24" fill="currentColor" width="16" height="16"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg> Early access pricing</span>
+        <span><svg viewBox="0 0 24 24" fill="currentColor" width="16" height="16"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg> Direct beta invitation</span>
+        <span><svg viewBox="0 0 24 24" fill="currentColor" width="16" height="16"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg> Priority features</span>
       </div>
     </div>
   </section>
-  </main>
 
   <!-- Footer -->
   <footer class="footer">
     <div class="footer-content">
-      <div class="footer-top">
-        <div class="footer-brand">
-          <div class="footer-logo">
-            <svg class="footer-app-icon" viewBox="0 0 24 24" fill="currentColor">
-              <path d="M18 4l2 4h-3l-2-4h-2l2 4h-3l-2-4H8l2 4H7L5 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V4h-4z"/>
-            </svg>
-            Power Scraper Pro
-          </div>
-          <p class="footer-tagline">
-            The professional media library manager for Mac. Transform your movie and TV show collection into a fully organized, Kodi-compliant library.
-          </p>
-          <div class="footer-social">
-            <a href="https://twitter.com/powerscraperpro" target="_blank" rel="noopener noreferrer" aria-label="Follow us on X (Twitter)" class="social-link">
-              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
-            </a>
-            <a href="https://github.com/powerscraperpro" target="_blank" rel="noopener noreferrer" aria-label="View our GitHub" class="social-link">
-              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
-            </a>
-            <a href="mailto:powerscraperpro@gmail.com" aria-label="Email us" class="social-link">
-              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
-            </a>
-          </div>
-        </div>
-
-        <div class="footer-links">
-          <div class="footer-column">
-            <h4>Product</h4>
-            <ul>
-              <li><a href="#features">Features</a></li>
-              <li><a href="#screenshots">Screenshots</a></li>
-              <li><a href="#specs">Specifications</a></li>
-              <li><a href="#download">Download</a></li>
-            </ul>
-          </div>
-
-          <div class="footer-column">
-            <h4>Resources</h4>
-            <ul>
-              <li><a href="https://www.themoviedb.org/" target="_blank" rel="noopener noreferrer">TMDB</a></li>
-              <li><a href="https://fanart.tv/" target="_blank" rel="noopener noreferrer">Fanart.TV</a></li>
-              <li><a href="https://kodi.tv/" target="_blank" rel="noopener noreferrer">Kodi</a></li>
-            </ul>
-          </div>
-
-          <div class="footer-column">
-            <h4>Legal</h4>
-            <ul>
-              <li><a href="privacy.html">Privacy Policy</a></li>
-              <li><a href="terms.html">Terms of Use</a></li>
-              <li><a href="license.html">License</a></li>
-            </ul>
-          </div>
-        </div>
+      <div class="footer-brand">
+        <svg viewBox="0 0 24 24" fill="currentColor" width="24" height="24">
+          <path d="M18 4l2 4h-3l-2-4h-2l2 4h-3l-2-4H8l2 4H7L5 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V4h-4z"/>
+        </svg>
+        <span>Power Scraper Pro</span>
       </div>
-
-      <div class="footer-bottom">
-        <p class="footer-copyright">© 2025 Power Scraper Pro. All rights reserved.</p>
-        <p class="footer-attribution">
-          Movie and TV show metadata provided by TMDB and Fanart.TV. Power Scraper Pro is not affiliated with Kodi, TMDB, or Fanart.TV.
-        </p>
+      <div class="footer-links">
+        <a href="#features">Features</a>
+        <a href="#gallery">Gallery</a>
+        <a href="#specs">Specs</a>
+        <a href="privacy.html">Privacy</a>
       </div>
+      <p class="footer-copyright">© 2025 Power Scraper Pro. Metadata by TMDB & Fanart.TV.</p>
     </div>
   </footer>
 
-  <!-- Lightbox -->
-  <div class="lightbox" id="lightbox">
-    <div class="lightbox-content">
-      <button class="lightbox-close" aria-label="Close">&times;</button>
-      <img src="" alt="Screenshot preview" class="lightbox-image" id="lightbox-image">
-      <div class="lightbox-caption" id="lightbox-caption"></div>
-    </div>
-  </div>
+  <!-- PhotoSwipe 5 -->
+  <script type="module">
+    import PhotoSwipeLightbox from 'https://cdn.jsdelivr.net/npm/photoswipe@5.4.3/dist/photoswipe-lightbox.esm.min.js';
+    import PhotoSwipe from 'https://cdn.jsdelivr.net/npm/photoswipe@5.4.3/dist/photoswipe.esm.min.js';
 
-  <!-- JavaScript -->
-  <script src="script.js" defer></script>
+    const lightbox = new PhotoSwipeLightbox({
+      gallery: '#gallery-grid',
+      children: 'a',
+      pswpModule: PhotoSwipe,
+      bgOpacity: 0.95,
+      padding: { top: 40, bottom: 40, left: 40, right: 40 },
+      wheelToZoom: true,
+      arrowKeys: true,
+      escKey: true
+    });
+
+    lightbox.init();
+  </script>
+
+  <!-- Main JavaScript -->
+  <script src="script.js"></script>
 </body>
 </html>
