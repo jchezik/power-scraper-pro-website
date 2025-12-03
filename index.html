@@ -6,6 +6,24 @@
   <meta name="description" content="Power Scraper Pro - The professional media library manager for Mac. Automatically organize, scrape metadata, and rename your movies and TV shows into Kodi-compliant formats.">
   <meta name="keywords" content="macOS, media library, Kodi, TMDB, movie organizer, TV show organizer, metadata scraper">
   <title>Power Scraper Pro - Professional Media Library Manager for Mac</title>
+
+  <!-- Open Graph / Social Media -->
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://powerscraperpro.com/">
+  <meta property="og:title" content="Power Scraper Pro - Professional Media Library Manager for Mac">
+  <meta property="og:description" content="The professional media library manager for Mac. Automatically organize, scrape metadata, and rename your movies and TV shows into Kodi-compliant formats.">
+  <meta property="og:image" content="https://powerscraperpro.com/ScreenShots/DashBoard Dark.png">
+  <meta property="og:image:width" content="1715">
+  <meta property="og:image:height" content="1319">
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Power Scraper Pro - Professional Media Library Manager for Mac">
+  <meta name="twitter:description" content="The professional media library manager for Mac. Automatically organize, scrape metadata, and rename your movies and TV shows into Kodi-compliant formats.">
+  <meta name="twitter:image" content="https://powerscraperpro.com/ScreenShots/DashBoard Dark.png">
+
+  <!-- Canonical URL -->
+  <link rel="canonical" href="https://powerscraperpro.com/">
   <style>
     /* ===== CSS Reset & Base ===== */
     *, *::before, *::after {
@@ -1252,13 +1270,13 @@
         Power Scraper Pro
       </a>
 
-      <button class="nav-toggle" aria-label="Toggle navigation" onclick="document.querySelector('.nav-links').classList.toggle('active')">
+      <button class="nav-toggle" aria-label="Toggle navigation" aria-expanded="false" aria-controls="nav-links">
         <span></span>
         <span></span>
         <span></span>
       </button>
 
-      <ul class="nav-links">
+      <ul class="nav-links" id="nav-links">
         <li><a href="#features">Features</a></li>
         <li><a href="#screenshots">Screenshots</a></li>
         <li><a href="#specs">Specifications</a></li>
@@ -1306,7 +1324,10 @@
           <span class="window-title">Power Scraper Pro</span>
         </div>
         <div class="window-content">
-          <img src="ScreenShots/DashBoard Dark.png" alt="Power Scraper Pro main interface showing a populated movie library with Mortal Kombat" loading="eager">
+          <picture>
+            <source srcset="ScreenShots/DashBoard Dark.webp" type="image/webp">
+            <img src="ScreenShots/DashBoard Dark.png" alt="Power Scraper Pro main interface showing a populated movie library with Mortal Kombat" loading="eager" width="1715" height="1319">
+          </picture>
         </div>
       </div>
     </div>
@@ -1423,49 +1444,70 @@
     <div class="gallery-scroll">
       <div class="gallery-item">
         <div class="gallery-frame">
-          <img src="ScreenShots/DashBoard Dark.png" alt="Dashboard with populated movie library" loading="lazy">
+          <picture>
+            <source srcset="ScreenShots/DashBoard Dark.webp" type="image/webp">
+            <img src="ScreenShots/DashBoard Dark.png" alt="Dashboard with populated movie library" loading="lazy" width="1715" height="1319">
+          </picture>
         </div>
         <p class="gallery-caption">Clean, professional interface</p>
       </div>
 
       <div class="gallery-item">
         <div class="gallery-frame">
-          <img src="ScreenShots/Movie Selection Dark.png" alt="Movie poster selection with multiple options" loading="lazy">
+          <picture>
+            <source srcset="ScreenShots/Movie Selection Dark.webp" type="image/webp">
+            <img src="ScreenShots/Movie Selection Dark.png" alt="Movie poster selection with multiple options" loading="lazy" width="1774" height="1305">
+          </picture>
         </div>
         <p class="gallery-caption">Choose from multiple artwork sources</p>
       </div>
 
       <div class="gallery-item">
         <div class="gallery-frame light-bg">
-          <img src="ScreenShots/TV Selection Light.png" alt="TV show selection and metadata" loading="lazy">
+          <picture>
+            <source srcset="ScreenShots/TV Selection Light.webp" type="image/webp">
+            <img src="ScreenShots/TV Selection Light.png" alt="TV show selection and metadata" loading="lazy" width="2072" height="1319">
+          </picture>
         </div>
         <p class="gallery-caption">Extensive TV show metadata</p>
       </div>
 
       <div class="gallery-item">
         <div class="gallery-frame">
-          <img src="ScreenShots/Adjust FanArt Dark.png" alt="Fanart position adjustment" loading="lazy">
+          <picture>
+            <source srcset="ScreenShots/Adjust FanArt Dark.webp" type="image/webp">
+            <img src="ScreenShots/Adjust FanArt Dark.png" alt="Fanart position adjustment" loading="lazy" width="1715" height="1319">
+          </picture>
         </div>
         <p class="gallery-caption">Fine-tune artwork positioning</p>
       </div>
 
       <div class="gallery-item">
         <div class="gallery-frame light-bg">
-          <img src="ScreenShots/Movie Scraping Light.png" alt="Scraping progress at 86%" loading="lazy">
+          <picture>
+            <source srcset="ScreenShots/Movie Scraping Light.webp" type="image/webp">
+            <img src="ScreenShots/Movie Scraping Light.png" alt="Scraping progress at 86%" loading="lazy" width="1380" height="991">
+          </picture>
         </div>
         <p class="gallery-caption">Real-time progress tracking</p>
       </div>
 
       <div class="gallery-item">
         <div class="gallery-frame">
-          <img src="ScreenShots/Resume Previous Dark.png" alt="Session resume dialog" loading="lazy">
+          <picture>
+            <source srcset="ScreenShots/Resume Previous Dark.webp" type="image/webp">
+            <img src="ScreenShots/Resume Previous Dark.png" alt="Session resume dialog" loading="lazy" width="1774" height="1305">
+          </picture>
         </div>
         <p class="gallery-caption">Never lose your progress</p>
       </div>
 
       <div class="gallery-item">
         <div class="gallery-frame">
-          <img src="ScreenShots/Watch Folder Dark.png" alt="Smart Watch Folders configuration" loading="lazy">
+          <picture>
+            <source srcset="ScreenShots/Watch Folder Dark.webp" type="image/webp">
+            <img src="ScreenShots/Watch Folder Dark.png" alt="Smart Watch Folders configuration" loading="lazy" width="1012" height="700">
+          </picture>
         </div>
         <p class="gallery-caption">Automatic folder monitoring</p>
       </div>
@@ -1513,7 +1555,10 @@
         </ul>
       </div>
       <div class="showcase-image light-bg">
-        <img src="ScreenShots/Movies Scraped Light.png" alt="Four movies fully scraped with metadata" loading="lazy">
+        <picture>
+          <source srcset="ScreenShots/Movies Scraped Light.webp" type="image/webp">
+          <img src="ScreenShots/Movies Scraped Light.png" alt="Four movies fully scraped with metadata" loading="lazy" width="1380" height="991">
+        </picture>
       </div>
     </div>
 
@@ -1556,7 +1601,10 @@
         </ul>
       </div>
       <div class="showcase-image light-bg">
-        <img src="ScreenShots/TV Shows Scraped Light.png" alt="TV show metadata and season information" loading="lazy">
+        <picture>
+          <source srcset="ScreenShots/TV Shows Scraped Light.webp" type="image/webp">
+          <img src="ScreenShots/TV Shows Scraped Light.png" alt="TV show metadata and season information" loading="lazy" width="1715" height="1319">
+        </picture>
       </div>
     </div>
   </section>
@@ -1574,7 +1622,10 @@
     <div class="settings-grid">
       <div class="settings-card reveal">
         <div class="settings-image">
-          <img src="ScreenShots/Appearance Settings Dark.png" alt="Theme and appearance settings" loading="lazy">
+          <picture>
+            <source srcset="ScreenShots/Appearance Settings Dark.webp" type="image/webp">
+            <img src="ScreenShots/Appearance Settings Dark.png" alt="Theme and appearance settings" loading="lazy" width="1012" height="700">
+          </picture>
         </div>
         <div class="settings-content">
           <h3 class="settings-title">Theme Options</h3>
@@ -1586,7 +1637,10 @@
 
       <div class="settings-card reveal">
         <div class="settings-image">
-          <img src="ScreenShots/Scraper Settings Dark.png" alt="Scraper configuration settings" loading="lazy">
+          <picture>
+            <source srcset="ScreenShots/Scraper Settings Dark.webp" type="image/webp">
+            <img src="ScreenShots/Scraper Settings Dark.png" alt="Scraper configuration settings" loading="lazy" width="1012" height="700">
+          </picture>
         </div>
         <div class="settings-content">
           <h3 class="settings-title">Scraping Control</h3>
@@ -1598,7 +1652,10 @@
 
       <div class="settings-card reveal">
         <div class="settings-image">
-          <img src="ScreenShots/Rename Settings Dark.png" alt="File renaming settings" loading="lazy">
+          <picture>
+            <source srcset="ScreenShots/Rename Settings Dark.webp" type="image/webp">
+            <img src="ScreenShots/Rename Settings Dark.png" alt="File renaming settings" loading="lazy" width="1012" height="700">
+          </picture>
         </div>
         <div class="settings-content">
           <h3 class="settings-title">File Management</h3>
@@ -1954,6 +2011,16 @@
 
   <!-- JavaScript for Animations -->
   <script>
+    // Mobile navigation toggle
+    const navToggle = document.querySelector('.nav-toggle');
+    const navLinks = document.getElementById('nav-links');
+
+    navToggle.addEventListener('click', () => {
+      const isExpanded = navToggle.getAttribute('aria-expanded') === 'true';
+      navToggle.setAttribute('aria-expanded', !isExpanded);
+      navLinks.classList.toggle('active');
+    });
+
     // Intersection Observer for scroll animations
     const observerOptions = {
       root: null,
@@ -1985,7 +2052,8 @@
             block: 'start'
           });
           // Close mobile nav if open
-          document.querySelector('.nav-links').classList.remove('active');
+          navLinks.classList.remove('active');
+          navToggle.setAttribute('aria-expanded', 'false');
         }
       });
     });
