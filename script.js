@@ -357,18 +357,26 @@
       if (btnLoading) btnLoading.style.display = 'inline-flex';
       if (submitBtn) submitBtn.disabled = true;
 
-      // Simulate API call (replace with actual endpoint when available)
+      // Submit to Formspree
       try {
-        // For now, we'll use mailto as fallback but with better UX
-        await new Promise(resolve => setTimeout(resolve, 1000));
+        const response = await fetch('https://formspree.io/f/xovgwzoq', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Accept': 'application/json'
+          },
+          body: JSON.stringify({
+            email: email,
+            _subject: 'Power Scraper Pro - Early Access Request'
+          })
+        });
 
-        // Open mailto with pre-filled content
-        const subject = encodeURIComponent('Power Scraper Pro - Early Access Request');
-        const body = encodeURIComponent(`Hi,\n\nPlease add me to the Power Scraper Pro early access list.\n\nEmail: ${email}\n\nThank you!`);
-        window.location.href = `mailto:powerscraperpro@gmail.com?subject=${subject}&body=${body}`;
+        if (!response.ok) {
+          throw new Error('Form submission failed');
+        }
 
         // Show success message
-        emailMessage.textContent = 'Thanks for signing up! Check your email client to complete registration.';
+        emailMessage.textContent = 'You\'re on the list! We\'ll notify you when early access is available.';
         emailMessage.className = 'email-message success';
         emailInput.value = '';
       } catch (error) {
