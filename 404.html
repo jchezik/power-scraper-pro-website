@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Page not found - Power Scraper Pro">
+  <title>404 - Page Not Found | Power Scraper Pro</title>
+  <style>
+    /* ===== CSS Reset & Base ===== */
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    /* ===== CSS Variables ===== */
+    :root {
+      --brand-primary: #5B7FFF;
+      --brand-secondary: #8B5CF6;
+      --brand-gradient: linear-gradient(135deg, #5B7FFF 0%, #8B5CF6 100%);
+      --brand-gradient-text: linear-gradient(135deg, #5B7FFF 0%, #8B5CF6 50%, #FF6B9D 100%);
+      --bg-primary: #ffffff;
+      --bg-secondary: #f5f5f7;
+      --text-primary: #1d1d1f;
+      --text-secondary: #6e6e73;
+      --text-tertiary: #86868b;
+      --border-color: rgba(0, 0, 0, 0.08);
+      --nav-bg: rgba(255, 255, 255, 0.72);
+      --font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "Helvetica Neue", Arial, sans-serif;
+      --radius-pill: 980px;
+      --radius-lg: 20px;
+      --radius-md: 12px;
+      --space-xs: 8px;
+      --space-sm: 16px;
+      --space-md: 24px;
+      --space-lg: 48px;
+      --transition-fast: 0.15s ease;
+      --transition-medium: 0.3s ease;
+    }
+
+    /* ===== Dark Mode ===== */
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --bg-primary: #000000;
+        --bg-secondary: #1d1d1f;
+        --text-primary: #f5f5f7;
+        --text-secondary: #a1a1a6;
+        --text-tertiary: #6e6e73;
+        --border-color: rgba(255, 255, 255, 0.1);
+        --nav-bg: rgba(29, 29, 31, 0.72);
+      }
+    }
+
+    html {
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    body {
+      font-family: var(--font-family);
+      background-color: var(--bg-primary);
+      color: var(--text-primary);
+      line-height: 1.5;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    a {
+      color: var(--brand-primary);
+      text-decoration: none;
+      transition: color var(--transition-fast);
+    }
+
+    a:hover {
+      color: var(--brand-secondary);
+    }
+
+    /* ===== Navigation ===== */
+    .nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 1000;
+      background: var(--nav-bg);
+      backdrop-filter: saturate(180%) blur(20px);
+      -webkit-backdrop-filter: saturate(180%) blur(20px);
+      border-bottom: 1px solid var(--border-color);
+    }
+
+    .nav-content {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 var(--space-md);
+      height: 52px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .nav-logo {
+      font-size: 18px;
+      font-weight: 600;
+      color: var(--text-primary);
+      display: flex;
+      align-items: center;
+      gap: var(--space-xs);
+    }
+
+    .nav-logo svg {
+      width: 24px;
+      height: 24px;
+    }
+
+    /* ===== 404 Content ===== */
+    .error-page {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: calc(52px + var(--space-lg)) var(--space-md) var(--space-lg);
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .error-page::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: radial-gradient(circle at 30% 20%, rgba(91, 127, 255, 0.08) 0%, transparent 50%),
+                  radial-gradient(circle at 70% 80%, rgba(139, 92, 246, 0.08) 0%, transparent 50%);
+      pointer-events: none;
+    }
+
+    .error-content {
+      position: relative;
+      z-index: 1;
+      max-width: 600px;
+    }
+
+    .error-code {
+      font-size: clamp(120px, 25vw, 200px);
+      font-weight: 700;
+      letter-spacing: -0.03em;
+      line-height: 1;
+      background: var(--brand-gradient-text);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin-bottom: var(--space-md);
+    }
+
+    .error-icon {
+      width: 80px;
+      height: 80px;
+      margin: 0 auto var(--space-md);
+      background: var(--bg-secondary);
+      border-radius: var(--radius-lg);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border: 1px solid var(--border-color);
+    }
+
+    .error-icon svg {
+      width: 40px;
+      height: 40px;
+      fill: var(--text-tertiary);
+    }
+
+    .error-title {
+      font-size: clamp(24px, 5vw, 36px);
+      font-weight: 600;
+      letter-spacing: -0.02em;
+      margin-bottom: var(--space-sm);
+    }
+
+    .error-message {
+      font-size: clamp(16px, 2vw, 18px);
+      color: var(--text-secondary);
+      margin-bottom: var(--space-lg);
+      line-height: 1.6;
+    }
+
+    .error-buttons {
+      display: flex;
+      gap: var(--space-sm);
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: var(--space-xs);
+      padding: 14px 28px;
+      border-radius: var(--radius-pill);
+      font-size: 16px;
+      font-weight: 600;
+      cursor: pointer;
+      border: none;
+      transition: all var(--transition-medium);
+      text-decoration: none;
+    }
+
+    .btn-primary {
+      background: var(--brand-gradient);
+      color: white;
+      box-shadow: 0 4px 24px rgba(91, 127, 255, 0.25);
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-2px) scale(1.02);
+      box-shadow: 0 8px 32px rgba(91, 127, 255, 0.35);
+      color: white;
+    }
+
+    .btn-secondary {
+      background: var(--bg-secondary);
+      color: var(--text-primary);
+      border: 1px solid var(--border-color);
+    }
+
+    .btn-secondary:hover {
+      background: var(--bg-primary);
+      border-color: var(--brand-primary);
+      color: var(--text-primary);
+    }
+
+    .btn svg {
+      width: 18px;
+      height: 18px;
+    }
+
+    /* ===== Film Reel Animation ===== */
+    .film-reel {
+      position: absolute;
+      opacity: 0.03;
+      pointer-events: none;
+    }
+
+    .film-reel-left {
+      left: -100px;
+      top: 50%;
+      transform: translateY(-50%);
+      animation: spin 30s linear infinite;
+    }
+
+    .film-reel-right {
+      right: -100px;
+      top: 50%;
+      transform: translateY(-50%);
+      animation: spin 30s linear infinite reverse;
+    }
+
+    @keyframes spin {
+      from { transform: translateY(-50%) rotate(0deg); }
+      to { transform: translateY(-50%) rotate(360deg); }
+    }
+
+    .film-reel svg {
+      width: 300px;
+      height: 300px;
+      fill: var(--text-primary);
+    }
+
+    /* ===== Responsive ===== */
+    @media (max-width: 768px) {
+      .error-buttons {
+        flex-direction: column;
+        align-items: center;
+      }
+
+      .btn {
+        width: 100%;
+        max-width: 280px;
+      }
+
+      .film-reel {
+        display: none;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Navigation -->
+  <nav class="nav">
+    <div class="nav-content">
+      <a href="/" class="nav-logo">
+        <svg viewBox="0 0 24 24" fill="currentColor">
+          <path d="M18 4l2 4h-3l-2-4h-2l2 4h-3l-2-4H8l2 4H7L5 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V4h-4z"/>
+        </svg>
+        Power Scraper Pro
+      </a>
+    </div>
+  </nav>
+
+  <!-- 404 Content -->
+  <main class="error-page">
+    <!-- Decorative film reels -->
+    <div class="film-reel film-reel-left">
+      <svg viewBox="0 0 24 24">
+        <path d="M18 4l2 4h-3l-2-4h-2l2 4h-3l-2-4H8l2 4H7L5 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V4h-4zM4 12V9h2v3H4zm2 5H4v-3h2v3zm8-5V9h2v3h-2zm4 0V9h2v3h-2zm0 5h-2v-3h2v3zm-6-5V9h2v3h-2zm0 5h-2v-3h2v3z"/>
+      </svg>
+    </div>
+    <div class="film-reel film-reel-right">
+      <svg viewBox="0 0 24 24">
+        <path d="M18 4l2 4h-3l-2-4h-2l2 4h-3l-2-4H8l2 4H7L5 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V4h-4zM4 12V9h2v3H4zm2 5H4v-3h2v3zm8-5V9h2v3h-2zm4 0V9h2v3h-2zm0 5h-2v-3h2v3zm-6-5V9h2v3h-2zm0 5h-2v-3h2v3z"/>
+      </svg>
+    </div>
+
+    <div class="error-content">
+      <div class="error-code">404</div>
+
+      <div class="error-icon">
+        <svg viewBox="0 0 24 24">
+          <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z"/>
+        </svg>
+      </div>
+
+      <h1 class="error-title">Page Not Found</h1>
+
+      <p class="error-message">
+        Looks like this scene didn't make the final cut. The page you're looking for doesn't exist or has been moved.
+      </p>
+
+      <div class="error-buttons">
+        <a href="/" class="btn btn-primary">
+          <svg viewBox="0 0 24 24" fill="currentColor">
+            <path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/>
+          </svg>
+          Back to Home
+        </a>
+        <a href="/#features" class="btn btn-secondary">
+          <svg viewBox="0 0 24 24" fill="currentColor">
+            <path d="M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5zM12 17c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z"/>
+          </svg>
+          View Features
+        </a>
+      </div>
+    </div>
+  </main>
+</body>
+</html>

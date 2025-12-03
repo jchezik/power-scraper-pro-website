@@ -1206,12 +1206,37 @@
 
       .footer-links {
         width: 100%;
-        justify-content: space-between;
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: var(--space-md);
+      }
+
+      .footer-column h4 {
+        font-size: 13px;
+        margin-bottom: var(--space-xs);
+      }
+
+      .footer-column a {
+        font-size: 13px;
       }
 
       .footer-bottom {
         flex-direction: column;
         text-align: center;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .footer-links {
+        grid-template-columns: 1fr;
+        gap: var(--space-lg);
+        text-align: center;
+      }
+
+      .footer-column ul {
+        display: flex;
+        flex-direction: column;
+        gap: var(--space-xs);
       }
     }
   </style>
