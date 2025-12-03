@@ -562,8 +562,6 @@ section {
 
 .carousel-track {
   position: relative;
-  height: auto;
-  min-height: 500px;
 }
 
 /* Carousel Slides */
@@ -606,6 +604,7 @@ section {
               0 10px 30px rgba(0, 0, 0, 0.15);
   background: #1d1d1f;
   position: relative;
+  aspect-ratio: 16 / 10;
 }
 
 .carousel-frame::before {
@@ -627,9 +626,11 @@ section {
 
 .carousel-frame img {
   width: 100%;
-  height: auto;
+  height: 100%;
   display: block;
   cursor: zoom-in;
+  object-fit: cover;
+  object-position: top center;
 }
 
 /* Carousel Caption */
@@ -738,10 +739,6 @@ section {
 
 /* Responsive Carousel */
 @media (max-width: 768px) {
-  .carousel-track {
-    min-height: 350px;
-  }
-
   .carousel-caption {
     padding: var(--space-md);
   }
@@ -758,10 +755,6 @@ section {
 }
 
 @media (max-width: 480px) {
-  .carousel-track {
-    min-height: 280px;
-  }
-
   .carousel-controls {
     gap: var(--space-sm);
   }
