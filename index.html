@@ -7,7 +7,68 @@
   <meta name="keywords" content="macOS, media library, Kodi, TMDB, movie organizer, TV show organizer, metadata scraper">
   <title>Power Scraper Pro - Professional Media Library Manager for Mac</title>
   <link rel="icon" type="image/svg+xml" href="favicon.svg">
-  <link rel="stylesheet" href="styles.css">
+  <link rel="manifest" href="manifest.json">
+  <meta name="theme-color" content="#5B7FFF">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="Power Scraper Pro">
+
+  <!-- Critical CSS (above-the-fold) - inlined for fast first paint -->
+  <style>
+    /* Reset & Base */
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+    :root{--brand-primary:#5B7FFF;--brand-secondary:#8B5CF6;--brand-gradient:linear-gradient(135deg,#5B7FFF 0%,#8B5CF6 100%);--brand-gradient-text:linear-gradient(135deg,#5B7FFF 0%,#8B5CF6 50%,#FF6B9D 100%);--bg-primary:#ffffff;--bg-secondary:#f5f5f7;--text-primary:#1d1d1f;--text-secondary:#6e6e73;--border-color:rgba(0,0,0,0.08);--nav-bg:rgba(255,255,255,0.72);--font-family:-apple-system,BlinkMacSystemFont,"SF Pro Display","Helvetica Neue",Arial,sans-serif;--font-hero:clamp(52px,10vw,96px);--font-body:clamp(16px,1.8vw,21px);--space-md:24px;--space-lg:48px;--space-xl:80px;--section-padding:clamp(60px,12vw,120px);--container-max:1200px;--radius-lg:20px;--radius-pill:980px;--transition-medium:0.3s ease;--shadow-color:rgba(0,0,0,0.1);--accent-green:#34C759}
+    @media(prefers-color-scheme:dark){:root{--bg-primary:#0a0a0f;--bg-secondary:#12121a;--text-primary:#f5f5f7;--text-secondary:#a1a1a6;--border-color:rgba(255,255,255,0.08);--nav-bg:rgba(12,12,18,0.85);--shadow-color:rgba(0,0,0,0.5)}}
+    html{scroll-behavior:smooth;-webkit-font-smoothing:antialiased}
+    body{font-family:var(--font-family);background-color:var(--bg-primary);color:var(--text-primary);line-height:1.5;overflow-x:hidden}
+    img{max-width:100%;height:auto;display:block}
+    a{color:var(--brand-primary);text-decoration:none}
+    /* Scroll Progress */
+    .scroll-progress{position:fixed;top:0;left:0;width:0%;height:2px;background:var(--brand-gradient);z-index:1001}
+    /* Navigation */
+    .nav{position:fixed;top:0;left:0;right:0;z-index:1000;background:var(--nav-bg);backdrop-filter:saturate(180%) blur(20px);-webkit-backdrop-filter:saturate(180%) blur(20px);border-bottom:1px solid var(--border-color)}
+    .nav-content{max-width:var(--container-max);margin:0 auto;padding:0 var(--space-md);height:52px;display:flex;align-items:center;justify-content:space-between}
+    .nav-logo{font-size:18px;font-weight:600;color:var(--text-primary);display:flex;align-items:center;gap:8px}
+    .nav-logo svg{width:24px;height:24px}
+    .nav-links{display:flex;gap:var(--space-md);list-style:none}
+    .nav-links a{color:var(--text-secondary);font-size:14px;font-weight:500;padding:8px 16px;border-radius:8px}
+    .nav-links a.nav-cta{background:var(--brand-gradient);color:white!important;padding:8px 20px!important;border-radius:var(--radius-pill);font-weight:600!important}
+    .nav-toggle{display:none;background:none;border:none;cursor:pointer;padding:8px}
+    .nav-toggle span{display:block;width:22px;height:2px;background:var(--text-primary);margin:5px 0;border-radius:2px}
+    @media(max-width:768px){.nav-toggle{display:block}.nav-links{position:absolute;top:52px;left:0;right:0;background:var(--nav-bg);backdrop-filter:saturate(180%) blur(20px);flex-direction:column;padding:var(--space-md);gap:8px;border-bottom:1px solid var(--border-color);opacity:0;transform:translateY(-10px);pointer-events:none}.nav-links.active{opacity:1;transform:translateY(0);pointer-events:auto}}
+    /* Hero */
+    .hero{padding:calc(52px + var(--section-padding)) var(--space-md) var(--section-padding);text-align:center;background:var(--bg-primary);position:relative;overflow:hidden}
+    .hero::before{content:'';position:absolute;top:-50%;left:-50%;width:200%;height:200%;background:radial-gradient(circle at 30% 20%,rgba(91,127,255,0.18) 0%,transparent 50%),radial-gradient(circle at 70% 80%,rgba(139,92,246,0.15) 0%,transparent 50%);pointer-events:none}
+    .hero-content{position:relative;z-index:1}
+    .hero-badge{display:inline-flex;align-items:center;gap:8px;background:var(--bg-secondary);padding:10px 20px;border-radius:var(--radius-pill);font-size:14px;font-weight:600;color:var(--text-secondary);margin-bottom:var(--space-md);border:1px solid var(--border-color)}
+    .badge-pulse{width:8px;height:8px;background:var(--accent-green);border-radius:50%}
+    .hero-title{font-size:var(--font-hero);font-weight:700;letter-spacing:-0.03em;line-height:1.05;margin-bottom:var(--space-md);background:var(--brand-gradient-text);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+    .hero-subtitle{font-size:var(--font-body);color:var(--text-secondary);max-width:680px;margin:0 auto var(--space-lg);line-height:1.6}
+    .hero-buttons{display:flex;gap:16px;justify-content:center;flex-wrap:wrap;margin-bottom:var(--space-xl)}
+    /* Buttons */
+    .btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:16px 32px;border-radius:var(--radius-pill);font-size:clamp(14px,1.5vw,17px);font-weight:600;cursor:pointer;border:none;transition:all var(--transition-medium);text-decoration:none}
+    .btn-primary{background:var(--brand-gradient);color:white;box-shadow:0 4px 24px rgba(91,127,255,0.25)}
+    .btn-secondary{background:var(--bg-secondary);color:var(--text-primary);border:1px solid var(--border-color)}
+    .btn svg{width:20px;height:20px}
+    /* macOS Window */
+    .macos-window{border-radius:var(--radius-lg);overflow:hidden;box-shadow:0 24px 80px var(--shadow-color),0 8px 32px rgba(0,0,0,0.08);background:#1d1d1f;max-width:1100px;margin:0 auto}
+    .window-titlebar{height:52px;background:linear-gradient(180deg,#3d3d3d 0%,#2d2d2d 100%);display:flex;align-items:center;padding:0 20px;position:relative}
+    .traffic-lights{display:flex;gap:8px}
+    .light{width:12px;height:12px;border-radius:50%}
+    .light.close{background:#ff5f57}.light.minimize{background:#febc2e}.light.maximize{background:#28c840}
+    .window-title{position:absolute;left:50%;transform:translateX(-50%);color:#999;font-size:13px;font-weight:500}
+    .window-content{background:#1d1d1f}
+    .window-content img{width:100%;display:block}
+    /* Animation placeholder */
+    .animate{animation:fadeInUp 0.6s ease forwards}
+    .animate-delay-1{animation-delay:0.1s}.animate-delay-2{animation-delay:0.2s}.animate-delay-3{animation-delay:0.3s}.animate-delay-4{animation-delay:0.4s}
+    @keyframes fadeInUp{from{opacity:0;transform:translateY(30px)}to{opacity:1;transform:translateY(0)}}
+    @media(max-width:768px){.hero-buttons{flex-direction:column;align-items:center}.btn{width:100%;max-width:300px}}
+  </style>
+
+  <!-- Main stylesheet loaded asynchronously -->
+  <link rel="preload" href="styles.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+  <noscript><link rel="stylesheet" href="styles.css"></noscript>
 
   <!-- Preconnect to third-party origins -->
   <link rel="preconnect" href="https://www.themoviedb.org">
@@ -100,7 +161,23 @@
         </div>
         <div class="window-content">
           <picture>
-            <source srcset="ScreenShots/DashBoard Dark.webp" type="image/webp">
+            <!-- AVIF with responsive sizes (best compression) -->
+            <source
+              type="image/avif"
+              srcset="ScreenShots/responsive/DashBoard Dark-400w.avif 400w,
+                      ScreenShots/responsive/DashBoard Dark-800w.avif 800w,
+                      ScreenShots/responsive/DashBoard Dark-1200w.avif 1200w,
+                      ScreenShots/DashBoard Dark.avif 1715w"
+              sizes="(max-width: 480px) 400px, (max-width: 768px) 800px, (max-width: 1200px) 1200px, 1715px">
+            <!-- WebP with responsive sizes (fallback) -->
+            <source
+              type="image/webp"
+              srcset="ScreenShots/responsive/DashBoard Dark-400w.webp 400w,
+                      ScreenShots/responsive/DashBoard Dark-800w.webp 800w,
+                      ScreenShots/responsive/DashBoard Dark-1200w.webp 1200w,
+                      ScreenShots/DashBoard Dark.webp 1715w"
+              sizes="(max-width: 480px) 400px, (max-width: 768px) 800px, (max-width: 1200px) 1200px, 1715px">
+            <!-- PNG fallback -->
             <img src="ScreenShots/DashBoard Dark.png" alt="Power Scraper Pro main interface showing a populated movie library with Mortal Kombat" loading="eager" fetchpriority="high" width="1715" height="1319">
           </picture>
         </div>
@@ -236,75 +313,82 @@
         <svg viewBox="0 0 24 24"><path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"/></svg>
       </button>
       <div class="gallery-scroll" id="gallery-scroll">
-      <div class="gallery-item">
-        <div class="gallery-frame">
-          <picture>
-            <source srcset="ScreenShots/DashBoard Dark.webp" type="image/webp">
-            <img src="ScreenShots/DashBoard Dark.png" alt="Dashboard with populated movie library" loading="lazy" width="1715" height="1319" decoding="async">
-          </picture>
+        <div class="gallery-item">
+          <div class="gallery-frame">
+            <picture>
+              <source srcset="ScreenShots/DashBoard Dark.avif" type="image/avif">
+              <source srcset="ScreenShots/DashBoard Dark.webp" type="image/webp">
+              <img src="ScreenShots/DashBoard Dark.png" alt="Dashboard with populated movie library" loading="lazy" width="1715" height="1319" decoding="async">
+            </picture>
+          </div>
+          <p class="gallery-caption">Clean, professional interface</p>
         </div>
-        <p class="gallery-caption">Clean, professional interface</p>
-      </div>
 
-      <div class="gallery-item">
-        <div class="gallery-frame">
-          <picture>
-            <source srcset="ScreenShots/Movie Selection Dark.webp" type="image/webp">
-            <img src="ScreenShots/Movie Selection Dark.png" alt="Movie poster selection with multiple options" loading="lazy" width="1774" height="1305" decoding="async">
-          </picture>
+        <div class="gallery-item">
+          <div class="gallery-frame">
+            <picture>
+              <source srcset="ScreenShots/Movie Selection Dark.avif" type="image/avif">
+              <source srcset="ScreenShots/Movie Selection Dark.webp" type="image/webp">
+              <img src="ScreenShots/Movie Selection Dark.png" alt="Movie poster selection with multiple options" loading="lazy" width="1774" height="1305" decoding="async">
+            </picture>
+          </div>
+          <p class="gallery-caption">Choose from multiple artwork sources</p>
         </div>
-        <p class="gallery-caption">Choose from multiple artwork sources</p>
-      </div>
 
-      <div class="gallery-item">
-        <div class="gallery-frame light-bg">
-          <picture>
-            <source srcset="ScreenShots/TV Selection Light.webp" type="image/webp">
-            <img src="ScreenShots/TV Selection Light.png" alt="TV show selection and metadata" loading="lazy" width="2072" height="1319" decoding="async">
-          </picture>
+        <div class="gallery-item">
+          <div class="gallery-frame light-bg">
+            <picture>
+              <source srcset="ScreenShots/TV Selection Light.avif" type="image/avif">
+              <source srcset="ScreenShots/TV Selection Light.webp" type="image/webp">
+              <img src="ScreenShots/TV Selection Light.png" alt="TV show selection and metadata" loading="lazy" width="2072" height="1319" decoding="async">
+            </picture>
+          </div>
+          <p class="gallery-caption">Extensive TV show metadata</p>
         </div>
-        <p class="gallery-caption">Extensive TV show metadata</p>
-      </div>
 
-      <div class="gallery-item">
-        <div class="gallery-frame">
-          <picture>
-            <source srcset="ScreenShots/Adjust FanArt Dark.webp" type="image/webp">
-            <img src="ScreenShots/Adjust FanArt Dark.png" alt="Fanart position adjustment" loading="lazy" width="1715" height="1319" decoding="async">
-          </picture>
+        <div class="gallery-item">
+          <div class="gallery-frame">
+            <picture>
+              <source srcset="ScreenShots/Adjust FanArt Dark.avif" type="image/avif">
+              <source srcset="ScreenShots/Adjust FanArt Dark.webp" type="image/webp">
+              <img src="ScreenShots/Adjust FanArt Dark.png" alt="Fanart position adjustment" loading="lazy" width="1715" height="1319" decoding="async">
+            </picture>
+          </div>
+          <p class="gallery-caption">Fine-tune artwork positioning</p>
         </div>
-        <p class="gallery-caption">Fine-tune artwork positioning</p>
-      </div>
 
-      <div class="gallery-item">
-        <div class="gallery-frame light-bg">
-          <picture>
-            <source srcset="ScreenShots/Movie Scraping Light.webp" type="image/webp">
-            <img src="ScreenShots/Movie Scraping Light.png" alt="Scraping progress at 86%" loading="lazy" width="1380" height="991" decoding="async">
-          </picture>
+        <div class="gallery-item">
+          <div class="gallery-frame light-bg">
+            <picture>
+              <source srcset="ScreenShots/Movie Scraping Light.avif" type="image/avif">
+              <source srcset="ScreenShots/Movie Scraping Light.webp" type="image/webp">
+              <img src="ScreenShots/Movie Scraping Light.png" alt="Scraping progress at 86%" loading="lazy" width="1380" height="991" decoding="async">
+            </picture>
+          </div>
+          <p class="gallery-caption">Real-time progress tracking</p>
         </div>
-        <p class="gallery-caption">Real-time progress tracking</p>
-      </div>
 
-      <div class="gallery-item">
-        <div class="gallery-frame">
-          <picture>
-            <source srcset="ScreenShots/Resume Previous Dark.webp" type="image/webp">
-            <img src="ScreenShots/Resume Previous Dark.png" alt="Session resume dialog" loading="lazy" width="1774" height="1305" decoding="async">
-          </picture>
+        <div class="gallery-item">
+          <div class="gallery-frame">
+            <picture>
+              <source srcset="ScreenShots/Resume Previous Dark.avif" type="image/avif">
+              <source srcset="ScreenShots/Resume Previous Dark.webp" type="image/webp">
+              <img src="ScreenShots/Resume Previous Dark.png" alt="Session resume dialog" loading="lazy" width="1774" height="1305" decoding="async">
+            </picture>
+          </div>
+          <p class="gallery-caption">Never lose your progress</p>
         </div>
-        <p class="gallery-caption">Never lose your progress</p>
-      </div>
 
-      <div class="gallery-item">
-        <div class="gallery-frame">
-          <picture>
-            <source srcset="ScreenShots/Watch Folder Dark.webp" type="image/webp">
-            <img src="ScreenShots/Watch Folder Dark.png" alt="Smart Watch Folders configuration" loading="lazy" width="1012" height="700" decoding="async">
-          </picture>
+        <div class="gallery-item">
+          <div class="gallery-frame">
+            <picture>
+              <source srcset="ScreenShots/Watch Folder Dark.avif" type="image/avif">
+              <source srcset="ScreenShots/Watch Folder Dark.webp" type="image/webp">
+              <img src="ScreenShots/Watch Folder Dark.png" alt="Smart Watch Folders configuration" loading="lazy" width="1012" height="700" decoding="async">
+            </picture>
+          </div>
+          <p class="gallery-caption">Automatic folder monitoring</p>
         </div>
-        <p class="gallery-caption">Automatic folder monitoring</p>
-      </div>
       </div>
       <div class="gallery-dots" id="gallery-dots"></div>
     </div>
@@ -352,6 +436,7 @@
       </div>
       <div class="showcase-image light-bg">
         <picture>
+          <source srcset="ScreenShots/Movies Scraped Light.avif" type="image/avif">
           <source srcset="ScreenShots/Movies Scraped Light.webp" type="image/webp">
           <img src="ScreenShots/Movies Scraped Light.png" alt="Four movies fully scraped with metadata" loading="lazy" width="1380" height="991" decoding="async">
         </picture>
@@ -398,6 +483,7 @@
       </div>
       <div class="showcase-image light-bg">
         <picture>
+          <source srcset="ScreenShots/TV Shows Scraped Light.avif" type="image/avif">
           <source srcset="ScreenShots/TV Shows Scraped Light.webp" type="image/webp">
           <img src="ScreenShots/TV Shows Scraped Light.png" alt="TV show metadata and season information" loading="lazy" width="1715" height="1319" decoding="async">
         </picture>
@@ -419,6 +505,7 @@
       <div class="settings-card reveal">
         <div class="settings-image">
           <picture>
+            <source srcset="ScreenShots/Appearance Settings Dark.avif" type="image/avif">
             <source srcset="ScreenShots/Appearance Settings Dark.webp" type="image/webp">
             <img src="ScreenShots/Appearance Settings Dark.png" alt="Theme and appearance settings" loading="lazy" width="1012" height="700" decoding="async">
           </picture>
@@ -434,6 +521,7 @@
       <div class="settings-card reveal">
         <div class="settings-image">
           <picture>
+            <source srcset="ScreenShots/Scraper Settings Dark.avif" type="image/avif">
             <source srcset="ScreenShots/Scraper Settings Dark.webp" type="image/webp">
             <img src="ScreenShots/Scraper Settings Dark.png" alt="Scraper configuration settings" loading="lazy" width="1012" height="700" decoding="async">
           </picture>
@@ -449,6 +537,7 @@
       <div class="settings-card reveal">
         <div class="settings-image">
           <picture>
+            <source srcset="ScreenShots/Rename Settings Dark.avif" type="image/avif">
             <source srcset="ScreenShots/Rename Settings Dark.webp" type="image/webp">
             <img src="ScreenShots/Rename Settings Dark.png" alt="File renaming settings" loading="lazy" width="1012" height="700" decoding="async">
           </picture>
@@ -840,368 +929,7 @@
     </div>
   </div>
 
-  <!-- JavaScript for Animations -->
-  <script>
-    // Check for reduced motion preference
-    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-
-    // Mobile navigation toggle
-    const navToggle = document.querySelector('.nav-toggle');
-    const navLinks = document.getElementById('nav-links');
-
-    navToggle.addEventListener('click', () => {
-      const isExpanded = navToggle.getAttribute('aria-expanded') === 'true';
-      navToggle.setAttribute('aria-expanded', !isExpanded);
-      navLinks.classList.toggle('active');
-    });
-
-    // Scroll Progress Bar
-    const scrollProgress = document.getElementById('scroll-progress');
-    function updateScrollProgress() {
-      const scrollTop = window.scrollY;
-      const docHeight = document.documentElement.scrollHeight - window.innerHeight;
-      const scrollPercent = (scrollTop / docHeight) * 100;
-      scrollProgress.style.width = scrollPercent + '%';
-    }
-
-    // Intersection Observer for scroll animations
-    const observerOptions = {
-      root: null,
-      rootMargin: '0px',
-      threshold: 0.1
-    };
-
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('visible');
-        }
-      });
-    }, observerOptions);
-
-    // Observe all elements with .reveal class
-    document.querySelectorAll('.reveal').forEach(el => {
-      observer.observe(el);
-    });
-
-    // Smooth scroll for navigation links
-    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-      anchor.addEventListener('click', function (e) {
-        e.preventDefault();
-        const target = document.querySelector(this.getAttribute('href'));
-        if (target) {
-          target.scrollIntoView({
-            behavior: prefersReducedMotion ? 'auto' : 'smooth',
-            block: 'start'
-          });
-          // Close mobile nav if open
-          navLinks.classList.remove('active');
-          navToggle.setAttribute('aria-expanded', 'false');
-        }
-      });
-    });
-
-    // Navigation background on scroll + parallax effect on hero window
-    const nav = document.querySelector('.nav');
-    const macosWindow = document.querySelector('.macos-window');
-    let ticking = false;
-
-    function handleScroll() {
-      const scrollY = window.scrollY;
-
-      // Nav border
-      if (scrollY > 50) {
-        nav.style.borderBottomColor = 'var(--border-color)';
-      } else {
-        nav.style.borderBottomColor = 'transparent';
-      }
-
-      // Parallax effect on hero window (subtle tilt based on scroll)
-      if (!prefersReducedMotion && macosWindow && scrollY < 800) {
-        const parallaxY = scrollY * 0.15;
-        const rotateX = Math.min(scrollY * 0.01, 5);
-        const scale = 1 - (scrollY * 0.0002);
-        macosWindow.style.transform = `translateY(${parallaxY}px) rotateX(${rotateX}deg) scale(${Math.max(scale, 0.95)})`;
-      }
-
-      // Update scroll progress
-      updateScrollProgress();
-
-      ticking = false;
-    }
-
-    window.addEventListener('scroll', () => {
-      if (!ticking) {
-        requestAnimationFrame(handleScroll);
-        ticking = true;
-      }
-    });
-
-    // Traffic light interactions (Easter egg)
-    const trafficLights = document.querySelectorAll('.traffic-lights .light');
-    let windowMinimized = false;
-
-    trafficLights.forEach(light => {
-      light.addEventListener('click', (e) => {
-        e.stopPropagation();
-
-        if (light.classList.contains('minimize')) {
-          if (!windowMinimized) {
-            macosWindow.classList.remove('window-restore');
-            macosWindow.classList.add('window-minimized');
-            windowMinimized = true;
-
-            // Restore after 2 seconds
-            setTimeout(() => {
-              macosWindow.classList.remove('window-minimized');
-              macosWindow.classList.add('window-restore');
-              windowMinimized = false;
-
-              // Clean up classes after animation
-              setTimeout(() => {
-                macosWindow.classList.remove('window-restore');
-              }, 400);
-            }, 2000);
-          }
-        }
-
-        if (light.classList.contains('close')) {
-          // Fun "bounce" effect
-          macosWindow.style.transition = 'transform 0.1s ease';
-          macosWindow.style.transform = 'scale(0.98)';
-          setTimeout(() => {
-            macosWindow.style.transform = '';
-            macosWindow.style.transition = '';
-          }, 100);
-        }
-
-        if (light.classList.contains('maximize')) {
-          // Subtle "zoom" effect
-          macosWindow.style.transition = 'transform 0.2s ease';
-          macosWindow.style.transform = 'scale(1.02)';
-          setTimeout(() => {
-            macosWindow.style.transform = '';
-            macosWindow.style.transition = '';
-          }, 200);
-        }
-      });
-    });
-
-    // Lightbox functionality
-    const lightbox = document.getElementById('lightbox');
-    const lightboxImage = document.getElementById('lightbox-image');
-    const lightboxCaption = document.getElementById('lightbox-caption');
-    const lightboxClose = document.querySelector('.lightbox-close');
-
-    // Make all screenshots clickable
-    const clickableImages = document.querySelectorAll('.window-content img, .gallery-frame img, .showcase-image img, .settings-image img');
-
-    clickableImages.forEach(img => {
-      img.classList.add('clickable-image');
-      img.style.cursor = 'zoom-in';
-
-      img.addEventListener('click', () => {
-        lightboxImage.src = img.src;
-        lightboxImage.alt = img.alt;
-        lightboxCaption.textContent = img.alt;
-        lightbox.classList.add('active');
-        document.body.style.overflow = 'hidden';
-      });
-    });
-
-    // Close lightbox
-    function closeLightbox() {
-      lightbox.classList.remove('active');
-      document.body.style.overflow = '';
-    }
-
-    lightboxClose.addEventListener('click', (e) => {
-      e.stopPropagation();
-      closeLightbox();
-    });
-
-    lightbox.addEventListener('click', closeLightbox);
-
-    lightboxImage.addEventListener('click', (e) => {
-      e.stopPropagation();
-    });
-
-    document.addEventListener('keydown', (e) => {
-      if (e.key === 'Escape' && lightbox.classList.contains('active')) {
-        closeLightbox();
-      }
-    });
-
-    // Disable animations for users who prefer reduced motion
-    if (prefersReducedMotion) {
-      document.documentElement.style.setProperty('--transition-fast', '0s');
-      document.documentElement.style.setProperty('--transition-medium', '0s');
-      document.documentElement.style.setProperty('--transition-slow', '0s');
-
-      // Remove floating animation from window
-      if (macosWindow) {
-        macosWindow.style.animation = 'none';
-      }
-
-      // Make all reveals visible immediately
-      document.querySelectorAll('.reveal').forEach(el => {
-        el.classList.add('visible');
-      });
-    }
-
-    // Gallery Carousel functionality
-    const galleryScroll = document.getElementById('gallery-scroll');
-    const galleryDots = document.getElementById('gallery-dots');
-    const prevBtn = document.querySelector('.gallery-nav.prev');
-    const nextBtn = document.querySelector('.gallery-nav.next');
-    const galleryItems = document.querySelectorAll('.gallery-item');
-
-    if (galleryScroll && galleryItems.length > 0) {
-      // Create dots
-      galleryItems.forEach((_, index) => {
-        const dot = document.createElement('button');
-        dot.className = 'gallery-dot' + (index === 0 ? ' active' : '');
-        dot.setAttribute('aria-label', `Go to screenshot ${index + 1}`);
-        dot.addEventListener('click', () => scrollToItem(index));
-        galleryDots.appendChild(dot);
-      });
-
-      const dots = document.querySelectorAll('.gallery-dot');
-
-      // Scroll to specific item
-      function scrollToItem(index) {
-        const item = galleryItems[index];
-        if (item) {
-          const scrollLeft = item.offsetLeft - (galleryScroll.offsetWidth - item.offsetWidth) / 2;
-          galleryScroll.scrollTo({ left: scrollLeft, behavior: prefersReducedMotion ? 'auto' : 'smooth' });
-        }
-      }
-
-      // Update active dot based on scroll position
-      function updateActiveDot() {
-        const scrollLeft = galleryScroll.scrollLeft;
-        const containerWidth = galleryScroll.offsetWidth;
-
-        let activeIndex = 0;
-        let minDistance = Infinity;
-
-        galleryItems.forEach((item, index) => {
-          const itemCenter = item.offsetLeft + item.offsetWidth / 2;
-          const containerCenter = scrollLeft + containerWidth / 2;
-          const distance = Math.abs(itemCenter - containerCenter);
-
-          if (distance < minDistance) {
-            minDistance = distance;
-            activeIndex = index;
-          }
-        });
-
-        dots.forEach((dot, index) => {
-          dot.classList.toggle('active', index === activeIndex);
-        });
-      }
-
-      // Navigation buttons
-      prevBtn.addEventListener('click', () => {
-        const currentScroll = galleryScroll.scrollLeft;
-        const itemWidth = galleryItems[0].offsetWidth + 48; // gap
-        galleryScroll.scrollBy({ left: -itemWidth, behavior: prefersReducedMotion ? 'auto' : 'smooth' });
-      });
-
-      nextBtn.addEventListener('click', () => {
-        const itemWidth = galleryItems[0].offsetWidth + 48; // gap
-        galleryScroll.scrollBy({ left: itemWidth, behavior: prefersReducedMotion ? 'auto' : 'smooth' });
-      });
-
-      // Drag to scroll
-      let isDown = false;
-      let startX;
-      let scrollLeftStart;
-
-      galleryScroll.addEventListener('mousedown', (e) => {
-        isDown = true;
-        galleryScroll.style.cursor = 'grabbing';
-        startX = e.pageX - galleryScroll.offsetLeft;
-        scrollLeftStart = galleryScroll.scrollLeft;
-      });
-
-      galleryScroll.addEventListener('mouseleave', () => {
-        isDown = false;
-        galleryScroll.style.cursor = 'grab';
-      });
-
-      galleryScroll.addEventListener('mouseup', () => {
-        isDown = false;
-        galleryScroll.style.cursor = 'grab';
-      });
-
-      galleryScroll.addEventListener('mousemove', (e) => {
-        if (!isDown) return;
-        e.preventDefault();
-        const x = e.pageX - galleryScroll.offsetLeft;
-        const walk = (x - startX) * 1.5;
-        galleryScroll.scrollLeft = scrollLeftStart - walk;
-      });
-
-      // Update dots on scroll
-      galleryScroll.addEventListener('scroll', updateActiveDot);
-
-      // Initial update
-      updateActiveDot();
-    }
-
-    // Email form functionality
-    const emailForm = document.getElementById('email-form');
-    const emailInput = document.getElementById('email-input');
-    const emailMessage = document.getElementById('email-message');
-
-    if (emailForm) {
-      emailForm.addEventListener('submit', async (e) => {
-        e.preventDefault();
-
-        const email = emailInput.value.trim();
-        const submitBtn = emailForm.querySelector('.email-submit');
-        const btnText = submitBtn.querySelector('.btn-text');
-        const btnLoading = submitBtn.querySelector('.btn-loading');
-
-        // Basic email validation
-        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-        if (!emailRegex.test(email)) {
-          emailMessage.textContent = 'Please enter a valid email address.';
-          emailMessage.className = 'email-message error';
-          return;
-        }
-
-        // Show loading state
-        btnText.style.display = 'none';
-        btnLoading.style.display = 'inline-flex';
-        submitBtn.disabled = true;
-
-        // Simulate API call (replace with actual endpoint when available)
-        try {
-          // For now, we'll use mailto as fallback but with better UX
-          await new Promise(resolve => setTimeout(resolve, 1000));
-
-          // Open mailto with pre-filled content
-          const subject = encodeURIComponent('Power Scraper Pro - Early Access Request');
-          const body = encodeURIComponent(`Hi,\n\nPlease add me to the Power Scraper Pro early access list.\n\nEmail: ${email}\n\nThank you!`);
-          window.location.href = `mailto:powerscraperpro@gmail.com?subject=${subject}&body=${body}`;
-
-          // Show success message
-          emailMessage.textContent = 'Thanks for signing up! Check your email client to complete registration.';
-          emailMessage.className = 'email-message success';
-          emailInput.value = '';
-        } catch (error) {
-          emailMessage.textContent = 'Something went wrong. Please try again.';
-          emailMessage.className = 'email-message error';
-        } finally {
-          // Reset button state
-          btnText.style.display = 'inline';
-          btnLoading.style.display = 'none';
-          submitBtn.disabled = false;
-        }
-      });
-    }
-  </script>
+  <!-- JavaScript -->
+  <script src="script.js" defer></script>
 </body>
 </html>
