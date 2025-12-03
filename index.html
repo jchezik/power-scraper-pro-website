@@ -225,84 +225,75 @@
       </p>
     </div>
 
-    <div class="carousel-container reveal">
-      <div class="carousel" id="carousel">
-        <div class="carousel-track" id="carousel-track">
-          <div class="carousel-slide active">
-            <div class="carousel-frame">
-              <picture>
-                <source srcset="ScreenShots/DashBoard Dark.webp" type="image/webp">
-                <img src="ScreenShots/DashBoard Dark.png" alt="Dashboard with populated movie library" loading="lazy" width="1715" height="1319" decoding="async">
-              </picture>
-            </div>
-            <div class="carousel-caption">
-              <span class="caption-number">01</span>
-              <h3>Clean, Professional Interface</h3>
-              <p>Your entire movie collection, beautifully organized with rich metadata and stunning artwork.</p>
-            </div>
-          </div>
-
-          <div class="carousel-slide">
-            <div class="carousel-frame">
-              <picture>
-                <source srcset="ScreenShots/Movie Selection Dark.webp" type="image/webp">
-                <img src="ScreenShots/Movie Selection Dark.png" alt="Movie poster selection with multiple options" loading="lazy" width="1774" height="1305" decoding="async">
-              </picture>
-            </div>
-            <div class="carousel-caption">
-              <span class="caption-number">02</span>
-              <h3>Multiple Artwork Sources</h3>
-              <p>Choose from dozens of posters, backdrops, and fanart sourced from TMDB and Fanart.TV.</p>
-            </div>
-          </div>
-
-          <div class="carousel-slide">
-            <div class="carousel-frame light-bg">
-              <picture>
-                <source srcset="ScreenShots/TV Selection Light.webp" type="image/webp">
-                <img src="ScreenShots/TV Selection Light.png" alt="TV show selection and metadata" loading="lazy" width="2072" height="1319" decoding="async">
-              </picture>
-            </div>
-            <div class="carousel-caption">
-              <span class="caption-number">03</span>
-              <h3>Extensive TV Show Support</h3>
-              <p>Full series metadata with season tracking, episode details, and comprehensive artwork management.</p>
-            </div>
-          </div>
-
-          <div class="carousel-slide">
-            <div class="carousel-frame">
-              <picture>
-                <source srcset="ScreenShots/Adjust FanArt Dark.webp" type="image/webp">
-                <img src="ScreenShots/Adjust FanArt Dark.png" alt="Fanart position adjustment" loading="lazy" width="1715" height="1319" decoding="async">
-              </picture>
-            </div>
-            <div class="carousel-caption">
-              <span class="caption-number">04</span>
-              <h3>Fine-Tune Every Detail</h3>
-              <p>Adjust artwork positioning to perfectly frame your favorite scenes and characters.</p>
-            </div>
-          </div>
+    <div class="gallery-scroll">
+      <div class="gallery-item">
+        <div class="gallery-frame">
+          <picture>
+            <source srcset="ScreenShots/DashBoard Dark.webp" type="image/webp">
+            <img src="ScreenShots/DashBoard Dark.png" alt="Dashboard with populated movie library" loading="lazy" width="1715" height="1319" decoding="async">
+          </picture>
         </div>
+        <p class="gallery-caption">Clean, professional interface</p>
       </div>
 
-      <div class="carousel-controls">
-        <button class="carousel-btn carousel-prev" aria-label="Previous slide">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <path d="M15 18l-6-6 6-6"/>
-          </svg>
-        </button>
-        <div class="carousel-dots" id="carousel-dots">
-          <button class="carousel-dot active" aria-label="Go to slide 1" data-slide="0"></button>
-          <button class="carousel-dot" aria-label="Go to slide 2" data-slide="1"></button>
-          <button class="carousel-dot" aria-label="Go to slide 3" data-slide="2"></button>
-          <button class="carousel-dot" aria-label="Go to slide 4" data-slide="3"></button>
+      <div class="gallery-item">
+        <div class="gallery-frame">
+          <picture>
+            <source srcset="ScreenShots/Movie Selection Dark.webp" type="image/webp">
+            <img src="ScreenShots/Movie Selection Dark.png" alt="Movie poster selection with multiple options" loading="lazy" width="1774" height="1305" decoding="async">
+          </picture>
         </div>
-        <button class="carousel-btn carousel-next" aria-label="Next slide">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <path d="M9 18l6-6-6-6"/>
-          </svg>
-        </button>
+        <p class="gallery-caption">Choose from multiple artwork sources</p>
+      </div>
+
+      <div class="gallery-item">
+        <div class="gallery-frame light-bg">
+          <picture>
+            <source srcset="ScreenShots/TV Selection Light.webp" type="image/webp">
+            <img src="ScreenShots/TV Selection Light.png" alt="TV show selection and metadata" loading="lazy" width="2072" height="1319" decoding="async">
+          </picture>
+        </div>
+        <p class="gallery-caption">Extensive TV show metadata</p>
+      </div>
+
+      <div class="gallery-item">
+        <div class="gallery-frame">
+          <picture>
+            <source srcset="ScreenShots/Adjust FanArt Dark.webp" type="image/webp">
+            <img src="ScreenShots/Adjust FanArt Dark.png" alt="Fanart position adjustment" loading="lazy" width="1715" height="1319" decoding="async">
+          </picture>
+        </div>
+        <p class="gallery-caption">Fine-tune artwork positioning</p>
+      </div>
+
+      <div class="gallery-item">
+        <div class="gallery-frame light-bg">
+          <picture>
+            <source srcset="ScreenShots/Movie Scraping Light.webp" type="image/webp">
+            <img src="ScreenShots/Movie Scraping Light.png" alt="Scraping progress at 86%" loading="lazy" width="1380" height="991" decoding="async">
+          </picture>
+        </div>
+        <p class="gallery-caption">Real-time progress tracking</p>
+      </div>
+
+      <div class="gallery-item">
+        <div class="gallery-frame">
+          <picture>
+            <source srcset="ScreenShots/Resume Previous Dark.webp" type="image/webp">
+            <img src="ScreenShots/Resume Previous Dark.png" alt="Session resume dialog" loading="lazy" width="1774" height="1305" decoding="async">
+          </picture>
+        </div>
+        <p class="gallery-caption">Never lose your progress</p>
+      </div>
+
+      <div class="gallery-item">
+        <div class="gallery-frame">
+          <picture>
+            <source srcset="ScreenShots/Watch Folder Dark.webp" type="image/webp">
+            <img src="ScreenShots/Watch Folder Dark.png" alt="Smart Watch Folders configuration" loading="lazy" width="1012" height="700" decoding="async">
+          </picture>
+        </div>
+        <p class="gallery-caption">Automatic folder monitoring</p>
       </div>
     </div>
   </section>
@@ -875,7 +866,7 @@
     const lightboxClose = document.querySelector('.lightbox-close');
 
     // Make all screenshots clickable
-    const clickableImages = document.querySelectorAll('.window-content img, .carousel-frame img, .showcase-image img, .settings-image img');
+    const clickableImages = document.querySelectorAll('.window-content img, .gallery-frame img, .showcase-image img, .settings-image img');
 
     clickableImages.forEach(img => {
       img.classList.add('clickable-image');
@@ -914,126 +905,6 @@
         closeLightbox();
       }
     });
-
-    // Carousel functionality
-    const carousel = document.getElementById('carousel');
-    const track = document.getElementById('carousel-track');
-    const slides = document.querySelectorAll('.carousel-slide');
-    const dots = document.querySelectorAll('.carousel-dot');
-    const prevBtn = document.querySelector('.carousel-prev');
-    const nextBtn = document.querySelector('.carousel-next');
-    let currentSlide = 0;
-    let autoplayInterval;
-
-    function goToSlide(index) {
-      // Handle wrap-around
-      if (index < 0) index = slides.length - 1;
-      if (index >= slides.length) index = 0;
-
-      currentSlide = index;
-
-      // Update slides
-      slides.forEach((slide, i) => {
-        slide.classList.remove('active', 'prev', 'next');
-        if (i === currentSlide) {
-          slide.classList.add('active');
-        } else if (i === (currentSlide - 1 + slides.length) % slides.length) {
-          slide.classList.add('prev');
-        } else if (i === (currentSlide + 1) % slides.length) {
-          slide.classList.add('next');
-        }
-      });
-
-      // Update dots
-      dots.forEach((dot, i) => {
-        dot.classList.toggle('active', i === currentSlide);
-      });
-    }
-
-    function nextSlide() {
-      goToSlide(currentSlide + 1);
-    }
-
-    function prevSlide() {
-      goToSlide(currentSlide - 1);
-    }
-
-    // Event listeners
-    prevBtn.addEventListener('click', () => {
-      prevSlide();
-      resetAutoplay();
-    });
-
-    nextBtn.addEventListener('click', () => {
-      nextSlide();
-      resetAutoplay();
-    });
-
-    dots.forEach((dot, i) => {
-      dot.addEventListener('click', () => {
-        goToSlide(i);
-        resetAutoplay();
-      });
-    });
-
-    // Keyboard navigation
-    document.addEventListener('keydown', (e) => {
-      if (e.key === 'ArrowLeft') {
-        prevSlide();
-        resetAutoplay();
-      } else if (e.key === 'ArrowRight') {
-        nextSlide();
-        resetAutoplay();
-      }
-    });
-
-    // Touch support
-    let touchStartX = 0;
-    let touchEndX = 0;
-
-    carousel.addEventListener('touchstart', (e) => {
-      touchStartX = e.changedTouches[0].screenX;
-    }, { passive: true });
-
-    carousel.addEventListener('touchend', (e) => {
-      touchEndX = e.changedTouches[0].screenX;
-      handleSwipe();
-    }, { passive: true });
-
-    function handleSwipe() {
-      const diff = touchStartX - touchEndX;
-      if (Math.abs(diff) > 50) {
-        if (diff > 0) {
-          nextSlide();
-        } else {
-          prevSlide();
-        }
-        resetAutoplay();
-      }
-    }
-
-    // Autoplay
-    function startAutoplay() {
-      autoplayInterval = setInterval(nextSlide, 5000);
-    }
-
-    function resetAutoplay() {
-      clearInterval(autoplayInterval);
-      startAutoplay();
-    }
-
-    // Pause autoplay on hover
-    carousel.addEventListener('mouseenter', () => {
-      clearInterval(autoplayInterval);
-    });
-
-    carousel.addEventListener('mouseleave', () => {
-      startAutoplay();
-    });
-
-    // Initialize
-    goToSlide(0);
-    startAutoplay();
   </script>
 </body>
 </html>
