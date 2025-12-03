@@ -50,23 +50,60 @@
     observer.observe(el);
   });
 
-  // Form submission
+  // Toast notification helper
+  function showToast(message, isError = false) {
+    const toast = document.getElementById('toast');
+    if (!toast) return;
+
+    toast.textContent = message;
+    toast.classList.remove('error');
+    if (isError) toast.classList.add('error');
+
+    toast.classList.add('show');
+
+    setTimeout(() => {
+      toast.classList.remove('show');
+    }, 4000);
+  }
+
+  // Form submission via AJAX (no redirect)
   const form = document.getElementById('signup-form');
   if (form) {
-    form.addEventListener('submit', function(e) {
+    form.addEventListener('submit', async function(e) {
+      e.preventDefault();
+
       const button = form.querySelector('button');
+      const input = form.querySelector('input[type="email"]');
       const originalText = button.textContent;
-      button.textContent = 'Submitting...';
+
+      button.textContent = 'Sending...';
       button.disabled = true;
 
-      // Re-enable after form submits (Formspree handles the actual submission)
+      try {
+        const response = await fetch(form.action, {
+          method: 'POST',
+          body: new FormData(form),
+          headers: {
+            'Accept': 'application/json'
+          }
+        });
+
+        if (response.ok) {
+          showToast('You\'re on the list! We\'ll be in touch soon.');
+          input.value = '';
+          button.textContent = 'Sent!';
+        } else {
+          throw new Error('Form submission failed');
+        }
+      } catch (error) {
+        showToast('Something went wrong. Please try again.', true);
+        button.textContent = originalText;
+      }
+
+      button.disabled = false;
       setTimeout(() => {
-        button.textContent = 'Thanks!';
-        setTimeout(() => {
-          button.textContent = originalText;
-          button.disabled = false;
-        }, 2000);
-      }, 1000);
+        button.textContent = originalText;
+      }, 2000);
     });
   }
 
