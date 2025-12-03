@@ -65,6 +65,30 @@
     observer.observe(el);
   });
 
+  // ===== Feature Card Icon Animations on Scroll =====
+  if (!prefersReducedMotion) {
+    const featureCards = document.querySelectorAll('.feature-card');
+    let featureIconsAnimated = false;
+
+    const featureObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting && !featureIconsAnimated) {
+          featureIconsAnimated = true;
+          // Add animate-icon class to all cards with staggered effect
+          featureCards.forEach((card) => {
+            card.classList.add('animate-icon');
+          });
+        }
+      });
+    }, { threshold: 0.2 });
+
+    // Observe the features section
+    const featuresSection = document.querySelector('.features');
+    if (featuresSection) {
+      featureObserver.observe(featuresSection);
+    }
+  }
+
   // ===== Smooth Scroll for Navigation Links =====
   document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     anchor.addEventListener('click', function(e) {
@@ -238,12 +262,21 @@
 
   // ===== Gallery Carousel Functionality =====
   if (galleryScroll && galleryItems.length > 0 && galleryDots) {
+    let currentIndex = 0;
+    let autoplayInterval = null;
+    let isHovering = false;
+    let userHasInteracted = false;
+    const AUTOPLAY_DELAY = 5000; // 5 seconds between slides
+
     // Create dots
     galleryItems.forEach((_, index) => {
       const dot = document.createElement('button');
       dot.className = 'gallery-dot' + (index === 0 ? ' active' : '');
       dot.setAttribute('aria-label', `Go to screenshot ${index + 1}`);
-      dot.addEventListener('click', () => scrollToItem(index));
+      dot.addEventListener('click', () => {
+        userHasInteracted = true;
+        scrollToItem(index);
+      });
       galleryDots.appendChild(dot);
     });
 
@@ -253,9 +286,21 @@
     function scrollToItem(index) {
       const item = galleryItems[index];
       if (item) {
+        currentIndex = index;
         const scrollLeft = item.offsetLeft - (galleryScroll.offsetWidth - item.offsetWidth) / 2;
         galleryScroll.scrollTo({ left: scrollLeft, behavior: prefersReducedMotion ? 'auto' : 'smooth' });
       }
+    }
+
+    // Go to next/previous item
+    function goToNext() {
+      const nextIndex = (currentIndex + 1) % galleryItems.length;
+      scrollToItem(nextIndex);
+    }
+
+    function goToPrev() {
+      const prevIndex = (currentIndex - 1 + galleryItems.length) % galleryItems.length;
+      scrollToItem(prevIndex);
     }
 
     // Update active dot based on scroll position
@@ -277,25 +322,85 @@
         }
       });
 
+      currentIndex = activeIndex;
       dots.forEach((dot, index) => {
         dot.classList.toggle('active', index === activeIndex);
       });
     }
 
+    // Auto-play functionality
+    function startAutoplay() {
+      if (prefersReducedMotion || userHasInteracted) return;
+      stopAutoplay();
+      autoplayInterval = setInterval(() => {
+        if (!isHovering && !userHasInteracted) {
+          goToNext();
+        }
+      }, AUTOPLAY_DELAY);
+    }
+
+    function stopAutoplay() {
+      if (autoplayInterval) {
+        clearInterval(autoplayInterval);
+        autoplayInterval = null;
+      }
+    }
+
+    // Pause on hover
+    const galleryContainer = galleryScroll.closest('.gallery-container');
+    if (galleryContainer) {
+      galleryContainer.addEventListener('mouseenter', () => {
+        isHovering = true;
+      });
+      galleryContainer.addEventListener('mouseleave', () => {
+        isHovering = false;
+      });
+    }
+
+    // Start autoplay when gallery comes into view
+    const galleryObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting && !userHasInteracted) {
+          startAutoplay();
+        } else {
+          stopAutoplay();
+        }
+      });
+    }, { threshold: 0.3 });
+
+    galleryObserver.observe(galleryScroll);
+
     // Navigation buttons
     if (prevBtn) {
       prevBtn.addEventListener('click', () => {
-        const itemWidth = galleryItems[0].offsetWidth + 48; // gap
-        galleryScroll.scrollBy({ left: -itemWidth, behavior: prefersReducedMotion ? 'auto' : 'smooth' });
+        userHasInteracted = true;
+        stopAutoplay();
+        goToPrev();
       });
     }
 
     if (nextBtn) {
       nextBtn.addEventListener('click', () => {
-        const itemWidth = galleryItems[0].offsetWidth + 48; // gap
-        galleryScroll.scrollBy({ left: itemWidth, behavior: prefersReducedMotion ? 'auto' : 'smooth' });
+        userHasInteracted = true;
+        stopAutoplay();
+        goToNext();
       });
     }
+
+    // Keyboard navigation when gallery is focused
+    galleryScroll.addEventListener('keydown', (e) => {
+      if (e.key === 'ArrowLeft') {
+        e.preventDefault();
+        userHasInteracted = true;
+        stopAutoplay();
+        goToPrev();
+      } else if (e.key === 'ArrowRight') {
+        e.preventDefault();
+        userHasInteracted = true;
+        stopAutoplay();
+        goToNext();
+      }
+    });
 
     // Drag to scroll
     let isDown = false;
@@ -304,6 +409,8 @@
 
     galleryScroll.addEventListener('mousedown', (e) => {
       isDown = true;
+      userHasInteracted = true;
+      stopAutoplay();
       galleryScroll.style.cursor = 'grabbing';
       startX = e.pageX - galleryScroll.offsetLeft;
       scrollLeftStart = galleryScroll.scrollLeft;
@@ -326,6 +433,12 @@
       const walk = (x - startX) * 1.5;
       galleryScroll.scrollLeft = scrollLeftStart - walk;
     });
+
+    // Touch interactions stop autoplay
+    galleryScroll.addEventListener('touchstart', () => {
+      userHasInteracted = true;
+      stopAutoplay();
+    }, { passive: true });
 
     // Update dots on scroll
     galleryScroll.addEventListener('scroll', updateActiveDot);
@@ -388,6 +501,30 @@
         if (btnLoading) btnLoading.style.display = 'none';
         if (submitBtn) submitBtn.disabled = false;
       }
+    });
+  }
+
+  // ===== Page Transition Animations =====
+  if (!prefersReducedMotion) {
+    // Add page enter animation on load
+    document.body.classList.add('page-transition');
+
+    // Handle internal page links with smooth transition
+    const internalLinks = document.querySelectorAll('a[href$=".html"]:not([target="_blank"])');
+
+    internalLinks.forEach(link => {
+      link.addEventListener('click', function(e) {
+        const href = this.getAttribute('href');
+        // Only handle internal links (same domain or relative)
+        if (href && !href.startsWith('http') && !href.startsWith('//')) {
+          e.preventDefault();
+          document.body.classList.add('page-transition-exit');
+
+          setTimeout(() => {
+            window.location.href = href;
+          }, 300);
+        }
+      });
     });
   }
 
