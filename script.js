@@ -24,7 +24,7 @@ document.addEventListener('DOMContentLoaded', function() {
   });
 
   // Intersection Observer for scroll animations
-  const animatedElements = document.querySelectorAll('.feature-card, .spec-card, .stat, .gallery-item');
+  const animatedElements = document.querySelectorAll('.feature-card, .spec-card, .stat, .gallery-item, .capability-block, .automation-card, .tech-item, .perf-stat');
 
   const observer = new IntersectionObserver((entries) => {
     entries.forEach((entry, index) => {
