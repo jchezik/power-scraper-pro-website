@@ -987,3 +987,104 @@ section {
     font-size: clamp(2rem, 8vw, 2.5rem);
   }
 }
+
+/* ==========================================================================
+   Legal Notice Banner
+   ========================================================================== */
+.legal-notice-banner {
+  background: rgba(255, 149, 0, 0.08);
+  border: 1px solid rgba(255, 149, 0, 0.25);
+  border-radius: var(--radius-lg);
+  padding: var(--space-md) var(--space-lg);
+  margin-bottom: var(--space-xl);
+  text-align: left;
+}
+
+.legal-notice-banner .notice-header {
+  display: flex;
+  align-items: center;
+  gap: var(--space-xs);
+  font-size: var(--font-size-sm);
+  font-weight: 700;
+  color: #FF9500;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-bottom: var(--space-xs);
+}
+
+.legal-notice-banner .notice-header svg {
+  width: 18px;
+  height: 18px;
+  fill: #FF9500;
+}
+
+.legal-notice-banner .notice-text {
+  font-size: var(--font-size-sm);
+  color: var(--color-text-secondary);
+  line-height: 1.6;
+  margin: 0;
+}
+
+.legal-notice-banner .notice-text a {
+  color: var(--color-accent-fallback);
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.legal-notice-banner .notice-text a:hover {
+  text-decoration: underline;
+}
+
+/* Acceptable Use Policy specific styles */
+.use-list {
+  list-style: none;
+  padding: 0;
+  margin: var(--space-md) 0;
+}
+
+.use-list li {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-sm);
+  padding: var(--space-sm) 0;
+  font-size: var(--font-size-base);
+  color: var(--color-text-secondary);
+  line-height: 1.6;
+}
+
+.use-list li svg {
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+.use-list.allowed li svg {
+  fill: #30d158;
+  width: 20px;
+  height: 20px;
+}
+
+.use-list.prohibited li svg {
+  fill: #ff453a;
+  width: 20px;
+  height: 20px;
+}
+
+.legal-warning-box {
+  background: rgba(255, 69, 58, 0.08);
+  border: 1px solid rgba(255, 69, 58, 0.25);
+  border-radius: var(--radius-md);
+  padding: var(--space-md);
+  margin-top: var(--space-lg);
+}
+
+.legal-warning-box p {
+  color: var(--color-text);
+  font-weight: 500;
+  margin: 0;
+}
+
+@media (max-width: 768px) {
+  .legal-notice-banner {
+    padding: var(--space-sm) var(--space-md);
+  }
+}
