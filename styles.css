@@ -921,8 +921,14 @@ section {
     gap: var(--space-xl);
   }
 
+  /* Keep content before visual on mobile for proper reading order:
+     Label → Title → Description → Features → Visual */
   .capability-visual {
-    order: -1;
+    order: 1;
+  }
+
+  .capability-content {
+    order: 0;
   }
 
   .collection-stack,
