@@ -17,18 +17,44 @@
   </style>
 </head>
 <body>
-  <div class="scroll-progress" id="scroll-progress"></div>
   <!-- Navigation -->
   <nav class="nav">
-    <div class="nav-content">
-      <a href="/" class="nav-logo">
-        <svg viewBox="0 0 24 24" fill="currentColor">
+    <div class="nav-container">
+      <a href="index.html" class="nav-logo">
+        <svg viewBox="0 0 24 24" fill="currentColor" width="28" height="28">
           <path d="M18 4l2 4h-3l-2-4h-2l2 4h-3l-2-4H8l2 4H7L5 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V4h-4z"/>
         </svg>
-        Power Scraper Pro
+        <span>Power Scraper Pro</span>
       </a>
+      <div class="nav-links">
+        <a href="index.html#features">Features</a>
+        <a href="index.html#gallery">Gallery</a>
+        <a href="index.html#specs">Specs</a>
+        <a href="index.html#download" class="nav-cta">Coming Soon</a>
+      </div>
+      <!-- Mobile Menu Button -->
+      <button class="mobile-menu-btn" aria-label="Open menu" aria-expanded="false">
+        <svg viewBox="0 0 24 24" fill="currentColor">
+          <path d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z"/>
+        </svg>
+      </button>
     </div>
   </nav>
+
+  <!-- Mobile Menu Overlay -->
+  <div class="mobile-menu" id="mobile-menu">
+    <button class="mobile-menu-close" aria-label="Close menu">
+      <svg viewBox="0 0 24 24" fill="currentColor">
+        <path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/>
+      </svg>
+    </button>
+    <div class="mobile-menu-links">
+      <a href="index.html#features">Features</a>
+      <a href="index.html#gallery">Gallery</a>
+      <a href="index.html#specs">Specs</a>
+      <a href="index.html#download" class="nav-cta">Coming Soon</a>
+    </div>
+  </div>
 
   <!-- 404 Content -->
   <main class="error-page">
@@ -125,5 +151,8 @@
       </div>
     </div>
   </footer>
+
+  <!-- Main JavaScript -->
+  <script src="script.js"></script>
 </body>
 </html>

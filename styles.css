@@ -173,6 +173,122 @@ a {
   filter: brightness(1.1);
 }
 
+/* Mobile Menu Button */
+.mobile-menu-btn {
+  display: none;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 8px;
+  border-radius: var(--radius-sm);
+  transition: background-color var(--transition-fast);
+}
+
+.mobile-menu-btn:hover {
+  background: var(--color-bg-secondary);
+}
+
+.mobile-menu-btn svg {
+  width: 24px;
+  height: 24px;
+  fill: var(--color-text);
+}
+
+/* Mobile Menu Overlay */
+.mobile-menu {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: var(--color-bg);
+  z-index: 999;
+  padding: calc(56px + var(--space-xl)) var(--space-md) var(--space-xl);
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity var(--transition-base), visibility var(--transition-base);
+}
+
+.mobile-menu.active {
+  opacity: 1;
+  visibility: visible;
+}
+
+.mobile-menu-links {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xs);
+}
+
+.mobile-menu-links a {
+  display: block;
+  padding: var(--space-md);
+  font-size: var(--font-size-xl);
+  font-weight: 600;
+  color: var(--color-text);
+  border-radius: var(--radius-md);
+  transition: background-color var(--transition-fast);
+}
+
+.mobile-menu-links a:hover {
+  background: var(--color-bg-elevated);
+}
+
+.mobile-menu-links .nav-cta {
+  margin-top: var(--space-md);
+  text-align: center;
+  background: var(--color-accent-fallback);
+  background: var(--color-accent);
+}
+
+.mobile-menu-links .nav-cta:hover {
+  filter: brightness(1.1);
+  background: var(--color-accent-fallback);
+  background: var(--color-accent);
+}
+
+/* Mobile Menu Close Button */
+.mobile-menu-close {
+  position: absolute;
+  top: 6px;
+  right: var(--space-sm);
+  width: 44px;
+  height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  border-radius: var(--radius-sm);
+  transition: background-color var(--transition-fast);
+}
+
+.mobile-menu-close:hover {
+  background: var(--color-bg-elevated);
+}
+
+.mobile-menu-close svg {
+  width: 24px;
+  height: 24px;
+  fill: var(--color-text);
+}
+
+@media (max-width: 768px) {
+  .mobile-menu-btn {
+    display: flex;
+  }
+
+  .mobile-menu {
+    display: block;
+  }
+}
+
 /* ==========================================================================
    Hero Section
    ========================================================================== */
@@ -400,7 +516,7 @@ section {
 
 .features-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(min(320px, 100%), 1fr));
   gap: var(--space-lg);
   max-width: var(--max-width);
   margin: 0 auto;
@@ -726,7 +842,7 @@ section {
 
 .automation-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(min(280px, 100%), 1fr));
   gap: var(--space-lg);
   max-width: var(--max-width);
   margin: 0 auto;
@@ -816,7 +932,7 @@ section {
 
 .shortcuts-container {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(min(300px, 100%), 1fr));
   gap: var(--space-xl);
   max-width: var(--max-width);
   margin: 0 auto;
@@ -891,7 +1007,7 @@ section {
 
 .accessibility-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(min(280px, 100%), 1fr));
   gap: var(--space-lg);
   max-width: var(--max-width);
   margin: 0 auto;
@@ -948,7 +1064,7 @@ section {
 
 .reliability-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(min(280px, 100%), 1fr));
   gap: var(--space-lg);
   max-width: var(--max-width);
   margin: 0 auto;
@@ -1177,7 +1293,7 @@ section {
 
 .gallery-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(min(350px, 100%), 1fr));
   gap: var(--space-lg);
   max-width: var(--max-width);
   margin: 0 auto;
@@ -1249,7 +1365,7 @@ section {
 
 .specs-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(min(260px, 100%), 1fr));
   gap: var(--space-lg);
   max-width: var(--max-width);
   margin: 0 auto var(--space-3xl);
@@ -1492,9 +1608,31 @@ section {
 /* ==========================================================================
    Responsive Design
    ========================================================================== */
+
+/* Tablet and small desktop */
+@media (max-width: 1024px) {
+  .features-grid {
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  }
+
+  .capability-block {
+    gap: var(--space-xl);
+  }
+
+  .performance-content {
+    gap: var(--space-xl);
+  }
+}
+
+/* Tablet portrait and large phones */
 @media (max-width: 768px) {
   .nav-links {
     display: none;
+  }
+
+  /* Show mobile menu button */
+  .mobile-menu-btn {
+    display: flex;
   }
 
   .hero {
@@ -1518,9 +1656,18 @@ section {
     width: 100%;
   }
 
-  .features-grid,
+  .features-grid {
+    grid-template-columns: 1fr;
+    gap: var(--space-md);
+  }
+
   .gallery-grid {
     grid-template-columns: 1fr;
+    gap: var(--space-md);
+  }
+
+  .gallery-item {
+    aspect-ratio: 16 / 10;
   }
 
   .signup-form {
@@ -1535,21 +1682,508 @@ section {
     flex-direction: column;
     align-items: center;
   }
+
+  .section-intro {
+    margin-bottom: var(--space-xl);
+  }
+
+  .section-title {
+    font-size: clamp(1.75rem, 6vw, 2.5rem);
+  }
+
+  .section-subtitle {
+    font-size: var(--font-size-base);
+  }
+
+  /* Footer responsive */
+  .footer-links {
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: var(--space-md);
+  }
+
+  .footer-links a {
+    font-size: var(--font-size-xs);
+  }
+
+  /* Specs grid mobile */
+  .specs-grid {
+    grid-template-columns: 1fr;
+  }
+
+  /* Automation grid mobile */
+  .automation-grid {
+    grid-template-columns: 1fr;
+  }
+
+  /* Shortcuts mobile */
+  .shortcuts-container {
+    grid-template-columns: 1fr;
+    gap: var(--space-md);
+  }
+
+  /* Accessibility grid mobile */
+  .accessibility-grid {
+    grid-template-columns: 1fr;
+  }
+
+  /* Reliability grid mobile */
+  .reliability-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Phone landscape and small tablets */
+@media (max-width: 576px) {
+  :root {
+    --space-section: clamp(3rem, 10vw, 5rem);
+  }
+
+  section {
+    padding-left: var(--space-sm);
+    padding-right: var(--space-sm);
+  }
+
+  .nav-container {
+    padding: 0 var(--space-sm);
+  }
+
+  .hero-content {
+    padding: 0 var(--space-xs);
+  }
+
+  .hero-eyebrow {
+    font-size: var(--font-size-xs);
+    padding: 6px 12px;
+  }
+
+  .hero-title {
+    font-size: clamp(2rem, 12vw, 3rem);
+  }
+
+  .hero-subtitle {
+    font-size: var(--font-size-sm);
+  }
+
+  .btn {
+    padding: 14px 24px;
+    font-size: var(--font-size-sm);
+  }
+
+  .hero-window {
+    border-radius: var(--radius-lg);
+  }
+
+  .window-chrome {
+    height: 40px;
+    padding: 0 12px;
+  }
+
+  .window-btn {
+    width: 10px;
+    height: 10px;
+  }
+
+  .window-title {
+    font-size: var(--font-size-xs);
+  }
+
+  .feature-card,
+  .automation-card,
+  .reliability-card,
+  .accessibility-card {
+    padding: var(--space-lg);
+  }
+
+  .feature-icon,
+  .automation-icon,
+  .reliability-icon,
+  .accessibility-icon {
+    width: 40px;
+    height: 40px;
+  }
+
+  .feature-icon svg,
+  .automation-icon svg,
+  .reliability-icon svg,
+  .accessibility-icon svg {
+    width: 20px;
+    height: 20px;
+  }
+
+  /* Stats row mobile */
+  .stats-row {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--space-lg);
+  }
+
+  .stat-value {
+    font-size: var(--font-size-3xl);
+  }
+
+  /* Capability badges mobile */
+  .capability-badge-group {
+    gap: var(--space-xs);
+  }
+
+  .media-badge {
+    padding: 8px 16px;
+    font-size: var(--font-size-xs);
+  }
+
+  /* Legal notice banner mobile */
+  .legal-notice-banner {
+    padding: var(--space-sm);
+  }
+
+  .legal-notice-banner .notice-header {
+    font-size: var(--font-size-xs);
+  }
+
+  .legal-notice-banner .notice-text {
+    font-size: var(--font-size-xs);
+  }
+
+  /* Gallery caption mobile */
+  .gallery-caption {
+    font-size: var(--font-size-xs);
+    bottom: var(--space-sm);
+    left: var(--space-sm);
+  }
+
+  /* Download section mobile */
+  .download-badge {
+    font-size: var(--font-size-xs);
+    padding: 6px 12px;
+  }
+
+  .signup-form input {
+    padding: 14px 16px;
+    font-size: var(--font-size-sm);
+  }
+
+  /* Footer mobile */
+  .footer {
+    padding: var(--space-xl) var(--space-sm);
+  }
+
+  .footer-brand {
+    font-size: var(--font-size-sm);
+  }
+
+  .footer-brand svg {
+    width: 20px;
+    height: 20px;
+  }
+
+  .footer-copyright {
+    text-align: center;
+  }
+}
+
+/* Very small phones (iPhone SE, older Android phones) */
+@media (max-width: 375px) {
+  .hero-title {
+    font-size: clamp(1.75rem, 14vw, 2.5rem);
+  }
+
+  .hero-subtitle {
+    font-size: var(--font-size-xs);
+    line-height: 1.5;
+  }
+
+  .section-title {
+    font-size: clamp(1.5rem, 7vw, 2rem);
+  }
+
+  .btn {
+    padding: 12px 20px;
+  }
+
+  .feature-card h3,
+  .automation-card h3,
+  .reliability-card h3,
+  .accessibility-card h3 {
+    font-size: var(--font-size-lg);
+  }
+
+  .feature-card p,
+  .automation-card p,
+  .reliability-card p,
+  .accessibility-card p {
+    font-size: var(--font-size-sm);
+  }
+
+  .capability-title {
+    font-size: clamp(1.25rem, 5vw, 1.75rem);
+  }
+
+  .capability-description {
+    font-size: var(--font-size-sm);
+  }
+
+  .capability-features li {
+    font-size: var(--font-size-sm);
+  }
+
+  .performance-title {
+    font-size: clamp(1.5rem, 6vw, 2rem);
+  }
+
+  .performance-description {
+    font-size: var(--font-size-sm);
+  }
+
+  .performance-stats {
+    gap: var(--space-md);
+  }
+
+  .perf-value {
+    font-size: var(--font-size-xl);
+  }
+
+  .perf-label {
+    font-size: 10px;
+  }
+
+  .tech-stack-display {
+    grid-template-columns: 1fr;
+    gap: var(--space-xs);
+  }
+
+  .tech-item {
+    padding: var(--space-md);
+  }
+
+  .tech-name {
+    font-size: var(--font-size-base);
+  }
+
+  .tech-detail {
+    font-size: var(--font-size-xs);
+  }
+
+  /* Shortcuts mobile small */
+  .shortcuts-group {
+    padding: var(--space-md);
+  }
+
+  .shortcut-keys kbd {
+    min-width: 24px;
+    height: 24px;
+    padding: 0 6px;
+    font-size: var(--font-size-xs);
+  }
+
+  .shortcut-action {
+    font-size: var(--font-size-xs);
+  }
+
+  /* Spec cards mobile small */
+  .spec-card {
+    padding: var(--space-md);
+  }
+
+  .spec-card h3 {
+    font-size: var(--font-size-base);
+  }
+
+  .spec-card li span:last-child {
+    font-size: var(--font-size-sm);
+  }
+
+  /* Stats very small */
+  .stats-row {
+    gap: var(--space-md);
+  }
+
+  .stat-value {
+    font-size: var(--font-size-2xl);
+  }
+
+  .stat-label {
+    font-size: var(--font-size-xs);
+  }
 }
 
 /* ==========================================================================
-   PhotoSwipe Customization
+   PhotoSwipe Customization - Mobile Optimized
    ========================================================================== */
 .pswp {
-  --pswp-bg: rgba(0, 0, 0, 0.95);
+  --pswp-bg: rgba(0, 0, 0, 0.98);
+  --pswp-placeholder-bg: rgba(28, 28, 30, 0.9);
 }
 
-.pswp__button {
-  color: white;
+/* Ensure images are centered */
+.pswp__img {
+  object-fit: contain;
 }
 
+/* Navigation arrows - always visible on mobile */
+.pswp__button--arrow {
+  width: 60px;
+  height: 60px;
+  opacity: 1;
+  background-color: rgba(28, 28, 30, 0.9);
+  border-radius: 50%;
+  transition: all 0.2s ease;
+}
+
+.pswp__button--arrow:hover {
+  background-color: rgba(91, 127, 255, 0.9);
+}
+
+.pswp__button--arrow--prev {
+  left: 16px;
+}
+
+.pswp__button--arrow--next {
+  right: 16px;
+}
+
+/* Arrow SVG styling */
+.pswp__button--arrow svg {
+  width: 28px;
+  height: 28px;
+}
+
+/* Close button - prominent and always visible */
+.pswp__button--close {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  width: 52px;
+  height: 52px;
+  padding: 14px;
+  background-color: rgba(28, 28, 30, 0.9);
+  border-radius: 50%;
+  opacity: 1;
+  z-index: 100;
+  transition: all 0.2s ease;
+}
+
+.pswp__button--close:hover {
+  background-color: rgba(255, 69, 58, 0.9);
+}
+
+.pswp__button--close svg {
+  width: 24px;
+  height: 24px;
+}
+
+/* Counter styling */
 .pswp__counter {
   font-family: var(--font-family);
+  font-size: 14px;
+  font-weight: 600;
+  padding: 8px 16px;
+  background-color: rgba(28, 28, 30, 0.9);
+  border-radius: 20px;
+  top: 16px;
+  left: 16px;
+  opacity: 1;
+}
+
+/* Zoom button */
+.pswp__button--zoom {
+  width: 48px;
+  height: 48px;
+  background-color: rgba(28, 28, 30, 0.9);
+  border-radius: 50%;
+  opacity: 1;
+}
+
+.pswp__button--zoom:hover {
+  background-color: rgba(91, 127, 255, 0.9);
+}
+
+/* All buttons should have pointer cursor */
+.pswp__button {
+  color: white;
+  cursor: pointer;
+}
+
+/* Mobile-specific PhotoSwipe styles */
+@media (max-width: 768px) {
+  /* Larger touch targets on mobile */
+  .pswp__button--arrow {
+    width: 56px;
+    height: 56px;
+    background-color: rgba(28, 28, 30, 0.95);
+  }
+
+  .pswp__button--arrow--prev {
+    left: 8px;
+  }
+
+  .pswp__button--arrow--next {
+    right: 8px;
+  }
+
+  .pswp__button--arrow svg {
+    width: 24px;
+    height: 24px;
+  }
+
+  /* Larger close button on mobile for easy tapping */
+  .pswp__button--close {
+    top: 12px;
+    right: 12px;
+    width: 56px;
+    height: 56px;
+    padding: 16px;
+    background-color: rgba(28, 28, 30, 0.95);
+  }
+
+  .pswp__button--close svg {
+    width: 24px;
+    height: 24px;
+  }
+
+  /* Counter positioning on mobile */
+  .pswp__counter {
+    top: 12px;
+    left: 12px;
+    font-size: 13px;
+    padding: 6px 14px;
+  }
+
+  /* Hide zoom button on very small screens - pinch to zoom works */
+  .pswp__button--zoom {
+    display: none;
+  }
+}
+
+/* Very small phones (iPhone SE, etc.) */
+@media (max-width: 375px) {
+  .pswp__button--arrow {
+    width: 48px;
+    height: 48px;
+  }
+
+  .pswp__button--arrow--prev {
+    left: 4px;
+  }
+
+  .pswp__button--arrow--next {
+    right: 4px;
+  }
+
+  .pswp__button--close {
+    width: 48px;
+    height: 48px;
+    padding: 12px;
+    top: 8px;
+    right: 8px;
+  }
+
+  .pswp__counter {
+    top: 8px;
+    left: 8px;
+    font-size: 12px;
+    padding: 5px 12px;
+  }
 }
 
 /* ==========================================================================
