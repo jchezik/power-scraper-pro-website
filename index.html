@@ -2,12 +2,14 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- Enhanced viewport for all mobile devices including Samsung S24, iPhone 17 Pro -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, maximum-scale=5">
   <meta name="description" content="Power Scraper Pro - The professional media library manager for Mac. Automatically organize, scrape metadata, and rename your movies and TV shows.">
   <title>Power Scraper Pro - Professional Media Library Manager for Mac</title>
 
   <!-- Favicon -->
   <link rel="icon" type="image/svg+xml" href="favicon.svg">
+  <link rel="apple-touch-icon" href="favicon.svg">
 
   <!-- Preconnect for performance -->
   <link rel="preconnect" href="https://cdn.jsdelivr.net">
@@ -29,14 +31,28 @@
   <meta property="og:image" content="ScreenShots/Movie Library.png">
   <meta property="og:type" content="website">
 
-  <!-- Theme color -->
-  <meta name="theme-color" content="#000000">
+  <!-- Theme color for browser chrome -->
+  <meta name="theme-color" content="#000000" media="(prefers-color-scheme: dark)">
+  <meta name="theme-color" content="#000000" media="(prefers-color-scheme: light)">
+
+  <!-- iOS specific -->
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="Power Scraper Pro">
+
+  <!-- Android/Samsung specific -->
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="format-detection" content="telephone=no">
+
+  <!-- Prevent zoom on input focus for iOS/Android -->
+  <meta name="format-detection" content="telephone=no">
 </head>
 <body>
+  <!-- Skip to main content link for keyboard users -->
+  <a href="#features" class="skip-link">Skip to main content</a>
+
   <!-- Navigation -->
-  <nav class="nav">
+  <nav class="nav" role="navigation" aria-label="Main navigation">
     <div class="nav-container">
       <a href="#" class="nav-logo">
         <svg viewBox="0 0 24 24" fill="currentColor" width="28" height="28">
@@ -79,13 +95,13 @@
   </div>
 
   <!-- Hero Section -->
-  <section class="hero">
+  <section class="hero" aria-labelledby="hero-title">
     <div class="hero-content">
       <div class="hero-eyebrow">
         <span class="status-dot"></span>
         macOS Native • Apple Silicon Optimized
       </div>
-      <h1 class="hero-title">Power Scraper Pro</h1>
+      <h1 class="hero-title" id="hero-title">Power Scraper Pro</h1>
       <p class="hero-subtitle">The professional media library manager for Mac. Automatically organize, scrape metadata, and rename your movies and TV shows into Kodi-compliant formats.</p>
 
       <!-- Legal Notice Banner -->
@@ -317,12 +333,12 @@
         </div>
       </div>
 
-      <!-- Upcoming Releases Capability -->
+      <!-- Release Tracking Capability -->
       <div class="capability-block reverse">
         <div class="capability-content">
-          <span class="capability-label">Upcoming Releases</span>
-          <h3 class="capability-title">Know what's coming<br>to your library.</h3>
-          <p class="capability-description">Track unreleased movies from collections you own and monitor TV series returning with new seasons. Plan your library ahead of time with release dates and network information for upcoming content.</p>
+          <span class="capability-label">Release Tracking</span>
+          <h3 class="capability-title">Stay ahead of<br>your library.</h3>
+          <p class="capability-description">Track unreleased movies from collections you own and monitor TV series returning with new seasons. Plan your library ahead of time with release dates and network information.</p>
           <ul class="capability-features">
             <li>
               <svg viewBox="0 0 24 24" fill="currentColor"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
@@ -359,6 +375,7 @@
           </div>
         </div>
       </div>
+
     </div>
   </section>
 
@@ -565,90 +582,90 @@
   </section>
 
   <!-- Gallery Section -->
-  <section class="gallery" id="gallery">
+  <section class="gallery" id="gallery" aria-labelledby="gallery-title">
     <div class="section-intro">
-      <h2 class="section-title">See it in action.</h2>
+      <h2 class="section-title" id="gallery-title">See it in action.</h2>
       <p class="section-subtitle">A cinema-quality interface designed for power users who demand the best.</p>
     </div>
 
-    <div class="gallery-grid" id="gallery-grid">
-      <a href="ScreenShots/Movie Library.png" class="gallery-item" data-pswp-width="1763" data-pswp-height="1177">
+    <div class="gallery-grid" id="gallery-grid" role="list" aria-label="Application screenshots">
+      <a href="ScreenShots/Movie Library.png" class="gallery-item" data-pswp-width="1763" data-pswp-height="1177" role="listitem" aria-label="View Movie Library screenshot">
         <picture>
           <source srcset="ScreenShots/Movie Library.avif" type="image/avif">
           <source srcset="ScreenShots/Movie Library.webp" type="image/webp">
-          <img src="ScreenShots/Movie Library.png" alt="Movie Library" loading="lazy">
+          <img src="ScreenShots/Movie Library.png" alt="Movie Library interface showing poster grid view" width="1763" height="1177" loading="lazy">
         </picture>
         <span class="gallery-caption">Movie Library</span>
       </a>
-      <a href="ScreenShots/DashBoard Showcase.png" class="gallery-item" data-pswp-width="2022" data-pswp-height="1224">
+      <a href="ScreenShots/DashBoard Showcase.png" class="gallery-item" data-pswp-width="2022" data-pswp-height="1224" role="listitem" aria-label="View Dashboard screenshot">
         <picture>
           <source srcset="ScreenShots/DashBoard Showcase.avif" type="image/avif">
           <source srcset="ScreenShots/DashBoard Showcase.webp" type="image/webp">
-          <img src="ScreenShots/DashBoard Showcase.png" alt="Dashboard Overview" loading="lazy">
+          <img src="ScreenShots/DashBoard Showcase.png" alt="Dashboard Overview with statistics and alerts" width="2022" height="1224" loading="lazy">
         </picture>
         <span class="gallery-caption">Dashboard Overview</span>
       </a>
-      <a href="ScreenShots/Collections Showcase.png" class="gallery-item" data-pswp-width="2022" data-pswp-height="1224">
+      <a href="ScreenShots/Collections Showcase.png" class="gallery-item" data-pswp-width="2022" data-pswp-height="1224" role="listitem" aria-label="View Collections screenshot">
         <picture>
           <source srcset="ScreenShots/Collections Showcase.avif" type="image/avif">
           <source srcset="ScreenShots/Collections Showcase.webp" type="image/webp">
-          <img src="ScreenShots/Collections Showcase.png" alt="Collections View" loading="lazy">
+          <img src="ScreenShots/Collections Showcase.png" alt="Collections View showing movie sets" width="2022" height="1224" loading="lazy">
         </picture>
         <span class="gallery-caption">Collections View</span>
       </a>
-      <a href="ScreenShots/TV Episodes.png" class="gallery-item" data-pswp-width="1542" data-pswp-height="1353">
+      <a href="ScreenShots/TV Episodes.png" class="gallery-item" data-pswp-width="1542" data-pswp-height="1353" role="listitem" aria-label="View TV Episodes screenshot">
         <picture>
           <source srcset="ScreenShots/TV Episodes.avif" type="image/avif">
           <source srcset="ScreenShots/TV Episodes.webp" type="image/webp">
-          <img src="ScreenShots/TV Episodes.png" alt="TV Episodes" loading="lazy">
+          <img src="ScreenShots/TV Episodes.png" alt="TV Episodes list with season tracking" width="1542" height="1353" loading="lazy">
         </picture>
         <span class="gallery-caption">TV Episodes</span>
       </a>
-      <a href="ScreenShots/Poster Selection.png" class="gallery-item" data-pswp-width="1763" data-pswp-height="1177">
+      <a href="ScreenShots/Poster Selection.png" class="gallery-item" data-pswp-width="1763" data-pswp-height="1177" role="listitem" aria-label="View Poster Selection screenshot">
         <picture>
           <source srcset="ScreenShots/Poster Selection.avif" type="image/avif">
           <source srcset="ScreenShots/Poster Selection.webp" type="image/webp">
-          <img src="ScreenShots/Poster Selection.png" alt="Poster Selection" loading="lazy">
+          <img src="ScreenShots/Poster Selection.png" alt="Poster Selection modal with multiple options" width="1763" height="1177" loading="lazy">
         </picture>
         <span class="gallery-caption">Poster Selection</span>
       </a>
-      <a href="ScreenShots/Scraping Progress.png" class="gallery-item" data-pswp-width="1542" data-pswp-height="1353">
+      <a href="ScreenShots/Scraping Progress.png" class="gallery-item" data-pswp-width="1542" data-pswp-height="1353" role="listitem" aria-label="View Scraping Progress screenshot">
         <picture>
           <source srcset="ScreenShots/Scraping Progress.avif" type="image/avif">
           <source srcset="ScreenShots/Scraping Progress.webp" type="image/webp">
-          <img src="ScreenShots/Scraping Progress.png" alt="Scraping Progress" loading="lazy">
+          <img src="ScreenShots/Scraping Progress.png" alt="Scraping Progress with real-time status" width="1542" height="1353" loading="lazy">
         </picture>
         <span class="gallery-caption">Scraping Progress</span>
       </a>
-      <a href="ScreenShots/Empty Library.png" class="gallery-item" data-pswp-width="1392" data-pswp-height="1177">
+      <a href="ScreenShots/Empty Library.png" class="gallery-item" data-pswp-width="1392" data-pswp-height="1177" role="listitem" aria-label="View Getting Started screenshot">
         <picture>
           <source srcset="ScreenShots/Empty Library.avif" type="image/avif">
           <source srcset="ScreenShots/Empty Library.webp" type="image/webp">
-          <img src="ScreenShots/Empty Library.png" alt="Empty Library" loading="lazy">
+          <img src="ScreenShots/Empty Library.png" alt="Empty Library onboarding screen" width="1392" height="1177" loading="lazy">
         </picture>
         <span class="gallery-caption">Getting Started</span>
       </a>
-      <a href="ScreenShots/Adjust Artwork.png" class="gallery-item" data-pswp-width="1542" data-pswp-height="1353">
+      <a href="ScreenShots/Adjust Artwork.png" class="gallery-item" data-pswp-width="1542" data-pswp-height="1353" role="listitem" aria-label="View Artwork Adjustment screenshot">
         <picture>
           <source srcset="ScreenShots/Adjust Artwork.avif" type="image/avif">
           <source srcset="ScreenShots/Adjust Artwork.webp" type="image/webp">
-          <img src="ScreenShots/Adjust Artwork.png" alt="Adjust Artwork" loading="lazy">
+          <img src="ScreenShots/Adjust Artwork.png" alt="Artwork Adjustment tool for fanart positioning" width="1542" height="1353" loading="lazy">
         </picture>
         <span class="gallery-caption">Artwork Adjustment</span>
       </a>
-      <a href="ScreenShots/Upcoming Releases.png" class="gallery-item" data-pswp-width="2022" data-pswp-height="1224">
+      <a href="ScreenShots/Upcoming Releases.png" class="gallery-item" data-pswp-width="2022" data-pswp-height="1224" role="listitem" aria-label="View Upcoming Releases screenshot">
         <picture>
           <source srcset="ScreenShots/Upcoming Releases.avif" type="image/avif">
           <source srcset="ScreenShots/Upcoming Releases.webp" type="image/webp">
-          <img src="ScreenShots/Upcoming Releases.png" alt="Upcoming Releases" loading="lazy">
+          <img src="ScreenShots/Upcoming Releases.png" alt="Upcoming Releases tracking view" width="2022" height="1224" loading="lazy">
         </picture>
         <span class="gallery-caption">Upcoming Releases</span>
       </a>
-      <a href="ScreenShots/Failed Movie Chooser.png" class="gallery-item" data-pswp-width="2022" data-pswp-height="1224">
+      <a href="ScreenShots/Failed Movie Chooser.png" class="gallery-item" data-pswp-width="2022" data-pswp-height="1224" role="listitem" aria-label="View Search Recovery screenshot">
         <picture>
           <source srcset="ScreenShots/Failed Movie Chooser.avif" type="image/avif">
           <source srcset="ScreenShots/Failed Movie Chooser.webp" type="image/webp">
-          <img src="ScreenShots/Failed Movie Chooser.png" alt="Manual Search Recovery" loading="lazy">
+          <img src="ScreenShots/Failed Movie Chooser.png" alt="Manual Search Recovery for failed matches" width="2022" height="1224" loading="lazy">
         </picture>
         <span class="gallery-caption">Search Recovery</span>
       </a>
@@ -816,6 +833,112 @@
     </div>
   </section>
 
+  <!-- FAQ Section -->
+  <section class="faq" id="faq" aria-labelledby="faq-title">
+    <div class="section-intro">
+      <h2 class="section-title" id="faq-title">Frequently asked questions.</h2>
+      <p class="section-subtitle">Everything you need to know about Power Scraper Pro.</p>
+    </div>
+
+    <div class="faq-container" role="list">
+      <div class="faq-item" role="listitem">
+        <button class="faq-question" aria-expanded="false" aria-controls="faq-answer-1" id="faq-question-1">
+          <span>What media sources does Power Scraper Pro use for metadata?</span>
+          <svg class="faq-icon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+            <path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/>
+          </svg>
+        </button>
+        <div class="faq-answer" id="faq-answer-1" role="region" aria-labelledby="faq-question-1">
+          <p>Power Scraper Pro retrieves metadata from TMDB (The Movie Database) for movies, TVDB for TV shows, and Fanart.TV for high-resolution artwork. All three services are industry standards used by professional media centers worldwide. Your TMDB API key is required for movie metadata.</p>
+        </div>
+      </div>
+
+      <div class="faq-item" role="listitem">
+        <button class="faq-question" aria-expanded="false" aria-controls="faq-answer-2" id="faq-question-2">
+          <span>Does Power Scraper Pro work with my existing Kodi library?</span>
+          <svg class="faq-icon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+            <path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/>
+          </svg>
+        </button>
+        <div class="faq-answer" id="faq-answer-2" role="region" aria-labelledby="faq-question-2">
+          <p>Yes. Power Scraper Pro generates NFO files and organizes media in the exact folder structure that Kodi expects. After processing with Power Scraper Pro, simply point Kodi at your media folders and it will read all metadata locally without needing to scrape online sources again.</p>
+        </div>
+      </div>
+
+      <div class="faq-item" role="listitem">
+        <button class="faq-question" aria-expanded="false" aria-controls="faq-answer-3" id="faq-question-3">
+          <span>What happens if a movie or show can't be automatically matched?</span>
+          <svg class="faq-icon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+            <path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/>
+          </svg>
+        </button>
+        <div class="faq-answer" id="faq-answer-3" role="region" aria-labelledby="faq-question-3">
+          <p>Failed items are clearly marked in the interface. You can manually search TMDB or TVDB directly from the app, select the correct match, and retry scraping with one click. The dashboard also shows TMDB suggestions for items that might have close matches.</p>
+        </div>
+      </div>
+
+      <div class="faq-item" role="listitem">
+        <button class="faq-question" aria-expanded="false" aria-controls="faq-answer-4" id="faq-question-4">
+          <span>Will Power Scraper Pro modify or move my original files?</span>
+          <svg class="faq-icon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+            <path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/>
+          </svg>
+        </button>
+        <div class="faq-answer" id="faq-answer-4" role="region" aria-labelledby="faq-question-4">
+          <p>Power Scraper Pro renames files and organizes them into proper folder structures. The original video content is never modified, only renamed and moved. You can configure the output directory and naming format in settings. A preview is always shown before any changes are made.</p>
+        </div>
+      </div>
+
+      <div class="faq-item" role="listitem">
+        <button class="faq-question" aria-expanded="false" aria-controls="faq-answer-5" id="faq-question-5">
+          <span>Why does it require macOS 15 Sequoia and Apple Silicon?</span>
+          <svg class="faq-icon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+            <path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/>
+          </svg>
+        </button>
+        <div class="faq-answer" id="faq-answer-5" role="region" aria-labelledby="faq-question-5">
+          <p>Power Scraper Pro is built with Swift 6.2 using strict concurrency and SwiftUI. It leverages Metal compute shaders for GPU-accelerated thumbnail generation optimized specifically for M-series chips. These modern technologies deliver the best performance, reliability, and security.</p>
+        </div>
+      </div>
+
+      <div class="faq-item" role="listitem">
+        <button class="faq-question" aria-expanded="false" aria-controls="faq-answer-6" id="faq-question-6">
+          <span>Is there a subscription or ongoing cost?</span>
+          <svg class="faq-icon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+            <path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/>
+          </svg>
+        </button>
+        <div class="faq-answer" id="faq-answer-6" role="region" aria-labelledby="faq-question-6">
+          <p>Power Scraper Pro will be a one-time purchase with no subscription required. Early access pricing will be available for beta testers who sign up. Future major versions may be separate purchases, but all minor updates and bug fixes are included for life.</p>
+        </div>
+      </div>
+
+      <div class="faq-item" role="listitem">
+        <button class="faq-question" aria-expanded="false" aria-controls="faq-answer-7" id="faq-question-7">
+          <span>Can I use Watch Folders to automatically process new media?</span>
+          <svg class="faq-icon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+            <path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/>
+          </svg>
+        </button>
+        <div class="faq-answer" id="faq-answer-7" role="region" aria-labelledby="faq-question-7">
+          <p>Yes. Configure any folder as a Watch Folder and Power Scraper Pro will automatically detect new media files, scan them, fetch metadata, and organize them into your library. This works for both movies and TV shows with real-time file system monitoring.</p>
+        </div>
+      </div>
+
+      <div class="faq-item" role="listitem">
+        <button class="faq-question" aria-expanded="false" aria-controls="faq-answer-8" id="faq-question-8">
+          <span>How does Power Scraper Pro handle interrupted scraping sessions?</span>
+          <svg class="faq-icon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+            <path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/>
+          </svg>
+        </button>
+        <div class="faq-answer" id="faq-answer-8" role="region" aria-labelledby="faq-question-8">
+          <p>Session state is continuously saved to disk. If the app quits, crashes, or you need to stop, your progress is preserved. When you relaunch, Power Scraper Pro offers to resume exactly where you left off. No duplicate downloads or wasted API calls.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <!-- Download Section -->
   <section class="download" id="download">
     <div class="download-content">
@@ -863,7 +986,7 @@
   <!-- Toast Notification -->
   <div id="toast" class="toast"></div>
 
-  <!-- PhotoSwipe 5 -->
+  <!-- PhotoSwipe 5 - Optimized for all devices -->
   <script type="module">
     import PhotoSwipeLightbox from 'https://cdn.jsdelivr.net/npm/photoswipe@5.4.3/dist/photoswipe-lightbox.esm.min.js';
     import PhotoSwipe from 'https://cdn.jsdelivr.net/npm/photoswipe@5.4.3/dist/photoswipe.esm.min.js';
@@ -871,18 +994,56 @@
     // Store scroll position before opening lightbox
     let savedScrollPosition = 0;
 
+    // Helper function to get responsive padding based on device
+    function getResponsivePadding() {
+      const width = window.innerWidth;
+      const height = window.innerHeight;
+      const isLandscape = width > height;
+
+      // Ultra-wide monitors (3440px+)
+      if (width >= 2560) {
+        return { top: 60, bottom: 60, left: 100, right: 100 };
+      }
+      // Large desktop (1920px+)
+      if (width >= 1920) {
+        return { top: 50, bottom: 50, left: 80, right: 80 };
+      }
+      // Desktop (1200px+)
+      if (width >= 1200) {
+        return { top: 40, bottom: 40, left: 60, right: 60 };
+      }
+      // Tablet landscape (1024px+)
+      if (width >= 1024) {
+        return { top: 30, bottom: 30, left: 40, right: 40 };
+      }
+      // iPad/Tablet portrait (768px+)
+      if (width >= 768) {
+        return { top: 50, bottom: 50, left: 30, right: 30 };
+      }
+      // Samsung S24 / iPhone Pro range (390-430px)
+      if (width >= 390 && width <= 430) {
+        return {
+          top: isLandscape ? 20 : 70,
+          bottom: isLandscape ? 20 : 90,
+          left: isLandscape ? 60 : 8,
+          right: isLandscape ? 60 : 8
+        };
+      }
+      // Small phones (375px and below)
+      if (width <= 375) {
+        return { top: 60, bottom: 80, left: 4, right: 4 };
+      }
+      // Default mobile
+      return { top: 65, bottom: 85, left: 10, right: 10 };
+    }
+
     const lightbox = new PhotoSwipeLightbox({
       gallery: '#gallery-grid',
       children: 'a',
       pswpModule: PhotoSwipe,
       bgOpacity: 0.98,
-      // Responsive padding - smaller on mobile for better image visibility
-      padding: {
-        top: window.innerWidth < 768 ? 60 : 40,
-        bottom: window.innerWidth < 768 ? 80 : 40,
-        left: window.innerWidth < 768 ? 10 : 40,
-        right: window.innerWidth < 768 ? 10 : 40
-      },
+      // Responsive padding based on device
+      padding: getResponsivePadding(),
       wheelToZoom: true,
       arrowKeys: true,
       escKey: true,
@@ -891,43 +1052,61 @@
       arrowNext: true,
       // Close button always visible
       close: true,
-      // Zoom settings for mobile
+      // Zoom settings optimized for each device
       initialZoomLevel: 'fit',
-      secondaryZoomLevel: 1.5,
-      maxZoomLevel: 3,
+      secondaryZoomLevel: window.innerWidth >= 1920 ? 2 : 1.5,
+      maxZoomLevel: window.innerWidth >= 1920 ? 4 : 3,
       // Touch settings for better mobile swipe
       pinchToClose: true,
       closeOnVerticalDrag: true,
-      // Animation settings
+      // Animation settings - faster on high-refresh displays
       showHideAnimationType: 'fade',
+      showAnimationDuration: 250,
+      hideAnimationDuration: 200,
       // Counter always visible
-      counter: true
+      counter: true,
+      // Better touch behavior for Samsung/iPhone
+      allowPanToNext: true,
+      spacing: 0.1,
+      loop: true,
+      // Preload adjacent slides for smoother navigation
+      preload: [1, 2],
+      // Error handling
+      errorMsg: 'Image could not be loaded'
     });
 
     // Save scroll position when lightbox opens
     lightbox.on('beforeOpen', () => {
       savedScrollPosition = window.scrollY;
+      // Prevent body scroll while lightbox is open
+      document.body.style.overflow = 'hidden';
     });
 
     // Restore scroll position when lightbox closes
     lightbox.on('close', () => {
+      // Restore body scroll
+      document.body.style.overflow = '';
       // Use requestAnimationFrame to ensure DOM is ready
       requestAnimationFrame(() => {
         window.scrollTo(0, savedScrollPosition);
       });
     });
 
-    // Update padding on resize
+    // Update padding on resize and orientation change
     lightbox.on('uiRegister', function() {
       lightbox.pswp.on('resize', () => {
-        const isMobile = window.innerWidth < 768;
-        lightbox.pswp.options.padding = {
-          top: isMobile ? 60 : 40,
-          bottom: isMobile ? 80 : 40,
-          left: isMobile ? 10 : 40,
-          right: isMobile ? 10 : 40
-        };
+        lightbox.pswp.options.padding = getResponsivePadding();
       });
+    });
+
+    // Handle orientation change for mobile devices
+    window.addEventListener('orientationchange', () => {
+      if (lightbox.pswp) {
+        setTimeout(() => {
+          lightbox.pswp.options.padding = getResponsivePadding();
+          lightbox.pswp.updateSize(true);
+        }, 100);
+      }
     });
 
     lightbox.init();
