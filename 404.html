@@ -11,6 +11,8 @@
     /* 404-specific: body needs flex for full-height layout */
     body {
       min-height: 100vh;
+      /* Fix for mobile browsers where 100vh doesn't account for address bar */
+      min-height: 100dvh;
       display: flex;
       flex-direction: column;
     }

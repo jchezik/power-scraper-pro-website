@@ -294,6 +294,8 @@ a {
    ========================================================================== */
 .hero {
   min-height: 100vh;
+  /* Fix for mobile browsers where 100vh doesn't account for address bar */
+  min-height: 100dvh;
   padding: calc(56px + var(--space-3xl)) var(--space-md) var(--space-3xl);
   display: flex;
   flex-direction: column;
@@ -2224,6 +2226,8 @@ section {
 .legal-page {
   padding: calc(56px + var(--space-3xl)) var(--space-md) var(--space-3xl);
   min-height: calc(100vh - 200px);
+  /* Fix for mobile browsers */
+  min-height: calc(100dvh - 200px);
 }
 
 .legal-content {
