@@ -1,0 +1,27 @@
+# Power Scraper Pro Website - Project Info
+# This file contains all deployment information
+
+## GitHub Repository
+- Owner: jchezik
+- Repo: power-scraper-pro-website
+- URL: https://github.com/jchezik/power-scraper-pro-website
+- Branch: main
+
+## Live Website
+- Domain: powerscraperpro.com
+- Hosting: GitHub Pages
+- URL: https://powerscraperpro.com
+
+## Deployment
+To deploy changes to the live site:
+1. Commit changes: git add . && git commit -m "message"
+2. Push to GitHub: git push origin main
+3. GitHub Pages will automatically update the live site
+
+Or use the deploy script:
+./deploy.sh "Your commit message"
+
+## Quick Commands
+- Push to live: git push origin main
+- Check status: git status
+- View remote: git remote -v
