@@ -204,7 +204,7 @@
           <svg viewBox="0 0 24 24" fill="currentColor"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zM9 17H7v-7h2v7zm4 0h-2V7h2v10zm4 0h-2v-4h2v4z"/></svg>
         </div>
         <h3>Dashboard Insights</h3>
-        <p>Real-time statistics, TMDB auto-match suggestions, and actionable alerts for missing artwork, incomplete seasons, and collection gaps.</p>
+        <p>Real-time library health with missing episode tracking by name and number, air dates for upcoming releases, TMDB suggestions, and actionable alerts for incomplete seasons.</p>
       </div>
 
       <div class="feature-card">
@@ -300,19 +300,19 @@
         <div class="capability-content">
           <span class="capability-label">TV Shows</span>
           <h3 class="capability-title">Series management,<br>taken to the next level.</h3>
-          <p class="capability-description">Multi-format episode detection (S01E01, 101, 1x01) with multi-episode file support. Automatic season folder creation and expected vs. actual episode tracking with missing episode identification.</p>
+          <p class="capability-description">Multi-format episode detection (S01E01, 101, 1x01) with multi-episode file support. See exactly which episodes you're missing with full episode names, numbers, and air dates at a glance.</p>
           <ul class="capability-features">
             <li>
               <svg viewBox="0 0 24 24" fill="currentColor"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
-              Season completion percentage calculation
+              Missing episodes listed by name and number (S02E01 "The Before Times")
             </li>
             <li>
               <svg viewBox="0 0 24 24" fill="currentColor"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
-              Multi-episode files (S01E10E11, S01E10-E11)
+              Air dates distinguish aired vs. upcoming episodes
             </li>
             <li>
               <svg viewBox="0 0 24 24" fill="currentColor"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
-              Episode thumbnails and season poster downloads
+              Season completion percentage with visual progress rings
             </li>
             <li>
               <svg viewBox="0 0 24 24" fill="currentColor"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
@@ -320,7 +320,7 @@
             </li>
             <li>
               <svg viewBox="0 0 24 24" fill="currentColor"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
-              Parallel metadata fetching for faster processing
+              Episode thumbnails and season poster downloads
             </li>
           </ul>
         </div>
@@ -449,7 +449,16 @@
         </picture>
         <span class="gallery-caption">Dashboard Overview</span>
       </a>
-      <!-- 3. TV Episodes - TV show management -->
+      <!-- 3. Dashboard Missing TV Shows - Episode tracking -->
+      <a href="ScreenShots/Dashboard Missing TV Shows.png" class="gallery-item" data-pswp-width="1774" data-pswp-height="1129" role="listitem" aria-label="View Missing Episodes screenshot">
+        <picture>
+          <source srcset="ScreenShots/Dashboard Missing TV Shows.avif" type="image/avif">
+          <source srcset="ScreenShots/Dashboard Missing TV Shows.webp" type="image/webp">
+          <img src="ScreenShots/Dashboard Missing TV Shows.png" alt="Dashboard showing missing TV episodes with episode names, numbers, and air dates" width="1774" height="1129" loading="lazy">
+        </picture>
+        <span class="gallery-caption">Missing Episodes Tracker</span>
+      </a>
+      <!-- 4. TV Episodes - TV show management -->
       <a href="ScreenShots/TV Episodes.png" class="gallery-item" data-pswp-width="1542" data-pswp-height="1353" role="listitem" aria-label="View TV Episodes screenshot">
         <picture>
           <source srcset="ScreenShots/TV Episodes.avif" type="image/avif">
@@ -458,7 +467,7 @@
         </picture>
         <span class="gallery-caption">TV Episodes</span>
       </a>
-      <!-- 4. Collections - Movie sets feature -->
+      <!-- 5. Collections - Movie sets feature -->
       <a href="ScreenShots/Collections Showcase.png" class="gallery-item" data-pswp-width="2022" data-pswp-height="1224" role="listitem" aria-label="View Collections screenshot">
         <picture>
           <source srcset="ScreenShots/Collections Showcase.avif" type="image/avif">
@@ -467,7 +476,7 @@
         </picture>
         <span class="gallery-caption">Collections View</span>
       </a>
-      <!-- 5. Upcoming Releases - Release tracking feature -->
+      <!-- 6. Upcoming Releases - Release tracking feature -->
       <a href="ScreenShots/Upcoming Releases.png" class="gallery-item" data-pswp-width="2022" data-pswp-height="1224" role="listitem" aria-label="View Upcoming Releases screenshot">
         <picture>
           <source srcset="ScreenShots/Upcoming Releases.avif" type="image/avif">
@@ -476,7 +485,7 @@
         </picture>
         <span class="gallery-caption">Upcoming Releases</span>
       </a>
-      <!-- 6. Scraping Progress - Processing in action -->
+      <!-- 7. Scraping Progress - Processing in action -->
       <a href="ScreenShots/Scraping Progress.png" class="gallery-item" data-pswp-width="1542" data-pswp-height="1353" role="listitem" aria-label="View Scraping Progress screenshot">
         <picture>
           <source srcset="ScreenShots/Scraping Progress.avif" type="image/avif">
@@ -485,7 +494,7 @@
         </picture>
         <span class="gallery-caption">Scraping Progress</span>
       </a>
-      <!-- 7. Poster Selection - Customization options -->
+      <!-- 8. Poster Selection - Customization options -->
       <a href="ScreenShots/Poster Selection.png" class="gallery-item" data-pswp-width="1763" data-pswp-height="1177" role="listitem" aria-label="View Poster Selection screenshot">
         <picture>
           <source srcset="ScreenShots/Poster Selection.avif" type="image/avif">
@@ -494,7 +503,7 @@
         </picture>
         <span class="gallery-caption">Poster Selection</span>
       </a>
-      <!-- 8. Artwork Adjustment - Fine-tuning artwork -->
+      <!-- 9. Artwork Adjustment - Fine-tuning artwork -->
       <a href="ScreenShots/Adjust Artwork.png" class="gallery-item" data-pswp-width="1542" data-pswp-height="1353" role="listitem" aria-label="View Artwork Adjustment screenshot">
         <picture>
           <source srcset="ScreenShots/Adjust Artwork.avif" type="image/avif">
@@ -503,7 +512,7 @@
         </picture>
         <span class="gallery-caption">Artwork Adjustment</span>
       </a>
-      <!-- 9. Search Recovery - Error handling -->
+      <!-- 10. Search Recovery - Error handling -->
       <a href="ScreenShots/Failed Movie Chooser.png" class="gallery-item" data-pswp-width="2022" data-pswp-height="1224" role="listitem" aria-label="View Search Recovery screenshot">
         <picture>
           <source srcset="ScreenShots/Failed Movie Chooser.avif" type="image/avif">
@@ -512,7 +521,7 @@
         </picture>
         <span class="gallery-caption">Search Recovery</span>
       </a>
-      <!-- 10. Getting Started - Onboarding (last to encourage sign-up) -->
+      <!-- 11. Getting Started - Onboarding (last to encourage sign-up) -->
       <a href="ScreenShots/Empty Library.png" class="gallery-item" data-pswp-width="1392" data-pswp-height="1177" role="listitem" aria-label="View Getting Started screenshot">
         <picture>
           <source srcset="ScreenShots/Empty Library.avif" type="image/avif">
