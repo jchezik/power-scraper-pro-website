@@ -745,6 +745,33 @@ section {
   justify-content: center;
 }
 
+/* Screenshot visual variant for capabilities */
+.capability-visual-screenshot {
+  position: relative;
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  box-shadow: var(--shadow-lg);
+}
+
+.capability-screenshot {
+  display: block;
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  transition: transform var(--transition-normal), box-shadow var(--transition-normal);
+}
+
+.capability-screenshot:hover {
+  transform: scale(1.02);
+  box-shadow: var(--shadow-glow);
+}
+
+.capability-screenshot img {
+  width: 100%;
+  height: auto;
+  display: block;
+  border-radius: var(--radius-lg);
+}
+
 .capability-badge-group {
   display: flex;
   flex-wrap: wrap;
@@ -1538,6 +1565,49 @@ section {
   gap: var(--space-lg);
   max-width: var(--max-width);
   margin: 0 auto var(--space-3xl);
+}
+
+/* Compact specs layout */
+.specs-compact {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: var(--space-lg) var(--space-2xl);
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: var(--space-xl) 0;
+}
+
+.spec-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: var(--space-xs);
+}
+
+.spec-label {
+  color: var(--color-text-tertiary);
+  font-size: var(--font-size-xs);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+.spec-value {
+  color: var(--color-text);
+  font-size: var(--font-size-sm);
+  font-weight: 500;
+}
+
+@media (max-width: 768px) {
+  .specs-compact {
+    gap: var(--space-md) var(--space-lg);
+  }
+
+  .spec-item {
+    flex-basis: calc(50% - var(--space-lg));
+  }
 }
 
 .spec-card {

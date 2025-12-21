@@ -212,44 +212,34 @@
         <div class="capability-content">
           <span class="capability-label">Movies</span>
           <h3 class="capability-title">Your film collection,<br>beautifully organized.</h3>
-          <p class="capability-description">Recursive folder scanning for MKV, MP4, AVI, M4V, and MOV files. Intelligent parsing extracts title, year, quality, and edition info. Configurable minimum file size filters out trailers automatically.</p>
+          <p class="capability-description">Intelligent parsing extracts title, year, quality, and edition from virtually any filename. Configurable filters automatically skip trailers and samples.</p>
           <ul class="capability-features">
             <li>
               <svg viewBox="0 0 24 24" fill="currentColor"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
-              Dual artwork sources: TMDB + Fanart.TV enhanced
+              Dual artwork from TMDB + Fanart.TV
             </li>
             <li>
               <svg viewBox="0 0 24 24" fill="currentColor"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
-              Adjustable fanart vertical positioning per movie
+              Safe atomic operations with rollback on failure
             </li>
             <li>
               <svg viewBox="0 0 24 24" fill="currentColor"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
-              Safe atomic file operations with rollback on failure
+              Remembers your manual corrections
             </li>
             <li>
               <svg viewBox="0 0 24 24" fill="currentColor"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
-              Multi-movie folder detection and proper organization
-            </li>
-            <li>
-              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
-              Correction memory for manual scrape fixes
-            </li>
-            <li>
-              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
-              YouTube trailer URLs embedded in NFO for Kodi playback
-            </li>
-            <li>
-              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
-              Direct TMDB ID search for exact movie matching
+              YouTube trailers embedded in NFO files
             </li>
           </ul>
         </div>
-        <div class="capability-visual">
-          <div class="capability-badge-group">
-            <span class="media-badge resolution">4K</span>
-            <span class="media-badge hdr">Dolby Vision</span>
-            <span class="media-badge audio">TrueHD Atmos</span>
-          </div>
+        <div class="capability-visual capability-visual-screenshot">
+          <a href="ScreenShots/Movie Library.png" class="capability-screenshot" data-pswp-width="1763" data-pswp-height="1177">
+            <picture>
+              <source srcset="ScreenShots/Movie Library.avif" type="image/avif">
+              <source srcset="ScreenShots/Movie Library.webp" type="image/webp">
+              <img src="ScreenShots/Movie Library.png" alt="Movie Library interface" width="1763" height="1177" loading="lazy">
+            </picture>
+          </a>
         </div>
       </div>
 
@@ -258,49 +248,34 @@
         <div class="capability-content">
           <span class="capability-label">TV Shows</span>
           <h3 class="capability-title">Series management,<br>taken to the next level.</h3>
-          <p class="capability-description">Multi-format episode detection (S01E01, 101, 1x01) with multi-episode file support. See exactly which episodes you're missing with full episode names, numbers, and air dates at a glance.</p>
+          <p class="capability-description">Multi-format episode detection (S01E01, 101, 1x01) with multi-episode file support. See exactly which episodes you're missing at a glance.</p>
           <ul class="capability-features">
             <li>
               <svg viewBox="0 0 24 24" fill="currentColor"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
-              Missing episodes listed by name and number (S02E01 "The Before Times")
+              Missing episodes by name, number, and air date
             </li>
             <li>
               <svg viewBox="0 0 24 24" fill="currentColor"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
-              Air dates distinguish aired vs. upcoming episodes
+              Season completion with visual progress rings
             </li>
             <li>
               <svg viewBox="0 0 24 24" fill="currentColor"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
-              Season completion percentage with visual progress rings
+              Episode thumbnails and season posters
             </li>
             <li>
               <svg viewBox="0 0 24 24" fill="currentColor"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
-              Per-episode NFO with title, synopsis, air date, rating
-            </li>
-            <li>
-              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
-              Episode thumbnails and season poster downloads
-            </li>
-            <li>
-              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
-              Direct TVDB ID search for precise show matching
-            </li>
-            <li>
-              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
-              Duplicate episode detection by filename and hash
+              Duplicate detection by filename and hash
             </li>
           </ul>
         </div>
-        <div class="capability-visual">
-          <div class="completion-indicator">
-            <div class="completion-ring">
-              <svg viewBox="0 0 36 36">
-                <path class="completion-bg" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831"/>
-                <path class="completion-fill" stroke-dasharray="85, 100" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831"/>
-              </svg>
-              <span class="completion-text">85%</span>
-            </div>
-            <span class="completion-label">Season 3 Complete</span>
-          </div>
+        <div class="capability-visual capability-visual-screenshot">
+          <a href="ScreenShots/TV Episodes.png" class="capability-screenshot" data-pswp-width="1542" data-pswp-height="1353">
+            <picture>
+              <source srcset="ScreenShots/TV Episodes.avif" type="image/avif">
+              <source srcset="ScreenShots/TV Episodes.webp" type="image/webp">
+              <img src="ScreenShots/TV Episodes.png" alt="TV Episodes interface" width="1542" height="1353" loading="lazy">
+            </picture>
+          </a>
         </div>
       </div>
 
@@ -309,11 +284,11 @@
         <div class="capability-content">
           <span class="capability-label">Collections</span>
           <h3 class="capability-title">Movie sets,<br>automatically grouped.</h3>
-          <p class="capability-description">Automatic detection with &lt;set&gt; tags in NFO files. Multi-collection handling for films in multiple franchises. Intelligent 24-hour caching for collection data comparison with your local library.</p>
+          <p class="capability-description">Automatic franchise detection with &lt;set&gt; tags in NFO files. See what you own and what you're missing across every collection.</p>
           <ul class="capability-features">
             <li>
               <svg viewBox="0 0 24 24" fill="currentColor"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
-              TMDB collection data with completeness analysis
+              TMDB collection data with completeness tracking
             </li>
             <li>
               <svg viewBox="0 0 24 24" fill="currentColor"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
@@ -321,25 +296,18 @@
             </li>
             <li>
               <svg viewBox="0 0 24 24" fill="currentColor"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
-              Collection artwork with organized folder structure
-            </li>
-            <li>
-              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
-              Visual browser with progress indicators
-            </li>
-            <li>
-              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
-              Missing movie identification and recommendations
+              Collection artwork and folder organization
             </li>
           </ul>
         </div>
-        <div class="capability-visual">
-          <div class="collection-stack">
-            <div class="collection-item">Marvel Cinematic Universe</div>
-            <div class="collection-item">Star Wars Collection</div>
-            <div class="collection-item">Harry Potter Collection</div>
-            <div class="collection-item">The Lord of the Rings</div>
-          </div>
+        <div class="capability-visual capability-visual-screenshot">
+          <a href="ScreenShots/Collections Showcase.png" class="capability-screenshot" data-pswp-width="2022" data-pswp-height="1224">
+            <picture>
+              <source srcset="ScreenShots/Collections Showcase.avif" type="image/avif">
+              <source srcset="ScreenShots/Collections Showcase.webp" type="image/webp">
+              <img src="ScreenShots/Collections Showcase.png" alt="Collections interface" width="2022" height="1224" loading="lazy">
+            </picture>
+          </a>
         </div>
       </div>
 
@@ -348,23 +316,19 @@
         <div class="capability-content">
           <span class="capability-label">Release Tracking</span>
           <h3 class="capability-title">Stay ahead of<br>your library.</h3>
-          <p class="capability-description">Track unreleased movies from collections you own and monitor TV series returning with new seasons. Plan your library ahead of time with release dates and network information.</p>
+          <p class="capability-description">Track unreleased movies from collections you own and monitor TV series returning with new seasons.</p>
           <ul class="capability-features">
             <li>
               <svg viewBox="0 0 24 24" fill="currentColor"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
-              Track unreleased movies from your collections
+              Upcoming movies from your collections
             </li>
             <li>
               <svg viewBox="0 0 24 24" fill="currentColor"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
-              Monitor returning TV series with new seasons
+              Returning TV series with new seasons
             </li>
             <li>
               <svg viewBox="0 0 24 24" fill="currentColor"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
-              Release dates and network information
-            </li>
-            <li>
-              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
-              Handles TBA content without release dates
+              Release dates and network info
             </li>
           </ul>
         </div>
@@ -389,42 +353,15 @@
     </div>
   </section>
 
-  <!-- Gallery Section - Moved up for better flow: show visuals right after explaining capabilities -->
+  <!-- Gallery Section -->
   <section class="gallery" id="gallery" aria-labelledby="gallery-title">
     <div class="section-intro">
-      <h2 class="section-title" id="gallery-title">See it in action.</h2>
-      <p class="section-subtitle">A cinema-quality interface designed for power users who demand the best.</p>
+      <h2 class="section-title" id="gallery-title">More screenshots.</h2>
+      <p class="section-subtitle">See every feature in action.</p>
     </div>
 
     <div class="gallery-grid" id="gallery-grid" role="list" aria-label="Application screenshots">
-      <!-- 1. Movie Library - Hero shot, main interface -->
-      <a href="ScreenShots/Movie Library.png" class="gallery-item" data-pswp-width="1763" data-pswp-height="1177" role="listitem" aria-label="View Movie Library screenshot">
-        <picture>
-          <source srcset="ScreenShots/Movie Library.avif" type="image/avif">
-          <source srcset="ScreenShots/Movie Library.webp" type="image/webp">
-          <img src="ScreenShots/Movie Library.png" alt="Movie Library interface showing poster grid view" width="1763" height="1177" loading="lazy">
-        </picture>
-        <span class="gallery-caption">Movie Library</span>
-      </a>
-      <!-- 2. TV Episodes - TV show management -->
-      <a href="ScreenShots/TV Episodes.png" class="gallery-item" data-pswp-width="1542" data-pswp-height="1353" role="listitem" aria-label="View TV Episodes screenshot">
-        <picture>
-          <source srcset="ScreenShots/TV Episodes.avif" type="image/avif">
-          <source srcset="ScreenShots/TV Episodes.webp" type="image/webp">
-          <img src="ScreenShots/TV Episodes.png" alt="TV Episodes list with season tracking" width="1542" height="1353" loading="lazy">
-        </picture>
-        <span class="gallery-caption">TV Episodes</span>
-      </a>
-      <!-- 3. Collections - Movie sets feature -->
-      <a href="ScreenShots/Collections Showcase.png" class="gallery-item" data-pswp-width="2022" data-pswp-height="1224" role="listitem" aria-label="View Collections screenshot">
-        <picture>
-          <source srcset="ScreenShots/Collections Showcase.avif" type="image/avif">
-          <source srcset="ScreenShots/Collections Showcase.webp" type="image/webp">
-          <img src="ScreenShots/Collections Showcase.png" alt="Collections View showing movie sets" width="2022" height="1224" loading="lazy">
-        </picture>
-        <span class="gallery-caption">Collections View</span>
-      </a>
-      <!-- 4. Scraping Progress - Processing in action -->
+      <!-- Scraping Progress - Processing in action -->
       <a href="ScreenShots/Scraping Progress.png" class="gallery-item" data-pswp-width="1542" data-pswp-height="1353" role="listitem" aria-label="View Scraping Progress screenshot">
         <picture>
           <source srcset="ScreenShots/Scraping Progress.avif" type="image/avif">
@@ -433,7 +370,7 @@
         </picture>
         <span class="gallery-caption">Scraping Progress</span>
       </a>
-      <!-- 5. ID Search - Direct TMDB/TVDB lookup -->
+      <!-- ID Search - Direct TMDB/TVDB lookup -->
       <a href="ScreenShots/ID Search.png" class="gallery-item" data-pswp-width="1937" data-pswp-height="1060" role="listitem" aria-label="View ID Search screenshot">
         <picture>
           <source srcset="ScreenShots/ID Search.avif" type="image/avif">
@@ -442,7 +379,7 @@
         </picture>
         <span class="gallery-caption">ID Search</span>
       </a>
-      <!-- 6. Search Recovery - Error handling -->
+      <!-- Search Recovery - Error handling -->
       <a href="ScreenShots/Failed Movie Chooser.png" class="gallery-item" data-pswp-width="2022" data-pswp-height="1224" role="listitem" aria-label="View Search Recovery screenshot">
         <picture>
           <source srcset="ScreenShots/Failed Movie Chooser.avif" type="image/avif">
@@ -501,39 +438,29 @@
   <!-- Specs Section -->
   <section class="specs" id="specs">
     <div class="section-intro">
-      <h2 class="section-title">Technical Details</h2>
-      <p class="section-subtitle">Everything you need to know about compatibility and supported formats.</p>
+      <h2 class="section-title">Requirements</h2>
     </div>
 
-    <div class="specs-grid">
-      <div class="spec-card">
-        <h3>System Requirements</h3>
-        <ul>
-          <li><span>Platform</span><span>macOS 26 Tahoe</span></li>
-          <li><span>Processor</span><span>Apple Silicon (M1 or newer)</span></li>
-          <li><span>Memory</span><span>8GB min, 16GB+ recommended</span></li>
-          <li><span>Storage</span><span>SSD recommended</span></li>
-        </ul>
+    <div class="specs-compact">
+      <div class="spec-item">
+        <span class="spec-label">Platform</span>
+        <span class="spec-value">macOS 26 Tahoe · Apple Silicon</span>
       </div>
-
-      <div class="spec-card">
-        <h3>Supported Formats</h3>
-        <ul>
-          <li><span>Video</span><span>MKV, MP4, AVI, M4V, MOV, ISO</span></li>
-          <li><span>Codecs</span><span>H.264, H.265/HEVC, AV1</span></li>
-          <li><span>HDR</span><span>Dolby Vision, HDR10+, HDR10, HLG</span></li>
-          <li><span>Audio</span><span>TrueHD Atmos, DTS-HD MA, DTS:X</span></li>
-        </ul>
+      <div class="spec-item">
+        <span class="spec-label">Video</span>
+        <span class="spec-value">MKV, MP4, AVI, M4V, MOV, ISO</span>
       </div>
-
-      <div class="spec-card">
-        <h3>Metadata Sources</h3>
-        <ul>
-          <li><span>Movies</span><span>TMDB (The Movie Database)</span></li>
-          <li><span>TV Shows</span><span>TVDB (TheTVDB)</span></li>
-          <li><span>Artwork</span><span>Fanart.TV</span></li>
-          <li><span>IDs</span><span>IMDb, TMDB, TVDB</span></li>
-        </ul>
+      <div class="spec-item">
+        <span class="spec-label">HDR</span>
+        <span class="spec-value">Dolby Vision, HDR10+, HDR10, HLG</span>
+      </div>
+      <div class="spec-item">
+        <span class="spec-label">Audio</span>
+        <span class="spec-value">TrueHD Atmos, DTS-HD MA, DTS:X</span>
+      </div>
+      <div class="spec-item">
+        <span class="spec-label">Metadata</span>
+        <span class="spec-value">TMDB, TVDB, Fanart.TV</span>
       </div>
     </div>
   </section>
