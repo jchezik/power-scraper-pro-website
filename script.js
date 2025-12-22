@@ -108,10 +108,9 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Select all animatable elements
     const animatedElements = document.querySelectorAll(
-      '.feature-card, .spec-card, .stat, .gallery-item, .capability-block, ' +
-      '.automation-card, .tech-item, .perf-stat, .reliability-card, ' +
-      '.accessibility-card, .shortcuts-group, .section-intro, ' +
-      '.hero-content, .hero-window, .capability-visual, .faq-item'
+      '.problem-item, .step, .why-card, .spec-card, .gallery-item, ' +
+      '.feature-showcase-item, .faq-item, .section-intro, ' +
+      '.hero-content, .hero-window, .comparison-card, .showcase-card, .settings-card'
     );
 
     // Group elements by their parent section for staggered animation
@@ -263,7 +262,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Clean up will-change after animations complete to free GPU memory
     setTimeout(() => {
-      document.querySelectorAll('.feature-card, .gallery-item, .capability-block, .automation-card, .reliability-card, .accessibility-card, .faq-item').forEach(el => {
+      document.querySelectorAll('.problem-item, .step, .why-card, .spec-card, .gallery-item, .feature-showcase-item, .faq-item, .comparison-card, .showcase-card, .settings-card').forEach(el => {
         el.classList.add('animation-complete');
       });
     }, 2000);
