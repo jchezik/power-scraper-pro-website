@@ -22,15 +22,16 @@
 9. [Watch Folders & Auto-Scan](#watch-folders--auto-scan)
 10. [Siri Shortcuts Integration](#siri-shortcuts-integration)
 11. [Cloud Sync & Settings](#cloud-sync--settings)
-12. [Database & Storage](#database--storage)
-13. [Network Resilience](#network-resilience)
-14. [GPU & Performance Optimization](#gpu--performance-optimization)
-15. [Accessibility Features](#accessibility-features)
-16. [Notifications System](#notifications-system)
-17. [Keyboard Shortcuts](#keyboard-shortcuts)
-18. [Error Handling & Recovery](#error-handling--recovery)
-19. [File Organization & Naming](#file-organization--naming)
-20. [Technical Specifications](#technical-specifications)
+12. [Database Backup & Restore](#database-backup--restore)
+13. [Database & Storage](#database--storage)
+14. [Network Resilience](#network-resilience)
+15. [GPU & Performance Optimization](#gpu--performance-optimization)
+16. [Accessibility Features](#accessibility-features)
+17. [Notifications System](#notifications-system)
+18. [Keyboard Shortcuts](#keyboard-shortcuts)
+19. [Error Handling & Recovery](#error-handling--recovery)
+20. [File Organization & Naming](#file-organization--naming)
+21. [Technical Specifications](#technical-specifications)
 
 ---
 
@@ -553,6 +554,125 @@ Synchronize settings across devices via iCloud Key-Value Store:
 
 ---
 
+## Database Backup & Restore
+
+The Database Backup & Restore feature allows users to protect their media library database through manual exports, automatic backups, and easy restoration. This feature safeguards movie/TV show entries, scrape status, fanart adjustments, and user corrections against data loss.
+
+### What's Stored in the Database
+
+**Included in Backups:**
+| Data Type | Description |
+|-----------|-------------|
+| Movie and TV show entries | Titles, TMDB IDs, years, plots, cast, etc. |
+| Scrape status | Pending, scraped, or error states |
+| Fanart position adjustments | Custom fanart_offset_y values |
+| User corrections | Custom metadata edits |
+| Episode information | Episode-specific data for TV shows |
+| File path references | Media file locations |
+
+**NOT Included:**
+- Actual media files (.mkv, .mp4, etc.)
+- NFO metadata files
+- Poster images
+- Fanart images
+- Any artwork files
+
+> **Important:** The database stores references to your media files, not the files themselves. If you delete your media files and restore the database, the entries will point to non-existent files.
+
+### Database Info Section
+
+The Settings panel displays current database statistics:
+
+| Statistic | Description |
+|-----------|-------------|
+| Movie count | Total movies in library |
+| TV Show count | Total TV shows in library |
+| Episode count | Total episodes across all shows |
+| Database file size | Size of the .db file |
+| File location | ~/Library/Application Support/PowerScraperPro/media.db |
+| Schema version | Current database schema version |
+| Last modified | Timestamp of last database change |
+
+### Manual Export & Import
+
+**Export Database:**
+- Creates a complete backup of the database
+- User selects destination folder and filename
+- Default filename: `PowerScraperPro_Backup_YYYY-MM-DD_HHMMSS.db`
+- Shows success dialog with file size and location
+
+**Import Database:**
+- Restores database from a user-selected .db file
+- Shows confirmation dialog before replacing current database
+- App automatically restarts after successful restore
+
+### Automatic Backups (Pre-Migration)
+
+Created automatically before database schema upgrades:
+
+| Setting | Value |
+|---------|-------|
+| Storage location | ~/Library/Application Support/PowerScraperPro/Backups/ |
+| Filename format | media_vX_to_vY_YYYY-MM-DD_HHMMSS.db |
+| Retention | Last 5 backups |
+| Trigger | Automatic during app updates |
+
+### Auto Backup to Custom Folder
+
+**Configuration Options:**
+| Setting | Description |
+|---------|-------------|
+| Enable/disable toggle | Master switch for auto backup |
+| Custom folder selection | Any local or network folder |
+| Security-scoped bookmarks | Persists folder access across app launches |
+
+**Backup Triggers:**
+- On app launch
+- On app quit
+- Before scraping operations
+
+**Retention Policy:**
+| Option | Backups Kept |
+|--------|--------------|
+| Minimum | 5 |
+| Default | 10 |
+| Options | 5, 10, 15, 20, 25, or 50 |
+
+Oldest backups are automatically deleted when the retention limit is exceeded.
+
+**Backup Filename Format:** `PowerScraperPro_AutoBackup_YYYY-MM-DD_HHMMSS.db`
+
+**Manual Backup:** "Backup Now" button for immediate backup to custom folder.
+
+### Restoring from Auto Backup
+
+1. Find the desired backup in "Backups in Folder" list
+2. Click "Restore"
+3. Confirm the restore operation
+4. App restarts with restored data
+
+### Path Compatibility
+
+If you restore a backup on a different Mac or after moving your media folders, the file paths in the database may not match. You'll need to re-scan your media folders to re-link the files.
+
+### User Flow Diagrams
+
+**Manual Backup & Restore Flow:**
+```
+[Add Media] → [Scrape] → [Export Database] → [Backup saved]
+                              ↓
+[Data Loss] → [Import Database] → [Select backup] → [Confirm] → [App Restarts] → [Data Restored]
+```
+
+**Auto Backup Flow:**
+```
+[Enable Auto Backup] → [Select Folder] → [Configure Triggers]
+                              ↓
+[App Launch / Scrape / Quit] → [Automatic Backup Created] → [Old Backups Cleaned Up]
+```
+
+---
+
 ## Database & Storage
 
 ### SQLite Database
@@ -988,8 +1108,5 @@ For folders containing multiple movies:
 6. **Watch Folders** - Automated folder monitoring
 7. **Background** - Background scraping preferences
 8. **Cloud Sync** - iCloud settings synchronization
-9. **Service Health** - API status monitoring
-
----
-
-*Document generated from source code analysis of Power Scraper Pro v1.0.0*
+9. **Database** - Backup, restore, and database management
+10. **Service Health** - API status monitoring
