@@ -24,6 +24,12 @@
   <!-- Main styles -->
   <link rel="stylesheet" href="styles.css">
 
+  <!-- Paddle Checkout -->
+  <script src="https://cdn.paddle.com/paddle/paddle.js"></script>
+  <script type="text/javascript">
+    Paddle.Setup({ vendor: 274321 });
+  </script>
+
   <!-- Open Graph -->
   <meta property="og:title" content="Power Scraper Pro - The Mac Media Library Manager">
   <meta property="og:description" content="The native macOS media library manager built for Apple Silicon. Transform your messy downloads into a beautifully organized library.">
@@ -61,7 +67,7 @@
         <a href="#how-it-works">How It Works</a>
         <a href="#faq">FAQ</a>
         <a href="https://docs.powerscraperpro.com" target="_blank" rel="noopener">Docs</a>
-        <a href="#download" class="nav-cta">Get Early Access</a>
+        <a href="#pricing" class="nav-cta">Buy Now</a>
       </div>
       <button class="mobile-menu-btn" aria-label="Open menu" aria-expanded="false">
         <svg viewBox="0 0 24 24" fill="currentColor">
@@ -83,7 +89,7 @@
       <a href="#how-it-works">How It Works</a>
       <a href="#faq">FAQ</a>
       <a href="https://docs.powerscraperpro.com" target="_blank" rel="noopener">Docs</a>
-      <a href="#download" class="nav-cta">Get Early Access</a>
+      <a href="#pricing" class="nav-cta">Buy Now</a>
     </div>
   </div>
 
@@ -120,11 +126,11 @@
         </p>
 
         <div class="hero-buttons">
-          <a href="#download" class="btn btn-primary btn-large">
+          <a href="#pricing" class="btn btn-primary btn-large">
             <svg viewBox="0 0 24 24" fill="currentColor" width="20" height="20">
               <path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.81-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/>
             </svg>
-            Get Early Access
+            Buy Now - $39
           </a>
           <a href="#how-it-works" class="btn btn-secondary btn-large">See How It Works</a>
         </div>
@@ -602,6 +608,85 @@
       </div>
     </section>
 
+    <!-- Pricing Section -->
+    <section class="pricing-section" id="pricing">
+      <div class="section-container">
+        <div class="section-intro">
+          <span class="section-label">Pricing</span>
+          <h2 class="section-title">One price. Forever yours.</h2>
+          <p class="section-subtitle">No subscriptions, no annual fees, no hidden costs. Pay once and own Power Scraper Pro forever, including all future updates.</p>
+        </div>
+
+        <div class="pricing-card-container">
+          <div class="pricing-card">
+            <div class="pricing-card-header">
+              <div class="pricing-badge">One-Time Purchase</div>
+              <div class="pricing-amount">
+                <span class="pricing-currency">$</span>
+                <span class="pricing-price">39</span>
+                <span class="pricing-period">USD</span>
+              </div>
+              <p class="pricing-tagline">Pay once, own forever</p>
+            </div>
+
+            <div class="pricing-features">
+              <div class="pricing-feature">
+                <svg viewBox="0 0 24 24" fill="currentColor"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
+                <span>Full-featured app - no limitations</span>
+              </div>
+              <div class="pricing-feature">
+                <svg viewBox="0 0 24 24" fill="currentColor"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
+                <span>Lifetime updates included</span>
+              </div>
+              <div class="pricing-feature">
+                <svg viewBox="0 0 24 24" fill="currentColor"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
+                <span>TMDB, TVDB & Fanart.TV integration</span>
+              </div>
+              <div class="pricing-feature">
+                <svg viewBox="0 0 24 24" fill="currentColor"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
+                <span>Kodi, Plex, Jellyfin & Emby compatible</span>
+              </div>
+              <div class="pricing-feature">
+                <svg viewBox="0 0 24 24" fill="currentColor"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
+                <span>iCloud settings sync</span>
+              </div>
+              <div class="pricing-feature">
+                <svg viewBox="0 0 24 24" fill="currentColor"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
+                <span>Priority email support</span>
+              </div>
+            </div>
+
+            <button class="btn btn-primary btn-large pricing-buy-btn" id="buy-button">
+              <svg viewBox="0 0 24 24" fill="currentColor" width="20" height="20">
+                <path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.81-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/>
+              </svg>
+              Buy Now for Mac
+            </button>
+
+            <div class="pricing-guarantee">
+              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm0 10.99h7c-.53 4.12-3.28 7.79-7 8.94V12H5V6.3l7-3.11v8.8z"/></svg>
+              <span>14-day money-back guarantee</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="pricing-trust">
+          <div class="pricing-trust-item">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm0 10.99h7c-.53 4.12-3.28 7.79-7 8.94V12H5V6.3l7-3.11v8.8z"/></svg>
+            <span>Secure payment via Paddle</span>
+          </div>
+          <div class="pricing-trust-item">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg>
+            <span>Instant license delivery</span>
+          </div>
+          <div class="pricing-trust-item">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M11.8 10.9c-2.27-.59-3-1.2-3-2.15 0-1.09 1.01-1.85 2.7-1.85 1.78 0 2.44.85 2.5 2.1h2.21c-.07-1.72-1.12-3.3-3.21-3.81V3h-3v2.16c-1.94.42-3.5 1.68-3.5 3.61 0 2.31 1.91 3.46 4.7 4.13 2.5.6 3 1.48 3 2.41 0 .69-.49 1.79-2.7 1.79-2.06 0-2.87-.92-2.98-2.1h-2.2c.12 2.19 1.76 3.42 3.68 3.83V21h3v-2.15c1.95-.37 3.5-1.5 3.5-3.55 0-2.84-2.43-3.81-4.7-4.4z"/></svg>
+            <span>VAT/tax included</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
     <!-- Legal Notice -->
     <section class="legal-notice">
       <div class="section-container">
@@ -624,31 +709,33 @@
       </div>
       <div class="section-container">
         <div class="cta-content">
-          <span class="cta-badge">Coming Fall 2026 with macOS Tahoe</span>
+          <span class="cta-badge">Available Now for macOS Tahoe</span>
           <h2 class="cta-title">Ready to take control<br>of your media library?</h2>
-          <p class="cta-description">Join the beta list to get early access, special pricing, and help shape the future of Power Scraper Pro.</p>
+          <p class="cta-description">Join thousands of Mac users who have transformed their messy media collections into beautifully organized libraries.</p>
 
-          <form class="signup-form" id="signup-form" action="https://formspree.io/f/xovgwzoq" method="POST">
-            <input type="email" name="email" placeholder="Enter your email" required aria-label="Email address">
-            <button type="submit" class="btn btn-primary">Get Early Access</button>
-          </form>
+          <a href="#pricing" class="btn btn-primary btn-large cta-buy-btn">
+            <svg viewBox="0 0 24 24" fill="currentColor" width="20" height="20">
+              <path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.81-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/>
+            </svg>
+            Buy Power Scraper Pro - $39
+          </a>
 
           <div class="cta-features">
             <div class="cta-feature">
               <svg viewBox="0 0 24 24" fill="currentColor"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
-              <span>Early access pricing</span>
+              <span>One-time purchase</span>
             </div>
             <div class="cta-feature">
               <svg viewBox="0 0 24 24" fill="currentColor"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
-              <span>Beta invitations</span>
+              <span>14-day money-back guarantee</span>
             </div>
             <div class="cta-feature">
               <svg viewBox="0 0 24 24" fill="currentColor"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
-              <span>Shape the product</span>
+              <span>Lifetime updates</span>
             </div>
           </div>
 
-          <p class="cta-note">One-time purchase. No subscription. Ever.</p>
+          <p class="cta-note">No subscription. No annual fees. Ever.</p>
         </div>
       </div>
     </section>
@@ -678,12 +765,13 @@
           <h4>Resources</h4>
           <a href="https://docs.powerscraperpro.com" target="_blank" rel="noopener">Documentation</a>
           <a href="#faq">FAQ</a>
-          <a href="#download">Get Early Access</a>
+          <a href="#pricing">Buy Now</a>
         </div>
         <div class="footer-links-column">
           <h4>Legal</h4>
           <a href="privacy.html">Privacy Policy</a>
           <a href="terms.html">Terms of Service</a>
+          <a href="refund.html">Refund Policy</a>
           <a href="acceptable-use.html">Acceptable Use</a>
           <a href="license.html">License</a>
         </div>

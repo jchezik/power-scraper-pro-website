@@ -1804,7 +1804,8 @@ a {
   .faq-item,
   .comparison-card,
   .showcase-card,
-  .settings-card {
+  .settings-card,
+  .pricing-card {
     opacity: 0;
     transform: translateY(30px);
     transition: opacity 0.6s ease, transform 0.6s ease;
@@ -1818,7 +1819,8 @@ a {
   .faq-item.animate-in,
   .comparison-card.animate-in,
   .showcase-card.animate-in,
-  .settings-card.animate-in {
+  .settings-card.animate-in,
+  .pricing-card.animate-in {
     opacity: 1;
     transform: translateY(0);
   }
@@ -1898,4 +1900,189 @@ a {
 .legal-section a {
   color: var(--color-accent);
   text-decoration: underline;
+}
+
+/* ==========================================================================
+   Pricing Section
+   ========================================================================== */
+.pricing-section {
+  padding: var(--space-section) var(--space-md);
+  background: linear-gradient(180deg, var(--color-bg) 0%, var(--color-bg-elevated) 50%, var(--color-bg) 100%);
+  position: relative;
+  overflow: hidden;
+}
+
+.pricing-section::before {
+  content: '';
+  position: absolute;
+  top: 20%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 150%;
+  height: 60%;
+  background: radial-gradient(ellipse 40% 50% at 50% 50%, rgba(var(--color-accent-rgb), 0.08) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+.pricing-card-container {
+  max-width: 480px;
+  margin: 0 auto;
+  position: relative;
+  z-index: 1;
+}
+
+.pricing-card {
+  background: linear-gradient(135deg, rgba(var(--color-accent-rgb), 0.08) 0%, rgba(107, 90, 232, 0.04) 100%);
+  border: 1px solid rgba(var(--color-accent-rgb), 0.25);
+  border-radius: var(--radius-2xl);
+  padding: var(--space-2xl);
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+  transition: all var(--transition-slow);
+}
+
+.pricing-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent 0%, rgba(var(--color-accent-rgb), 0.5) 50%, transparent 100%);
+}
+
+.pricing-card:hover {
+  transform: translateY(-4px);
+  border-color: rgba(var(--color-accent-rgb), 0.4);
+  box-shadow: 0 30px 60px rgba(0, 0, 0, 0.4), var(--shadow-glow);
+}
+
+.pricing-card-header {
+  margin-bottom: var(--space-xl);
+}
+
+.pricing-badge {
+  display: inline-block;
+  font-size: var(--font-size-xs);
+  font-weight: 700;
+  color: var(--color-gold);
+  background: rgba(var(--color-gold-rgb), 0.15);
+  border: 1px solid rgba(var(--color-gold-rgb), 0.3);
+  padding: 6px 16px;
+  border-radius: var(--radius-full);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  margin-bottom: var(--space-lg);
+}
+
+.pricing-amount {
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  gap: 4px;
+  margin-bottom: var(--space-xs);
+}
+
+.pricing-currency {
+  font-size: var(--font-size-2xl);
+  font-weight: 600;
+  color: var(--color-text-secondary);
+  margin-top: 8px;
+}
+
+.pricing-price {
+  font-size: clamp(4rem, 12vw, 6rem);
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  line-height: 1;
+  background: linear-gradient(135deg, var(--color-text) 0%, var(--color-text-secondary) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.pricing-period {
+  font-size: var(--font-size-lg);
+  font-weight: 500;
+  color: var(--color-text-tertiary);
+  margin-top: 16px;
+}
+
+.pricing-tagline {
+  font-size: var(--font-size-base);
+  color: var(--color-text-secondary);
+}
+
+.pricing-features {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+  margin-bottom: var(--space-xl);
+  text-align: left;
+}
+
+.pricing-feature {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+  font-size: var(--font-size-base);
+  color: var(--color-text-secondary);
+}
+
+.pricing-feature svg {
+  width: 20px;
+  height: 20px;
+  fill: var(--color-green);
+  flex-shrink: 0;
+}
+
+.pricing-buy-btn {
+  width: 100%;
+  padding: 20px 32px;
+  font-size: var(--font-size-lg);
+  margin-bottom: var(--space-md);
+}
+
+.pricing-guarantee {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-xs);
+  font-size: var(--font-size-sm);
+  color: var(--color-text-secondary);
+}
+
+.pricing-guarantee svg {
+  width: 18px;
+  height: 18px;
+  fill: var(--color-accent);
+}
+
+.pricing-trust {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-lg);
+  justify-content: center;
+  margin-top: var(--space-2xl);
+}
+
+.pricing-trust-item {
+  display: flex;
+  align-items: center;
+  gap: var(--space-xs);
+  font-size: var(--font-size-sm);
+  color: var(--color-text-tertiary);
+}
+
+.pricing-trust-item svg {
+  width: 18px;
+  height: 18px;
+  fill: var(--color-text-tertiary);
+}
+
+/* CTA Buy Button Styling */
+.cta-buy-btn {
+  padding: 20px 40px;
+  font-size: var(--font-size-lg);
 }

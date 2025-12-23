@@ -110,7 +110,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const animatedElements = document.querySelectorAll(
       '.problem-item, .step, .why-card, .spec-card, .gallery-item, ' +
       '.feature-showcase-item, .faq-item, .section-intro, ' +
-      '.hero-content, .hero-window, .comparison-card, .showcase-card, .settings-card'
+      '.hero-content, .hero-window, .comparison-card, .showcase-card, .settings-card, .pricing-card'
     );
 
     // Group elements by their parent section for staggered animation
@@ -332,4 +332,65 @@ document.addEventListener('DOMContentLoaded', function() {
       return false;
     };
   }
+
+  // Paddle Checkout Integration
+  // =====================================================
+  // To complete the Paddle integration:
+  // 1. Sign up at https://paddle.com and create a product
+  // 2. Get your Paddle Vendor ID and Product ID
+  // 3. Replace 'YOUR_VENDOR_ID' and 'YOUR_PRODUCT_ID' below
+  // 4. Uncomment the Paddle script in the HTML head
+  // =====================================================
+
+  const buyButton = document.getElementById('buy-button');
+  if (buyButton) {
+    buyButton.addEventListener('click', function(e) {
+      e.preventDefault();
+
+      // Check if Paddle is loaded
+      if (typeof Paddle !== 'undefined') {
+        // Open Paddle checkout overlay
+        Paddle.Checkout.open({
+          product: 'YOUR_PRODUCT_ID', // Replace with your Paddle product ID
+          // Optional: prefill customer email
+          // email: 'customer@example.com',
+          // Optional: pass metadata for license generation
+          // passthrough: JSON.stringify({ source: 'website' }),
+          successCallback: function(data) {
+            // Redirect to thank you page or show success message
+            showToast('Thank you for your purchase! Check your email for the license key.');
+            // Optional: redirect to a thank you page
+            // window.location.href = '/thank-you.html?order=' + data.checkout.id;
+          },
+          closeCallback: function() {
+            // User closed the checkout without completing
+            console.log('Checkout closed');
+          }
+        });
+      } else {
+        // Paddle not loaded - show instructions or fallback
+        showToast('Checkout is being configured. Please try again shortly.', true);
+        console.log('Paddle.js not loaded. To enable checkout:');
+        console.log('1. Add Paddle.js script to your HTML');
+        console.log('2. Initialize with your vendor ID');
+        console.log('3. Replace YOUR_PRODUCT_ID with your actual product ID');
+      }
+    });
+  }
+
+  // Also handle CTA buy button clicks
+  const ctaBuyButtons = document.querySelectorAll('.cta-buy-btn');
+  ctaBuyButtons.forEach(function(btn) {
+    btn.addEventListener('click', function(e) {
+      // If it's a link to #pricing, let it scroll naturally
+      if (btn.getAttribute('href') === '#pricing') {
+        return; // Let the default anchor behavior work
+      }
+      // Otherwise trigger the buy button
+      if (buyButton) {
+        e.preventDefault();
+        buyButton.click();
+      }
+    });
+  });
 });
